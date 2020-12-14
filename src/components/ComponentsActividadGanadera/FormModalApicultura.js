@@ -15,8 +15,12 @@ import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [checkedEspecie, setCheckedEspecie] = React.useState('');
+  const [checkedExistColmena, setCheckedExistColmena] = React.useState(false);
+  const [checkedTipo, setCheckedTipo] = React.useState('');
+  const [checkedCajones, setCheckedCajones] = React.useState('');
+  const [checkedTipoFlor, setCheckedTipoFlor] = React.useState('');
+  const [checkedRenapa, setCheckedRenapa] = React.useState(false);
 
   const FormApicultura = () => {
     return (
@@ -37,16 +41,16 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Especie 1"
-            value="second"
-            status={checked === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('second')}
+            value="especia 1"
+            status={checkedEspecie === 'especia 1' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedEspecie('especia 1')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Especie 2"
-            value="second"
-            status={checked === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('second')}
+            value="Especie 2"
+            status={checkedEspecie === 'Especie 2' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedEspecie('Especie 2')}
             color="#008577"
           />
         </ComponentContainer>
@@ -54,8 +58,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Existencia Colmena"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedExistColmena}
+            onValueChange={(value) => setCheckedExistColmena(value)}
           />
         </ComponentContainer>
 
@@ -70,16 +75,16 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Propias"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="propias"
+            status={checkedTipo === 'propias' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipo('propias')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Terceros"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="terceros"
+            status={checkedTipo === 'terceros' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipo('terceros')}
             color="#008577"
           />
         </ComponentContainer>
@@ -100,19 +105,30 @@ const FormModal = ({visible, hideModal}) => {
           />
         </ComponentContainer>
 
+        <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Caption>Cajones</Caption>
+          </View>
+        </View>
+
         <ComponentContainer>
           <ComponentRadioButton
             title="Fijos"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="fijos"
+            status={checkedCajones === 'fijos' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedCajones('fijos')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Moviles"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="moviles"
+            status={checkedCajones === 'moviles' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedCajones('moviles')}
             color="#008577"
           />
         </ComponentContainer>
@@ -144,16 +160,16 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Tipo 1"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="Tipo 1"
+            status={checkedTipoFlor === 'Tipo 1' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoFlor('Tipo 1')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Tipo 2"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="Tipo 2"
+            status={checkedTipoFlor === 'Tipo 2' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoFlor('Tipo 2')}
             color="#008577"
           />
         </ComponentContainer>
@@ -161,8 +177,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="RENAPA"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedRenapa}
+            onValueChange={(value) => setCheckedRenapa(value)}
           />
         </ComponentContainer>
 
@@ -194,7 +211,5 @@ const FormModal = ({visible, hideModal}) => {
     </>
   );
 };
-
-
 
 export default FormModal;

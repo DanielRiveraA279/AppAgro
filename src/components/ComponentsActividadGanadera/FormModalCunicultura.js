@@ -14,9 +14,8 @@ import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
-
+  const [checkedOrientacion, setCheckedOrientacion] = React.useState(false);
+ 
   const FormCicloCunicultura = () => {
     return (
       <View>
@@ -32,23 +31,23 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Carne"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="carne"
+            status={checkedOrientacion === 'carne' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('carne')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Pelo"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="pelo"
+            status={checkedOrientacion === 'pelo' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('pelo')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Piel"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="piel"
+            status={checkedOrientacion === 'piel' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('piel')}
             color="#008577"
           />
         </ComponentContainer>

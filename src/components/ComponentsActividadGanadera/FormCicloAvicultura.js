@@ -13,8 +13,17 @@ import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [checkedAviCultIntensiva, setCheckedAviCultIntensiva] = React.useState(
+    false,
+  );
+  const [checked, setChecked] = React.useState(false);
+  const [
+    checkedHuvosIncubPollosBebes,
+    setCheckedHuvosIncubPollosBebes,
+  ] = React.useState(false);
+  const [checkedGallinas, setCheckedGallinas] = React.useState(false);
+  const [checkedGallos, setCheckedGallos] = React.useState(false);
+  const [checkedPollos, setCheckedPollos] = React.useState(false);
 
   const FormAvicultura = () => {
     return (
@@ -24,8 +33,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Avicultura Intensiva"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedAviCultIntensiva}
+            onValueChange={(value) => setCheckedAviCultIntensiva(value)}
           />
         </ComponentContainer>
 
@@ -48,8 +58,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Huevos incubables y Pollos bebes"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedHuvosIncubPollosBebes}
+            onValueChange={(value) => setCheckedHuvosIncubPollosBebes(value)}
           />
         </ComponentContainer>
 
@@ -88,18 +99,21 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Gallinas"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedGallinas}
+            onValueChange={(value) => setCheckedGallinas(value)}
           />
           <ComponentCheckBox
             title="Gallos"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedGallos}
+            onValueChange={(value) => setCheckedGallos(value)}
           />
           <ComponentCheckBox
             title="Pollos"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedPollos}
+            onValueChange={(value) => setCheckedPollos(value)}
           />
         </ComponentContainer>
 

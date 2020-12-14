@@ -15,8 +15,12 @@ import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [checkedOrientacion, setCheckedOrientacion] = React.useState('');
+  const [checkedPacu, setCheckedPacu] = React.useState(false);
+  const [checkedCarpa, setCheckedCarpa] = React.useState(false);
+  const [checkedTilapia, setCheckedTilapia] = React.useState(false);
+  const [checkedSabalo, setCheckedSabalo] = React.useState(false);
+  const [checkedTrucha, setCheckedTrucha] = React.useState(false);
 
   const FormAcuicultura = () => {
     return (
@@ -33,16 +37,16 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Completo"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="completo"
+            status={checkedOrientacion === 'completo' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('completo')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Engorde"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="engorde"
+            status={checkedOrientacion === 'engorde' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('engorde')}
             color="#008577"
           />
         </ComponentContainer>
@@ -50,9 +54,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Cria de Alevinos/Juveniles"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="cria alevinos/juveniles"
+            status={checkedOrientacion === 'cria alevinos/juveniles' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('cria alevinos/juveniles')}
             color="#008577"
           />
         </ComponentContainer>
@@ -68,34 +72,39 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Pacu"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedPacu}
+            onValueChange={(value)=> setCheckedPacu(value)}
           />
           <ComponentCheckBox
             title="Carpas"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedCarpa}
+            onValueChange={(value)=> setCheckedCarpa(value)}
           />
         </ComponentContainer>
 
         <ComponentContainer>
           <ComponentCheckBox
             title="Tilapia"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedTilapia}
+            onValueChange={(value)=> setCheckedTilapia(value)}
           />
           <ComponentCheckBox
             title="Sabalo"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedSabalo}
+            onValueChange={(value)=> setCheckedSabalo(value)}
           />
         </ComponentContainer>
 
         <ComponentContainer>
           <ComponentCheckBox
             title="Trucha"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedTrucha}
+            onValueChange={(value)=> setCheckedTrucha(value)}
           />
         </ComponentContainer>
 

@@ -14,8 +14,8 @@ import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [checkedOrientacion, setCheckedOrientacion] = React.useState('');
+  const [checkedTipoSuelo, setCheckedTipoSuelo] = React.useState('');
 
   const FormCorral = () => {
     return (
@@ -32,30 +32,30 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Norte"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="norte"
+            status={checkedOrientacion === 'norte' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('norte')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Sur"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="sur"
+            status={checkedOrientacion === 'sur' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('sur')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Este"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="este"
+            status={checkedOrientacion === 'este' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('este')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Oeste"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="oeste"
+            status={checkedOrientacion === 'oeste' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedOrientacion('oeste')}
             color="#008577"
           />
         </ComponentContainer>
@@ -87,25 +87,25 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Tierra"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="tierra"
+            status={checkedTipoSuelo === 'tierra' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoSuelo('tierra')}
             color="#008577"
           />
 
           <ComponentRadioButton
             title="Contrapiso"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="contrapiso"
+            status={checkedTipoSuelo === 'contrapiso' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoSuelo('contrapiso')}
             color="#008577"
           />
 
           <ComponentRadioButton
             title="Estocado"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="estocado"
+            status={checkedTipoSuelo === 'estocado' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoSuelo('estocado')}
             color="#008577"
           />
         </ComponentContainer>

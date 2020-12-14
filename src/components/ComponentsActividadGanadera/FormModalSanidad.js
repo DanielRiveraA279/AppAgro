@@ -15,8 +15,20 @@ import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [
+    checkedTipoAsesoramiento,
+    setCheckedTipoAsesoramiento,
+  ] = React.useState('');
+  const [
+    checkedDesparacitExterna,
+    setCheckedDesparacitExterna,
+  ] = React.useState(false);
+  const [
+    checkedDesparacitInterna,
+    setCheckedDesparacitInterna,
+  ] = React.useState(false);
+  const [checkedTipoEnfermedad, setCheckedTipoEnfermedad] = React.useState('');
+  const [checkedVacunacion, setCheckedVacunacion] = React.useState(false);
 
   const FormSanidad = () => {
     return (
@@ -32,16 +44,20 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Privado"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="privado"
+            status={
+              checkedTipoAsesoramiento === 'privado' ? 'checked' : 'unchecked'
+            }
+            onPress={() => setCheckedTipoAsesoramiento('privado')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Publico"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="publico"
+            status={
+              checkedTipoAsesoramiento === 'publico' ? 'checked' : 'unchecked'
+            }
+            onPress={() => setCheckedTipoAsesoramiento('publico')}
             color="#008577"
           />
         </ComponentContainer>
@@ -65,15 +81,15 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="externa"
-            CheckBox
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedDesparacitExterna}
+            onValueChange={(value) => setCheckedDesparacitExterna(value)}
           />
           <ComponentCheckBox
             title="interna"
-            CheckBox
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedDesparacitInterna}
+            onValueChange={(value) => setCheckedDesparacitInterna(value)}
           />
         </ComponentContainer>
 
@@ -96,16 +112,20 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Zoonotica"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="zoonotica"
+            status={
+              checkedTipoEnfermedad === 'zoonotica' ? 'checked' : 'unchecked'
+            }
+            onPress={() => setCheckedTipoEnfermedad('zoonotica')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Propia"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="propia"
+            status={
+              checkedTipoEnfermedad === 'propia' ? 'checked' : 'unchecked'
+            }
+            onPress={() => setCheckedTipoEnfermedad('propia')}
             color="#008577"
           />
         </ComponentContainer>
@@ -113,8 +133,9 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentCheckBox
             title="Vacunacion"
-            value={true}
-            onValueChange={setSelectionFemenino}
+            disabled={false}
+            value={checkedVacunacion}
+            onValueChange={(value) => setCheckedVacunacion(value)}
           />
         </ComponentContainer>
 

@@ -15,8 +15,7 @@ import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checked, setChecked] = React.useState('first');
-  const [isSelectedFemenino, setSelectionFemenino] = React.useState(true);
+  const [checkedTipoAlimentacion, setCheckedTipoAlimentacion] = React.useState('');
 
   const FormTipoAlimento = () => {
     return (
@@ -42,24 +41,24 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Propia"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="propia"
+            status={checkedTipoAlimentacion === 'propia' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('propia')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Compra"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="compra"
+            status={checkedTipoAlimentacion === 'compra' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('compra')}
             color="#008577"
           />
 
           <ComponentRadioButton
             title="Trueque"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="trueque"
+            status={checkedTipoAlimentacion === 'trueque' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('trueque')}
             color="#008577"
           />
         </ComponentContainer>
@@ -67,16 +66,16 @@ const FormModal = ({visible, hideModal}) => {
         <ComponentContainer>
           <ComponentRadioButton
             title="Donaciones"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="donaciones"
+            status={checkedTipoAlimentacion === 'donaciones' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('donaciones')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Naturales"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="naturales"
+            status={checkedTipoAlimentacion === 'naturales' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('naturales')}
             color="#008577"
           />
         </ComponentContainer>
