@@ -4,6 +4,11 @@ const reducer = (state, action) => {
       return {
         ...state,
       };
+    case 'PRODUCER_POST_LOCAL':
+      return {
+        ...state,
+        MyListProducer: [action.payload],
+      };
     default:
       return state;
   }

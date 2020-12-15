@@ -19,10 +19,8 @@ const MyNotification = ({visible, setVisible}) => {
   );
 };
 
-const SyncUp = ({navigation, myList}) => {
+const SyncUp = ({navigation, MyListProducer}) => {
   const [visible, setVisible] = React.useState(false);
-
-  const {results} = myList;
 
   return (
     <ScrollView>
@@ -49,7 +47,7 @@ const SyncUp = ({navigation, myList}) => {
             <DataTable.Title>Localidad</DataTable.Title>
           </DataTable.Header>
 
-          {results.map((item, key) => {
+          {MyListProducer.map((item, key) => {
             const {first_name, last_name, producer_home} = item.producer; //desestructuro campos de tabla producer
 
             return (
@@ -72,7 +70,7 @@ const SyncUp = ({navigation, myList}) => {
 
 const mapStateToProps = (state) => {
   return {
-    myList: state,
+    MyListProducer: state.MyListProducer,
   };
 };
 

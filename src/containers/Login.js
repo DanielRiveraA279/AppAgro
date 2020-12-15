@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {producerPostLocal} from '../actions/index';
 
 import {View, ScrollView} from 'react-native';
 import {
@@ -11,20 +12,28 @@ import {
 } from 'react-native-paper';
 import styles from '../assets/styles/Login'; //objeto que trae estilos
 
-const Login = ({navigation, myList}) => {
+const Login = ({navigation, MyListProducer, producerPostLocal}) => {
   const [text, setText] = useState('');
   const [pass, setPass] = useState('');
-  const {results} = myList;
 
-  useEffect(() => {
-    //console.log(results);
-    results.map((item) => {
-      console.log(item.producer.first_name);
-    });
-    //console.log(producer.first_name)
-    //producer; //[transformo a array]
-    //console.log(producer) //<array>[posicion_campo][posicion_valor]
-  }, []);
+
+  // const handlePost = () => {
+  //   producerPostLocal({
+  //     producer: {
+  //       first_name: '',
+  //       last_name: '',
+  //       date_birth: '',
+  //       document: '',
+  //       gender: '',
+  //       phone_number: '',
+  //     },
+  //   });
+
+    // //console.log(results);
+    // MyListProducer.map((item) => {
+    //   console.log(item.producer.first_name, item.producer.last_name);
+    // });
+  //};
 
   return (
     <ScrollView>
@@ -34,8 +43,9 @@ const Login = ({navigation, myList}) => {
         </View>
         <View style={styles.section}>
           <View style={styles.section__user__logo}>
-            <Avatar.Text size={95} label="M" />
+            <Avatar.Text size={95} label={'M'} />
           </View>
+
           <View style={styles.section__user}>
             <TextInput
               mode="outlined"
@@ -78,9 +88,13 @@ const Login = ({navigation, myList}) => {
 
 const mapStateToProps = (state) => {
   return {
-    myList: state,
+    MyListProducer: state.MyListProducer,
   };
 };
 
+const mapDispatchToProps = {
+  producerPostLocal,
+};
+
 //por mapStateToProps le envio a Login las props
-export default connect(mapStateToProps, null)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
