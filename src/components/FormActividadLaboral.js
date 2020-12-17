@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {producerPostLocal} from '../actions/index';
 import {View} from 'react-native';
 import {
   TextInput,
@@ -19,7 +21,6 @@ const FormGrupoActividadLaboral = ({
   currentPosition,
   styles,
 }) => {
-
   const [checkedTrabajoInformal, setCheckedTrabajoInformal] = React.useState(
     false,
   );
@@ -33,21 +34,122 @@ const FormGrupoActividadLaboral = ({
   ] = React.useState(false);
   const [checkedContrObrExt, setCheckedContrObrExt] = React.useState(false);
   const [checkedTipoPersona, setCheckedTipoPersona] = React.useState('');
-  const [
-    checkedResidente,
-    setCheckedResidente,
-  ] = React.useState(false);
+  const [checkedResidente, setCheckedResidente] = React.useState(false);
   const [checkedSexo, setCheckedSexo] = React.useState('');
   const [checkedRemuneracion, setCheckedRemuneracion] = React.useState(false);
+  const [cargo, setCargo] = React.useState();
+  const [checkTipo, setcheckTipo] = React.useState('');
+  const [checkCategoria, setcheckCategoria] = React.useState('');
+  const [formList, setFormList] = React.useState([]);
+
+  //list for map ListAccordion
+  const [listWorker, setListWorker] = React.useState([]);
+
+  const addProducerActivity = () => {
+    //2- data nuew
+    const dataNew = {
+      type_person: checkedTipoPersona,
+      is_resident: checkedResidente,
+      gender: checkedSexo,
+      receive_remuneration: checkedRemuneracion,
+      work_position: cargo,
+      type_job: checkTipo,
+    };
+    //3- array
+    let dataOld = [];
+    //4- count of list
+    let i = 0;
+
+    //5- map of listWorker
+    listWorker.map((item)=> {
+      i += 1;
+      //>>> add register
+      dataOld.push(item);
+    })
+
+    //6- add dataOld and dataNew
+    setListWorker([...dataOld, dataNew]);
+
+    //7- update listWorker
+    setFormList([
+      {
+        data: {
+          is_informal_worker: checkedTrabajoInformal,
+          works_under_dependency: checkedTrabajoBajoDependencia,
+          is_monotributista: checkedTrabajoMonotributo,
+          category: checkCategoria,
+          use_external_labor: checkedContrObrExt,
+          activity_worker: listWorker,
+        },
+      },
+    ]);
+
+    //Show Count Registers
+    console.log('COUNT: ', i);
+  };
+
+  //delete item of listAccordion
+  const itemDelete = (value) => {
+    //setter of new list array
+    setListWorker(listWorker.filter((item) => item !== value));
+
+    //setter
+    setFormList([
+      {
+        data: {
+          is_informal_worker: checkedTrabajoInformal,
+          works_under_dependency: checkedTrabajoBajoDependencia,
+          is_monotributista: checkedTrabajoMonotributo,
+          category: checkCategoria,
+          use_external_labor: checkedContrObrExt,
+          activity_worker: listWorker,
+        },
+      },
+    ]);
+  };
 
   //accion del boton
   const nextStep = () => {
-    if (currentPosition === 1) {
-      setCurrentPosition(currentPosition + 1);
-      console.log('Actividad Laboral: ' + currentPosition);
-    } else {
-      setCurrentPosition(1);
-    }
+    //compruebo si contene datos un array de objeto y viceversa
+    // Object.keys(formList).length === 0
+    //   ? console.log('No contiene datos')
+    //   : console.log('Si contiene datos');
+
+    console.log(listWorker);
+
+    // {
+    //   Object.keys(formList).length === 0
+    //     ? console.log('No contiene datos')
+    //     : formList.map((item) => {
+    //         //>> map of activity_worker
+    //         item.data.activity_worker.map((item) => {
+    //           console.log(item.gender);
+    //         });
+    //       });
+    // }
+
+    // formList.map((item) => {
+    //   //>> map of activity_worker
+    //   item.data.activity_worker.map((item) => {
+    //     console.log(item);
+    //   });
+    // });
+
+    //---------------------------------------------------------------
+
+    // if (currentPosition === 1) {
+    //   setCurrentPosition(currentPosition + 1);
+    //   console.log('Actividad Laboral: ' + currentPosition);
+    // } else {
+    //   setCurrentPosition(1);
+    // }
+
+    // let i = 0;
+
+    // formList.map((item) => {
+    //   i++;
+    //   console.log('Registro: ' + i, item.data.activity_worker);
+    // });
   };
 
   const backStep = () => {
@@ -96,49 +198,52 @@ const FormGrupoActividadLaboral = ({
           />
         </ComponentContainer>
 
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}>
-              <List.AccordionGroup>
-                <List.Accordion
-                  title="Selecciona un Categoria"
-                  id="0"
-                  left={(props) => <List.Icon {...props} />}>
-                  <List.Item
-                    title="A"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="B"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="C"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="D"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="E"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
-              </List.AccordionGroup>
-            </View>
-          </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Caption>Categoria</Caption>
         </View>
+
+        <ComponentContainer>
+          <ComponentRadioButton
+            title="A"
+            value={checkCategoria}
+            status={checkCategoria === 'A' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckCategoria('A')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="B"
+            value={checkCategoria}
+            status={checkCategoria === 'B' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckCategoria('B')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="C"
+            value={checkCategoria}
+            status={checkCategoria === 'C' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckCategoria('C')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="D"
+            value={checkCategoria}
+            status={checkCategoria === 'D' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckCategoria('D')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="E"
+            value={checkCategoria}
+            status={checkCategoria === 'E' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckCategoria('E')}
+            color="#008577"
+          />
+        </ComponentContainer>
 
         <ComponentContainer>
           <ComponentCheckBox
@@ -159,17 +264,20 @@ const FormGrupoActividadLaboral = ({
           }}>
           <Caption>Tipo de Persona</Caption>
         </View>
+
         <ComponentContainer>
           <ComponentRadioButton
             title="Trabajador"
-            value="trabajador"
-            status={checkedTipoPersona === 'trabajador' ? 'checked' : 'unchecked'}
+            value={checkedTipoPersona}
+            status={
+              checkedTipoPersona === 'trabajador' ? 'checked' : 'unchecked'
+            }
             onPress={() => setCheckedTipoPersona('trabajador')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Familiar"
-            value="familiar"
+            value={checkedTipoPersona}
             status={checkedTipoPersona === 'familiar' ? 'checked' : 'unchecked'}
             onPress={() => setCheckedTipoPersona('familiar')}
             color="#008577"
@@ -197,14 +305,14 @@ const FormGrupoActividadLaboral = ({
         <ComponentContainer>
           <ComponentRadioButton
             title="Femenino"
-            value="femenino"
+            value={checkedSexo}
             status={checkedSexo === 'femenino' ? 'checked' : 'unchecked'}
             onPress={() => setCheckedSexo('femenino')}
             color="#008577"
           />
           <ComponentRadioButton
             title="Masculino"
-            value="masculino"
+            value={checkedSexo}
             status={checkedSexo === 'masculino' ? 'checked' : 'unchecked'}
             onPress={() => setCheckedSexo('masculino')}
             color="#008577"
@@ -221,45 +329,53 @@ const FormGrupoActividadLaboral = ({
         </ComponentContainer>
 
         <ComponentContainer>
-          <TextInput mode="outlined" label="Cargo" style={styles.TextInput} />
+          <TextInput
+            mode="outlined"
+            label="Cargo"
+            style={styles.TextInput}
+            onChangeText={(value) => setCargo(value)}
+          />
         </ComponentContainer>
 
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}>
-              <List.AccordionGroup>
-                <List.Accordion
-                  title="Seleccionar"
-                  id="0"
-                  left={(props) => <List.Icon {...props} />}>
-                  <List.Item
-                    title="Residente"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Permanente"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Transitorio"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
-              </List.AccordionGroup>
-            </View>
-          </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Caption>Tipo</Caption>
         </View>
 
         <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
+          <ComponentRadioButton
+            title="Residente"
+            value={checkTipo}
+            status={checkTipo === 'residente' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckTipo('residente')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="Permanente"
+            value={checkTipo}
+            status={checkTipo === 'permanente' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckTipo('permanente')}
+            color="#008577"
+          />
+        </ComponentContainer>
+        <ComponentContainer>
+          <ComponentRadioButton
+            title="Transitorio"
+            value={checkTipo}
+            status={checkTipo === 'transitorio' ? 'checked' : 'unchecked'}
+            onPress={() => setcheckTipo('transitorio')}
+            color="#008577"
+          />
+        </ComponentContainer>
+        <ComponentContainer>
+          <Button
+            mode="text"
+            style={styles.SectionRight__button}
+            onPress={() => addProducerActivity()}>
             Guardar
           </Button>
           <Button mode="text" style={styles.SectionRight__button}>
@@ -275,28 +391,25 @@ const FormGrupoActividadLaboral = ({
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
               }}>
-              <List.AccordionGroup>
-                <List.Accordion
-                  title="Trabajador"
-                  id="0"
-                  left={(props) => <List.Icon {...props} />}>
-                  <List.Item
-                    title="Datos 1"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Datos 2"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Datos 3"
-                    left={(props) => <List.Icon {...props} />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
-              </List.AccordionGroup>
+              <List.Accordion
+                title="Trabajador"
+                left={(props) => <List.Icon {...props} />}>
+                {Object.keys(listWorker).length === 0
+                  ? null
+                  : listWorker.map((item, key) => {
+                      return (
+                        <List.Item
+                          key={key}
+                          title={`${item.work_position} - ${item.type_job}`}
+                          description={` ${item.type_person} - ${item.gender}`}
+                          left={(props) => (
+                            <List.Icon {...props} icon="delete" />
+                          )}
+                          onPress={() => itemDelete(item)}
+                        />
+                      );
+                    })}
+              </List.Accordion>
             </View>
           </View>
         </View>
@@ -320,4 +433,17 @@ const FormGrupoActividadLaboral = ({
   );
 };
 
-export default FormGrupoActividadLaboral;
+const mapStateToProps = (state) => {
+  return {
+    MyListProducer: state.MyListProducer,
+  };
+};
+
+const mapDispatchToProps = {
+  producerPostLocal,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FormGrupoActividadLaboral);
