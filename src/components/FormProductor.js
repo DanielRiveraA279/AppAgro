@@ -11,7 +11,7 @@ const FormProductor = ({
   setCurrentPosition,
   currentPosition,
   styles,
-  MyListProducer,
+  data_producer,
   producerPostLocal,
 }) => {
   //valor inicial
@@ -29,45 +29,49 @@ const FormProductor = ({
 
   useEffect(() => {
     //cada vez que entro a esta pantalla seteo lo que tenga redux guardado en su store
-    seteoComponentes();
+    if (Object.keys(data_producer).length !== 0) {
+      seteoComponentes();
+    }
   }, []);
 
   //redux guarda estos datos y cada datos son asignados a su correspondiente campos
   const seteoComponentes = () => {
-    MyListProducer.map((item) => {
-      setNombre(item.producer.first_name);
-      setApellido(item.producer.last_name);
-      setFecNac(item.producer.date_birth);
-      setDocumento(item.producer.document);
-      setGenero(item.producer.gender);
-      setTelefono(item.producer.phone_number);
-      setDistrito(item.producer.producer_home.district);
-      setDireccion(item.producer.producer_home.address);
-      setTipoResidencia(item.producer.producer_home.type_recidence);
-      setEstadoResidencia(item.producer.producer_home.state_recidence);
-      console.log('PRODUCTOR: ', item.producer);
-      
+    data_producer.map((item) => {
+      setNombre(item.first_name);
+      setApellido(item.last_name);
+      setFecNac(item.date_birth);
+      setDocumento(item.document);
+      setGenero(item.gender);
+      setTelefono(item.phone_number);
+      setDistrito(item.producer_home.district);
+      setDireccion(item.producer_home.address);
+      setTipoResidencia(item.producer_home.type_recidence);
+      setEstadoResidencia(item.producer_home.state_recidence);
+      console.log('PRODUCTOR: ', item);
     });
   };
 
   const siguientePaso = () => {
     //ingreso registros y envio al store
     producerPostLocal({
-      producer: {
-        first_name: nombre,
-        last_name: apellido,
-        date_birth: fec_nac,
-        document: documento,
-        gender: genero,
-        phone_number: telefono,
-        producer_home: {
-          district: distrito,
-          address: direccion,
-          type_recidence: tipoResidencia,
-          state_recidence: estadoResidencia,
-        },
+      first_name: nombre,
+      last_name: apellido,
+      date_birth: fec_nac,
+      document: documento,
+      gender: genero,
+      phone_number: telefono,
+      producer_home: {
+        district: distrito,
+        address: direccion,
+        type_recidence: tipoResidencia,
+        state_recidence: estadoResidencia,
       },
     });
+
+    
+    //console.log(data_producer);
+
+    
 
     if (currentPosition === 0) {
       setCurrentPosition(currentPosition + 1);
@@ -211,7 +215,7 @@ const FormProductor = ({
 
 const mapStateToProps = (state) => {
   return {
-    MyListProducer: state.MyListProducer,
+    data_producer: state.data_producer,
   };
 };
 

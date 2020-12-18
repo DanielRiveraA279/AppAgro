@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {producerPostLocal} from '../actions/index';
+import {producerPostActivity} from '../actions/index';
 import {View} from 'react-native';
 import {
   TextInput,
@@ -14,12 +14,15 @@ import {
 import ComponentContainer from './ComponentContainer';
 import ComponentCheckBox from './CheckBox';
 import ComponentRadioButton from './RadioButton';
+import MessageError from './MessageError';
 
 const FormGrupoActividadLaboral = ({
   titulo,
   setCurrentPosition,
   currentPosition,
   styles,
+  producer_activity,
+  producerPostActivity
 }) => {
   const [checkedTrabajoInformal, setCheckedTrabajoInformal] = React.useState(
     false,
@@ -37,16 +40,15 @@ const FormGrupoActividadLaboral = ({
   const [checkedResidente, setCheckedResidente] = React.useState(false);
   const [checkedSexo, setCheckedSexo] = React.useState('');
   const [checkedRemuneracion, setCheckedRemuneracion] = React.useState(false);
-  const [cargo, setCargo] = React.useState();
+  const [cargo, setCargo] = React.useState('');
   const [checkTipo, setcheckTipo] = React.useState('');
   const [checkCategoria, setcheckCategoria] = React.useState('');
-  const [formList, setFormList] = React.useState([]);
-
+  const [errorCargo, setErrorCargo] = React.useState(false);
   //list for map ListAccordion
   const [listWorker, setListWorker] = React.useState([]);
 
-  const addProducerActivity = () => {
-    //2- data nuew
+  const ValidationSuccess = () => {
+    //data nuew
     const dataNew = {
       type_person: checkedTipoPersona,
       is_resident: checkedResidente,
@@ -55,97 +57,75 @@ const FormGrupoActividadLaboral = ({
       work_position: cargo,
       type_job: checkTipo,
     };
-    //3- array
+    //2- array
     let dataOld = [];
-    //4- count of list
-    let i = 0;
-
-    //5- map of listWorker
-    listWorker.map((item)=> {
-      i += 1;
-      //>>> add register
-      dataOld.push(item);
-    })
-
-    //6- add dataOld and dataNew
-    setListWorker([...dataOld, dataNew]);
-
-    //7- update listWorker
-    setFormList([
-      {
-        data: {
-          is_informal_worker: checkedTrabajoInformal,
-          works_under_dependency: checkedTrabajoBajoDependencia,
-          is_monotributista: checkedTrabajoMonotributo,
-          category: checkCategoria,
-          use_external_labor: checkedContrObrExt,
-          activity_worker: listWorker,
-        },
-      },
-    ]);
+    //3- count of list
+    let i = 1;
+    //4 alidate array
+    if (Object.keys(listWorker).length !== 0) {
+      //map of listWorker
+      listWorker.map((item) => {
+        i += 1;
+        //>>> add register
+        dataOld.push(item);
+      });
+      //add dataOld and dataNew
+      setListWorker([...dataOld, dataNew]); //si listWorker esta vacio lo mismo agrega el dato nuevo solo eso
+    } else {
+      //add dataNew
+      setListWorker([dataNew]);
+    }
+    //5-validate
+    setErrorCargo(false);
 
     //Show Count Registers
     console.log('COUNT: ', i);
+  };
+
+  const ShowAlert = () => {
+    setErrorCargo(true);
+    MessageError(
+      'Datos Faltante',
+      'Revise Cargo, Sexo, Tipo de Persona o estadia',
+    );
+  };
+
+  const addProducerActivity = () => {
+    //validate
+    cargo.trim() === '' ||
+    checkedSexo.trim() === '' ||
+    checkedTipoPersona.trim() === '' ||
+    checkTipo.trim() === ''
+      ? ShowAlert()
+      : ValidationSuccess();
   };
 
   //delete item of listAccordion
   const itemDelete = (value) => {
     //setter of new list array
     setListWorker(listWorker.filter((item) => item !== value));
-
-    //setter
-    setFormList([
-      {
-        data: {
-          is_informal_worker: checkedTrabajoInformal,
-          works_under_dependency: checkedTrabajoBajoDependencia,
-          is_monotributista: checkedTrabajoMonotributo,
-          category: checkCategoria,
-          use_external_labor: checkedContrObrExt,
-          activity_worker: listWorker,
-        },
-      },
-    ]);
   };
 
   //accion del boton
   const nextStep = () => {
-    //compruebo si contene datos un array de objeto y viceversa
-    // Object.keys(formList).length === 0
-    //   ? console.log('No contiene datos')
-    //   : console.log('Si contiene datos');
-
-    console.log(listWorker);
-
-    // {
-    //   Object.keys(formList).length === 0
-    //     ? console.log('No contiene datos')
-    //     : formList.map((item) => {
-    //         //>> map of activity_worker
-    //         item.data.activity_worker.map((item) => {
-    //           console.log(item.gender);
-    //         });
-    //       });
-    // }
-
-    // formList.map((item) => {
-    //   //>> map of activity_worker
-    //   item.data.activity_worker.map((item) => {
-    //     console.log(item);
-    //   });
-    // });
+    //setter in action
+    producerPostActivity({
+      is_informal_worker: checkedTrabajoInformal,
+      works_under_dependency: checkedTrabajoBajoDependencia,
+      is_monotributista: checkedTrabajoMonotributo,
+      category: checkCategoria,
+      use_external_labor: checkedContrObrExt,
+      activity_worker: listWorker,
+    });
 
     //---------------------------------------------------------------
-
     // if (currentPosition === 1) {
     //   setCurrentPosition(currentPosition + 1);
     //   console.log('Actividad Laboral: ' + currentPosition);
     // } else {
     //   setCurrentPosition(1);
     // }
-
     // let i = 0;
-
     // formList.map((item) => {
     //   i++;
     //   console.log('Registro: ' + i, item.data.activity_worker);
@@ -153,6 +133,10 @@ const FormGrupoActividadLaboral = ({
   };
 
   const backStep = () => {
+    //console.log(producer_activity);
+    // Object.keys(item).map((item)=>{
+    //   console.log(item);
+    // })
     if (currentPosition === 1) {
       setCurrentPosition(currentPosition - 1);
     } else {
@@ -210,6 +194,7 @@ const FormGrupoActividadLaboral = ({
         <ComponentContainer>
           <ComponentRadioButton
             title="A"
+            disabled={!checkedTrabajoMonotributo}
             value={checkCategoria}
             status={checkCategoria === 'A' ? 'checked' : 'unchecked'}
             onPress={() => setcheckCategoria('A')}
@@ -217,6 +202,7 @@ const FormGrupoActividadLaboral = ({
           />
           <ComponentRadioButton
             title="B"
+            disabled={!checkedTrabajoMonotributo}
             value={checkCategoria}
             status={checkCategoria === 'B' ? 'checked' : 'unchecked'}
             onPress={() => setcheckCategoria('B')}
@@ -224,6 +210,7 @@ const FormGrupoActividadLaboral = ({
           />
           <ComponentRadioButton
             title="C"
+            disabled={!checkedTrabajoMonotributo}
             value={checkCategoria}
             status={checkCategoria === 'C' ? 'checked' : 'unchecked'}
             onPress={() => setcheckCategoria('C')}
@@ -231,6 +218,7 @@ const FormGrupoActividadLaboral = ({
           />
           <ComponentRadioButton
             title="D"
+            disabled={!checkedTrabajoMonotributo}
             value={checkCategoria}
             status={checkCategoria === 'D' ? 'checked' : 'unchecked'}
             onPress={() => setcheckCategoria('D')}
@@ -238,6 +226,7 @@ const FormGrupoActividadLaboral = ({
           />
           <ComponentRadioButton
             title="E"
+            disabled={!checkedTrabajoMonotributo}
             value={checkCategoria}
             status={checkCategoria === 'E' ? 'checked' : 'unchecked'}
             onPress={() => setcheckCategoria('E')}
@@ -334,6 +323,7 @@ const FormGrupoActividadLaboral = ({
             label="Cargo"
             style={styles.TextInput}
             onChangeText={(value) => setCargo(value)}
+            error={errorCargo}
           />
         </ComponentContainer>
 
@@ -343,7 +333,7 @@ const FormGrupoActividadLaboral = ({
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Tipo</Caption>
+          <Caption>Estadia</Caption>
         </View>
 
         <ComponentContainer>
@@ -435,12 +425,12 @@ const FormGrupoActividadLaboral = ({
 
 const mapStateToProps = (state) => {
   return {
-    MyListProducer: state.MyListProducer,
+    producer_activity: state.producer_activity,
   };
 };
 
 const mapDispatchToProps = {
-  producerPostLocal,
+  producerPostActivity,
 };
 
 export default connect(

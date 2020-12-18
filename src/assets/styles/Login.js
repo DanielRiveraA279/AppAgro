@@ -1,9 +1,10 @@
 const styles = {
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   header: {
-    flex: 1,
     padding: 10,
   },
   header__title: {},
@@ -12,6 +13,7 @@ const styles = {
   },
   section: {
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 5,
