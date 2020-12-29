@@ -10,12 +10,13 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
   const [checkedOrientacion, setCheckedOrientacion] = React.useState(false);
- 
+
   const FormCicloCunicultura = () => {
     return (
       <View>
@@ -28,62 +29,72 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Orientacion</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Carne"
-            value="carne"
-            status={checkedOrientacion === 'carne' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('carne')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Pelo"
-            value="pelo"
-            status={checkedOrientacion === 'pelo' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('pelo')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Piel"
-            value="piel"
-            status={checkedOrientacion === 'piel' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('piel')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Carne"
+              value="carne"
+              status={checkedOrientacion === 'carne' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOrientacion('carne')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Pelo"
+              value="pelo"
+              status={checkedOrientacion === 'pelo' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOrientacion('pelo')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Piel"
+              value="piel"
+              status={checkedOrientacion === 'piel' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOrientacion('piel')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Reproductores Machos"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Reproductores Machos"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Reproductores Hembra"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Reproductores Hembra"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Cantidad Gazapos"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Cantidad Gazapos"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

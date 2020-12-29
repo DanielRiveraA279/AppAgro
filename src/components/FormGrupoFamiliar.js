@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {familyRelationPost} from '../actions/index';
+
 import {View} from 'react-native';
 import {
   TextInput,
@@ -11,21 +14,143 @@ import {
 
 import ComponentContainer from './ComponentContainer';
 import ComponentCheckBox from './CheckBox';
+import MessageError from './MessageError';
 
 const FormGrupoFamiliar = ({
   titulo,
   setCurrentPosition,
   currentPosition,
   styles,
+  familyRelationPost,
+  family_relation,
 }) => {
+  const [nombre, setNombre] = React.useState('');
+  const [apellido, setApellido] = React.useState('');
+  const [lasoFamiliar, setLasoFamiliar] = React.useState('Laso Familiar');
+  const [edad, setEdad] = React.useState('');
   const [checkedActLaboral, setCheckedActLaboral] = React.useState(false);
-  const [checkedEducacionPrimaria, setCheckedEducacionPrimaria] = React.useState(false);
-  const [checkedEducacionSecundaria, setCheckedEducacionSecundaria] = React.useState(false);
-  const [checkedEducacionTerciaria, setCheckedEducacionTerciaria] = React.useState(false);
-  const [checkedEducacionUniversitario, setCheckedEducacionUniversitario] = React.useState(false);
+  const [descripcion, setDescripcion] = React.useState('');
+  const [
+    checkedEducacionPrimaria,
+    setCheckedEducacionPrimaria,
+  ] = React.useState(false);
+  const [
+    checkedEducacionSecundaria,
+    setCheckedEducacionSecundaria,
+  ] = React.useState(false);
+  const [
+    checkedEducacionTerciaria,
+    setCheckedEducacionTerciaria,
+  ] = React.useState(false);
+  const [
+    checkedEducacionUniversitario,
+    setCheckedEducacionUniversitario,
+  ] = React.useState(false);
+  const [grupoFamiliar, setGrupoFamiliar] = React.useState([]);
+  const [nombreError, setNombreError] = React.useState(false);
+  const [apellidoError, setApellidoError] = React.useState(false);
+  const [edadError, setEdadError] = React.useState(false);
+  const [descripcionError, setDescripcionError] = React.useState(false);
+
+  useEffect(() => {
+    if (Object.keys(family_relation).length !== 0) {
+      let dataOld = [];
+      family_relation.map((item) => {
+        item.grupoFamiliar.map((item) => {
+          dataOld.push(item);
+        });
+      });
+      setGrupoFamiliar(dataOld);
+    }
+  }, []);
+
+  const ValidationSuccessGroup = () => {
+    //data new
+    const dataNew = {
+      family_relation: lasoFamiliar,
+      first_name: nombre,
+      last_name: apellido,
+      age: edad,
+      has_primary_studies: checkedEducacionPrimaria,
+      has_secondary_studies: checkedEducacionSecundaria,
+      has_tertiary_studies: checkedEducacionTerciaria,
+      has_university_studies: checkedEducacionUniversitario,
+      perform_work_activity: checkedActLaboral,
+      description: descripcion,
+    };
+
+    const dataOld = [];
+
+    //count of list
+    let i = 1;
+
+    //validate array
+    if (Object.keys(grupoFamiliar).length !== 0) {
+      //map of list group family
+      grupoFamiliar.map((item) => {
+        i += 1;
+        dataOld.push(item);
+      });
+
+      setGrupoFamiliar([...dataOld, dataNew]);
+    } else {
+      setGrupoFamiliar([dataNew]);
+    }
+
+    console.log('COUNT: ', i);
+  };
+
+  const ShowAlertError = () => {
+    MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
+  };
+
+  const addGroup = () => {
+    if (nombre.trim() === '') {
+      setNombreError(true);
+      ShowAlertError();
+    } else if (apellido.trim() === '') {
+      setApellidoError(true);
+      ShowAlertError();
+    } else if (edad.trim() === '') {
+      setEdadError(true);
+      ShowAlertError();
+    } else if (descripcion.trim() === '') {
+      setDescripcion('Sin Descripcion');
+    } else {
+      setNombreError(false);
+      setApellidoError(false);
+      setEdadError(false);
+      clearDate();
+      ValidationSuccessGroup();
+    }
+  };
+
+  const clearDate = () => {
+    setNombre('');
+    setApellido('');
+    setLasoFamiliar('Laso Familiar');
+    setEdad('');
+    setCheckedActLaboral(false);
+    setDescripcion('');
+    setCheckedEducacionPrimaria(false);
+    setCheckedEducacionSecundaria(false);
+    setCheckedEducacionTerciaria(false);
+    setCheckedEducacionUniversitario(false);
+    setNombreError(false);
+    setApellidoError(false);
+    setEdadError(false);
+  };
+
+  const itemDelete = (value) => {
+    setGrupoFamiliar(grupoFamiliar.filter((item) => item !== value));
+  };
 
   //accion del boton
   const nextStep = () => {
+    familyRelationPost({
+      grupoFamiliar,
+    });
+
     if (currentPosition === 2) {
       setCurrentPosition(currentPosition + 1);
       console.log('Grupo Familiar: ' + currentPosition);
@@ -54,14 +179,24 @@ const FormGrupoFamiliar = ({
         </View>
 
         <ComponentContainer>
-          <TextInput mode="outlined" label="Nombre" style={styles.TextInput} />
+          <TextInput
+            mode="outlined"
+            value={nombre}
+            label="Nombre"
+            style={styles.TextInput}
+            onChangeText={(value) => setNombre(value)}
+            error={nombreError}
+          />
         </ComponentContainer>
 
         <ComponentContainer>
           <TextInput
             mode="outlined"
+            value={apellido}
             label="Apellido"
             style={styles.TextInput}
+            onChangeText={(value) => setApellido(value)}
+            error={apellidoError}
           />
         </ComponentContainer>
 
@@ -73,54 +208,58 @@ const FormGrupoFamiliar = ({
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
               }}>
-              <List.AccordionGroup>
-                <List.Accordion
-                  title="Seleccione Laso Familiar"
-                  id="0"
-                  left={(props) => <List.Icon {...props} icon="equal" />}>
-                  <List.Item
-                    title="Hijo/a"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Esposo/a"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Tio/a"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Padre"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Madre"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Abuelo/a"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                  <List.Item
-                    title="Primo/a"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
-              </List.AccordionGroup>
+              <List.Accordion
+                title={lasoFamiliar}
+                left={(props) => <List.Icon {...props} icon="equal" />}>
+                <List.Item
+                  title="Hijo/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Hijo/a')}
+                />
+                <List.Item
+                  title="Esposo/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Esposo/a')}
+                />
+                <List.Item
+                  title="Tio/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Tio/a')}
+                />
+                <List.Item
+                  title="Padre"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Padre')}
+                />
+                <List.Item
+                  title="Madre"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Madre')}
+                />
+                <List.Item
+                  title="Abuelo/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Abuelo/a')}
+                />
+                <List.Item
+                  title="Primo/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Primo/a')}
+                />
+              </List.Accordion>
             </View>
           </View>
         </View>
 
         <ComponentContainer>
-          <TextInput mode="outlined" label="Edad" style={styles.TextInput} />
+          <TextInput
+            mode="outlined"
+            value={edad}
+            label="Edad"
+            style={styles.TextInput}
+            onChangeText={(value) => setEdad(value)}
+            error={edadError}
+          />
         </ComponentContainer>
 
         <ComponentContainer>
@@ -134,8 +273,11 @@ const FormGrupoFamiliar = ({
         <ComponentContainer>
           <TextInput
             mode="outlined"
+            value={descripcion}
             label="Descripciòn de la actividad"
             style={styles.TextInput}
+            onChangeText={(value) => setDescripcion(value)}
+            error={descripcionError}
           />
         </ComponentContainer>
 
@@ -172,10 +314,16 @@ const FormGrupoFamiliar = ({
           />
         </ComponentContainer>
         <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
+          <Button
+            mode="text"
+            style={styles.SectionRight__button}
+            onPress={() => addGroup()}>
             Guardar
           </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
+          <Button
+            mode="text"
+            style={styles.SectionRight__button}
+            onPress={() => clearDate()}>
             Cancelar
           </Button>
         </ComponentContainer>
@@ -187,18 +335,23 @@ const FormGrupoFamiliar = ({
               flexDirection: 'column',
               justifyContent: 'flex-end',
             }}>
-            <List.AccordionGroup>
-              <List.Accordion
-                title="Lista Grupo Familiar"
-                id="0"
-                left={(props) => <List.Icon {...props} icon="equal" />}>
-                <List.Item
-                  title="First Item"
-                  left={(props) => <List.Icon {...props} icon="delete" />}
-                  onPress={() => console.log('ELiminado')}
-                />
-              </List.Accordion>
-            </List.AccordionGroup>
+            <List.Accordion
+              title="Lista Grupo Familiar"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(grupoFamiliar).length === 0
+                ? null
+                : grupoFamiliar.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={`${item.first_name} ${item.last_name} - ${item.family_relation}`}
+                        description={`${item.description}`}
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDelete(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
           </View>
         </View>
 
@@ -221,4 +374,14 @@ const FormGrupoFamiliar = ({
   );
 };
 
-export default FormGrupoFamiliar;
+const mapStateToProps = (state) => {
+  return {
+    family_relation: state.family_relation,
+  };
+};
+
+const mapDispatchToProps = {
+  familyRelationPost,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormGrupoFamiliar);

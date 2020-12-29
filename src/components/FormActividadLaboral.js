@@ -10,6 +10,7 @@ import {
   Caption,
   Divider,
   Provider,
+  Subheading,
 } from 'react-native-paper';
 import ComponentContainer from './ComponentContainer';
 import ComponentCheckBox from './CheckBox';
@@ -22,7 +23,7 @@ const FormGrupoActividadLaboral = ({
   currentPosition,
   styles,
   producer_activity,
-  producerPostActivity
+  producerPostActivity,
 }) => {
   const [checkedTrabajoInformal, setCheckedTrabajoInformal] = React.useState(
     false,
@@ -46,6 +47,31 @@ const FormGrupoActividadLaboral = ({
   const [errorCargo, setErrorCargo] = React.useState(false);
   //list for map ListAccordion
   const [listWorker, setListWorker] = React.useState([]);
+
+  useEffect(() => {
+    if (Object.keys(producer_activity).length !== 0) {
+      producer_activity.map((item) => {
+        console.log(item);
+
+        setCheckedTrabajoInformal(item.is_informal_worker);
+        setCheckedTrabajoBajoDependencia(item.works_under_dependency);
+        setCheckedTrabajoMonotributo(item.is_monotributista);
+        setcheckCategoria(item.category);
+        setCheckedContrObrExt(item.use_external_labor);
+        setListWorker(item.activity_worker);
+      });
+    }
+  }, []);
+
+  
+  const clearData = () => {
+    setCheckedTipoPersona('');
+    setCheckedResidente(false);
+    setCheckedSexo('');
+    setCheckedRemuneracion(false);
+    setCargo('');
+    setcheckTipo('');
+  };
 
   const ValidationSuccess = () => {
     //data nuew
@@ -78,16 +104,15 @@ const FormGrupoActividadLaboral = ({
     //5-validate
     setErrorCargo(false);
 
+    clearData();
+
     //Show Count Registers
     console.log('COUNT: ', i);
   };
 
   const ShowAlert = () => {
     setErrorCargo(true);
-    MessageError(
-      'Datos Faltante',
-      'Revise Cargo, Sexo, Tipo de Persona o estadia',
-    );
+    MessageError('Datos Faltante', 'Existe campo/s vacio/s');
   };
 
   const addProducerActivity = () => {
@@ -119,24 +144,15 @@ const FormGrupoActividadLaboral = ({
     });
 
     //---------------------------------------------------------------
-    // if (currentPosition === 1) {
-    //   setCurrentPosition(currentPosition + 1);
-    //   console.log('Actividad Laboral: ' + currentPosition);
-    // } else {
-    //   setCurrentPosition(1);
-    // }
-    // let i = 0;
-    // formList.map((item) => {
-    //   i++;
-    //   console.log('Registro: ' + i, item.data.activity_worker);
-    // });
+    if (currentPosition === 1) {
+      setCurrentPosition(currentPosition + 1);
+      console.log('Actividad Laboral: ' + currentPosition);
+    } else {
+      setCurrentPosition(1);
+    }
   };
 
   const backStep = () => {
-    //console.log(producer_activity);
-    // Object.keys(item).map((item)=>{
-    //   console.log(item);
-    // })
     if (currentPosition === 1) {
       setCurrentPosition(currentPosition - 1);
     } else {
@@ -166,6 +182,7 @@ const FormGrupoActividadLaboral = ({
             value={checkedTrabajoInformal}
             onValueChange={(value) => setCheckedTrabajoInformal(value)}
           />
+
           <ComponentCheckBox
             title="Bajo Dependencia"
             disabled={false}
@@ -176,7 +193,6 @@ const FormGrupoActividadLaboral = ({
         <ComponentContainer>
           <ComponentCheckBox
             title="Monotributista"
-            disabled={false}
             value={checkedTrabajoMonotributo}
             onValueChange={(value) => setCheckedTrabajoMonotributo(value)}
           />
@@ -244,6 +260,10 @@ const FormGrupoActividadLaboral = ({
         </ComponentContainer>
 
         <Divider />
+
+        <ComponentContainer>
+          <Subheading>Trabajador</Subheading>
+        </ComponentContainer>
 
         <View
           style={{
@@ -368,12 +388,15 @@ const FormGrupoActividadLaboral = ({
             onPress={() => addProducerActivity()}>
             Guardar
           </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
+          <Button
+            mode="text"
+            style={styles.SectionRight__button}
+            onPress={() => clearData()}>
             Cancelar
           </Button>
         </ComponentContainer>
 
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
             <View
               style={{
@@ -382,8 +405,8 @@ const FormGrupoActividadLaboral = ({
                 justifyContent: 'flex-end',
               }}>
               <List.Accordion
-                title="Trabajador"
-                left={(props) => <List.Icon {...props} />}>
+                title="Lista de Trabajadores"
+                left={(props) => <List.Icon {...props} icon="equal" />}>
                 {Object.keys(listWorker).length === 0
                   ? null
                   : listWorker.map((item, key) => {

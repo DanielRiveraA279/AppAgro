@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 
 import {
   TextInput,
@@ -11,32 +11,77 @@ import {
 } from 'react-native-paper';
 
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
+import MessageError from '../MessageError';
 
-const FormModal = ({visible, hideModal}) => {
+const FormModal = ({visible, hideModal, alimentario, setAlimentario}) => {
   const [checkedOrigen, setCheckedOrigen] = React.useState('');
-  const [checkedMateriaPrima, setCheckedMateriaPrima] = React.useState('');
+  const [descripcion, setDescripcion] = React.useState('');
+  const [vigencia, setVigencia] = React.useState('');
+  const [precio, setPrecio] = React.useState('');
 
   const FormAlimentario = () => {
+    const ShowAlert = () => {
+      MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
+    };
+
+    const addAlementario = () => {
+      if (descripcion.trim() === '') {
+        ShowAlert();
+      } else {
+        const dataNew = {
+          name_product: descripcion,
+          validity: vigencia,
+          origin: checkedOrigen,
+          price: precio,
+        };
+
+        let dataOld = [];
+
+        if (Object.keys(alimentario).length !== 0) {
+          alimentario.map((item) => {
+            dataOld.push(item);
+          });
+
+          setAlimentario([...dataOld, dataNew]);
+        } else {
+          setAlimentario([dataNew]);
+        }
+
+        setDescripcion('');
+        setVigencia('');
+        setCheckedOrigen('');
+        setPrecio('');
+      }
+    };
     return (
       <View style={styles.container}>
         <Title>Producto Alimentario</Title>
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Descripcion"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Descripcion"
+              style={styles.TextInput}
+              value={descripcion}
+              onChangeText={(value) => setDescripcion(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Vigencia Producto"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Vigencia Producto"
+              style={styles.TextInput}
+              value={vigencia}
+              onChangeText={(value) => setVigencia(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View style={{flexDirection: 'row'}}>
           <View
@@ -49,78 +94,47 @@ const FormModal = ({visible, hideModal}) => {
           </View>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Vegetal"
-            value="vegetal"
-            status={checkedOrigen === 'vegetal' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrigen('vegetal')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Animal"
-            value="animal"
-            status={checkedOrigen === 'animal' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrigen('animal')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Vegetal"
+              value="vegetal"
+              status={checkedOrigen === 'vegetal' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOrigen('vegetal')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Animal"
+              value="animal"
+              status={checkedOrigen === 'animal' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedOrigen('animal')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Caption>Materia Prima</Caption>
-          </View>
-        </View>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Precio de lo Producido"
+              style={styles.TextInput}
+              value={precio}
+              onChangeText={(value) => setPrecio(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Propia"
-            value="propia"
-            status={checkedMateriaPrima === 'propia' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedMateriaPrima('propia')}
-            color="#008577"
-          />
-
-          <ComponentRadioButton
-            title="Local"
-            value="local"
-            status={checkedMateriaPrima === 'local' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedMateriaPrima('local')}
-            color="#008577"
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Externa"
-            value="externa"
-            status={checkedMateriaPrima === 'externa' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedMateriaPrima('externa')}
-            color="#008577"
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Precio de lo Producido"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button} onPress={() => addAlementario()}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button} onPress={hideModal}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

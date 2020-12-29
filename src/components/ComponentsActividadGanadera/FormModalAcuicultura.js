@@ -10,6 +10,7 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
@@ -34,32 +35,44 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Orientacion</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Completo"
-            value="completo"
-            status={checkedOrientacion === 'completo' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('completo')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Engorde"
-            value="engorde"
-            status={checkedOrientacion === 'engorde' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('engorde')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Completo"
+              value="completo"
+              status={
+                checkedOrientacion === 'completo' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedOrientacion('completo')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Engorde"
+              value="engorde"
+              status={
+                checkedOrientacion === 'engorde' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedOrientacion('engorde')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Cria de Alevinos/Juveniles"
-            value="cria alevinos/juveniles"
-            status={checkedOrientacion === 'cria alevinos/juveniles' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedOrientacion('cria alevinos/juveniles')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Cria de Alevinos/Juveniles"
+              value="cria alevinos/juveniles"
+              status={
+                checkedOrientacion === 'cria alevinos/juveniles'
+                  ? 'checked'
+                  : 'unchecked'
+              }
+              onPress={() => setCheckedOrientacion('cria alevinos/juveniles')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View
           style={{
@@ -69,57 +82,67 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Existencia</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Pacu"
-            disabled={false}
-            value={checkedPacu}
-            onValueChange={(value)=> setCheckedPacu(value)}
-          />
-          <ComponentCheckBox
-            title="Carpas"
-            disabled={false}
-            value={checkedCarpa}
-            onValueChange={(value)=> setCheckedCarpa(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Pacu"
+              disabled={false}
+              value={checkedPacu}
+              onValueChange={(value) => setCheckedPacu(value)}
+            />
+            <ComponentCheckBox
+              title="Carpas"
+              disabled={false}
+              value={checkedCarpa}
+              onValueChange={(value) => setCheckedCarpa(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Tilapia"
-            disabled={false}
-            value={checkedTilapia}
-            onValueChange={(value)=> setCheckedTilapia(value)}
-          />
-          <ComponentCheckBox
-            title="Sabalo"
-            disabled={false}
-            value={checkedSabalo}
-            onValueChange={(value)=> setCheckedSabalo(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Tilapia"
+              disabled={false}
+              value={checkedTilapia}
+              onValueChange={(value) => setCheckedTilapia(value)}
+            />
+            <ComponentCheckBox
+              title="Sabalo"
+              disabled={false}
+              value={checkedSabalo}
+              onValueChange={(value) => setCheckedSabalo(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Trucha"
-            disabled={false}
-            value={checkedTrucha}
-            onValueChange={(value)=> setCheckedTrucha(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Trucha"
+              disabled={false}
+              value={checkedTrucha}
+              onValueChange={(value) => setCheckedTrucha(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput mode="outlined" label="Otros" style={styles.TextInput} />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput mode="outlined" label="Otros" style={styles.TextInput} />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

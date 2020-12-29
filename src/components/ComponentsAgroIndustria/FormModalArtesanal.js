@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 
 import {
   TextInput,
@@ -10,76 +10,100 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
+import MessageError from '../MessageError';
 
-const FormModal = ({visible, hideModal}) => {
-  const [checkedMateriaPrima, setCheckedMateriaPrima] = React.useState('');
- 
+const FormModal = ({visible, hideModal, artesanal, setArtesanal}) => {
+  const [descripcion, setDescripcion] = React.useState('');
+  const [cantidad, setCantidad] = React.useState('');
+  const [precio, setPrecio] = React.useState('');
+
   const FormArtesanal = () => {
+    const ShowAlert = () => {
+      MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
+    };
+    const addArtesanal = () => {
+      if (descripcion.trim() === '') {
+        ShowAlert();
+      } else {
+        const dataNew = {
+          name_product: descripcion,
+          quantity: cantidad,
+          price: precio,
+        };
+        let dataOld = [];
+
+        if (Object.keys(artesanal).length !== 0) {
+          artesanal.map((item) => {
+            dataOld.push(item);
+          });
+          setArtesanal([...dataOld, dataNew]);
+        } else {
+          setArtesanal([dataNew]);
+        }
+
+        setDescripcion('');
+        setCantidad('');
+        setPrecio('');
+      }
+    };
     return (
       <View style={styles.container}>
         <Title>Producto Artesanal</Title>
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Descripcion"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Descripcion"
+              style={styles.TextInput}
+              value={descripcion}
+              onChangeText={(value) => setDescripcion(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Cantidad"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Cantidad"
+              style={styles.TextInput}
+              value={cantidad}
+              onChangeText={(value) => setCantidad(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Caption>Materia Prima</Caption>
-          </View>
-        </View>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Precio Artesania"
+              style={styles.TextInput}
+              value={precio}
+              onChangeText={(value) => setPrecio(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Local"
-            value="local"
-            status={checkedMateriaPrima === 'local' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedMateriaPrima('local')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Externa"
-            value="externa"
-            status={checkedMateriaPrima === 'externa' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedMateriaPrima('externa')}
-            color="#008577"
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Precio Artesania"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => addArtesanal()}>
+              Guardar
+            </Button>
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={hideModal}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

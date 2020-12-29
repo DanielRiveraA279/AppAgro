@@ -11,24 +11,29 @@ import {
 } from 'react-native-paper';
 
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import styles from '../../assets/styles/components/Modals';
 
 const FormModal = ({visible, hideModal}) => {
-  const [checkedTipoAlimentacion, setCheckedTipoAlimentacion] = React.useState('');
+  const [checkedTipoAlimentacion, setCheckedTipoAlimentacion] = React.useState(
+    '',
+  );
 
   const FormTipoAlimento = () => {
     return (
       <View>
         <Title>Alimentacion</Title>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Alimento"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Alimento"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View
           style={{
@@ -38,64 +43,86 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Tipo de Alimentacion</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Propia"
-            value="propia"
-            status={checkedTipoAlimentacion === 'propia' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoAlimentacion('propia')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Compra"
-            value="compra"
-            status={checkedTipoAlimentacion === 'compra' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoAlimentacion('compra')}
-            color="#008577"
-          />
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Propia"
+              value="propia"
+              status={
+                checkedTipoAlimentacion === 'propia' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedTipoAlimentacion('propia')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Compra"
+              value="compra"
+              status={
+                checkedTipoAlimentacion === 'compra' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedTipoAlimentacion('compra')}
+              color="#008577"
+            />
 
-          <ComponentRadioButton
-            title="Trueque"
-            value="trueque"
-            status={checkedTipoAlimentacion === 'trueque' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoAlimentacion('trueque')}
-            color="#008577"
-          />
-        </ComponentContainer>
+            <ComponentRadioButton
+              title="Trueque"
+              value="trueque"
+              status={
+                checkedTipoAlimentacion === 'trueque' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedTipoAlimentacion('trueque')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Donaciones"
-            value="donaciones"
-            status={checkedTipoAlimentacion === 'donaciones' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoAlimentacion('donaciones')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Naturales"
-            value="naturales"
-            status={checkedTipoAlimentacion === 'naturales' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoAlimentacion('naturales')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Donaciones"
+              value="donaciones"
+              status={
+                checkedTipoAlimentacion === 'donaciones'
+                  ? 'checked'
+                  : 'unchecked'
+              }
+              onPress={() => setCheckedTipoAlimentacion('donaciones')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Naturales"
+              value="naturales"
+              status={
+                checkedTipoAlimentacion === 'naturales'
+                  ? 'checked'
+                  : 'unchecked'
+              }
+              onPress={() => setCheckedTipoAlimentacion('naturales')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Razones Diarias"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Razones Diarias"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

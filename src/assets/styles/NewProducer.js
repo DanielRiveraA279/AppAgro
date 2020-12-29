@@ -2,24 +2,27 @@ const styles = {
   container: {
     flex: 1,
     flexDirection: 'row',
-    margin: 0,
+
   },
 
   header_title: {
-    marginHorizontal: 25,
+    justifyContent: 'flex-start',
   },
 
   SectionLeft: {
     flexDirection: 'row',
-
   },
 
   SectionRight: {
     flexDirection: 'column',
-    margin: 5,
+    width: '100%',
+    padding: '10%',
   },
 
-  SectionRight__button: {},
+  SectionRight__button: {
+    marginTop: '1%',
+    marginBottom: '1%',
+  },
   header: {
     height: 55,
     padding: 10,
@@ -43,7 +46,7 @@ const styles = {
     fontWeight: 'bold',
   },
   TextInput: {
-    width: '92%',
+    width: '100%',
   },
   checkboxContainer: {
     flexDirection: 'row',

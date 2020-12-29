@@ -16,6 +16,29 @@ const reducer = (state, action) => {
         ...state,
         producer_activity: [action.payload],
       };
+    case 'FAMILY_RELATION':
+      return {
+        ...state,
+        family_relation: [action.payload],
+      }
+    case 'PRODUCER_VEHICLE':
+      return {
+        ...state,
+        producer_vehicle: [action.payload],
+      }
+    case 'PRODUCTION':
+      return {
+        production: [action.payload],
+      };
+    case 'PRODUCTION_AGRICULTURAL':
+      return {
+        production_agricultural: [action.payload],
+      }
+    case 'PRODUCTION_AGROINDUSTRIAL':
+      return {
+        production_agroindustrial: [action.payload],
+      }
+
     default:
       return state;
   }

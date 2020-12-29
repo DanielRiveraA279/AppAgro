@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {productionAgroindustrialPost} from '../actions/index';
+
 import {View} from 'react-native';
 import {
   TextInput,
@@ -21,15 +24,20 @@ const FormAgroIndustria = ({
   setCurrentPosition,
   currentPosition,
   styles,
+  production_agroindustrial,
+  productionAgroindustrialPost,
 }) => {
-
   const [checkedMateriaPrima, setCheckedMateriaPrima] = React.useState('');
   const [checkedMecanizada, setCheckedMecanizada] = React.useState(false);
   const [checkedConocimiento, setCheckedConocimiento] = React.useState('');
+  const [descripcion, setDescripcion] = React.useState('');
 
   const [visibleHerramienta, setVisibleHerramienta] = React.useState(false);
   const [visibleArtesanal, setVisibleArtesanal] = React.useState(false);
   const [visibleAlimentario, setVisibleAlimentario] = React.useState(false);
+  const [artesanal, setArtesanal] = React.useState([]);
+  const [herramienta, setHerramienta] = React.useState([]);
+  const [alimentario, setAlimentario] = React.useState([]);
 
   const showModalHerramienta = () => setVisibleHerramienta(true);
   const hideModalHerramienta = () => setVisibleHerramienta(false);
@@ -40,20 +48,45 @@ const FormAgroIndustria = ({
 
   //accion del boton
   const nextStep = () => {
-    if (currentPosition === 7) {
+    productionAgroindustrialPost({
+      description: descripcion,
+      raw_material: checkedMateriaPrima,
+      is_mechanized: checkedMecanizada,
+      knowledge: checkedConocimiento,
+      agroindustrial_food_product: alimentario,
+      agroindustrial_handmande_product: artesanal,
+      agroindustrial_tools: herramienta,
+    });
+
+    if (currentPosition === 6) {
       setCurrentPosition(currentPosition + 1);
       console.log('Agroindustria: ' + currentPosition);
     } else {
-      setCurrentPosition(7);
+      setCurrentPosition(6);
     }
   };
 
   const backStep = () => {
-    if (currentPosition === 7) {
+    production_agroindustrial.map((item) => {
+      console.log(item);
+    })
+    if (currentPosition === 6) {
       setCurrentPosition(currentPosition - 1);
     } else {
-      setCurrentPosition(7);
+      setCurrentPosition(6);
     }
+  };
+
+  const itemDeleteHerramienta = (value) => {
+    setHerramienta(herramienta.filter((item) => item !== value));
+  };
+
+  const itemDeleteArtesanal = (value) => {
+    setArtesanal(artesanal.filter((item) => item !== value));
+  };
+
+  const itemDeleteAlimentario = (value) => {
+    setAlimentario(alimentario.filter((item) => item !== value));
   };
 
   return (
@@ -62,14 +95,20 @@ const FormAgroIndustria = ({
         <FormModalHerramienta
           visible={visibleHerramienta}
           hideModal={hideModalHerramienta}
+          herramienta={herramienta}
+          setHerramienta={setHerramienta}
         />
         <FormModalArtesanal
           visible={visibleArtesanal}
           hideModal={hideModalArtesanal}
+          artesanal={artesanal}
+          setArtesanal={setArtesanal}
         />
         <FormModalAlimentario
           visible={visibleAlimentario}
           hideModal={hideModalAlimentario}
+          alimentario={alimentario}
+          setAlimentario={setAlimentario}
         />
 
         <View
@@ -84,6 +123,8 @@ const FormAgroIndustria = ({
             mode="outlined"
             label="Descripcion"
             style={styles.TextInput}
+            value={descripcion}
+            onChangeText={(value) => setDescripcion(value)}
           />
         </ComponentContainer>
 
@@ -139,23 +180,24 @@ const FormAgroIndustria = ({
         </View>
 
         <ComponentContainer>
-        <ComponentRadioButton
+          <ComponentRadioButton
             title="Formal"
             value="formal"
             status={checkedConocimiento === 'formal' ? 'checked' : 'unchecked'}
             onPress={() => setCheckedConocimiento('formal')}
             color="#008577"
           />
-           <ComponentRadioButton
+          <ComponentRadioButton
             title="Informal"
             value="informal"
-            status={checkedConocimiento === 'informal' ? 'checked' : 'unchecked'}
+            status={
+              checkedConocimiento === 'informal' ? 'checked' : 'unchecked'
+            }
             onPress={() => setCheckedConocimiento('informal')}
             color="#008577"
           />
         </ComponentContainer>
 
-       
         <ComponentContainer>
           <Button
             mode="text  "
@@ -188,40 +230,56 @@ const FormAgroIndustria = ({
               flexDirection: 'column',
               justifyContent: 'flex-end',
             }}>
-            <List.AccordionGroup>
-              <List.Accordion
-                title="Herramientas"
-                id="0"
-                left={(props) => <List.Icon {...props} icon="equal" />}>
-                <List.Item
-                  title="First Item"
-                  left={(props) => <List.Icon {...props} icon="delete" />}
-                  onPress={() => console.log('ELiminado')}
-                />
-              </List.Accordion>
+            <List.Accordion
+              title="Herramientas"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(herramienta).length === 0
+                ? null
+                : herramienta.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={item.name_tool}
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDeleteHerramienta(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
 
-              <List.Accordion
-                title="Productos Artesanales"
-                id="0"
-                left={(props) => <List.Icon {...props} icon="equal" />}>
-                <List.Item
-                  title="First Item"
-                  left={(props) => <List.Icon {...props} icon="delete" />}
-                  onPress={() => console.log('ELiminado')}
-                />
-              </List.Accordion>
+            <List.Accordion
+              title="Productos Artesanales"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(artesanal).length === 0
+                ? null
+                : artesanal.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={item.name_product}
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDeleteArtesanal(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
 
-              <List.Accordion
-                title="Productos Alimentarios"
-                id="0"
-                left={(props) => <List.Icon {...props} icon="equal" />}>
-                <List.Item
-                  title="First Item"
-                  left={(props) => <List.Icon {...props} icon="delete" />}
-                  onPress={() => console.log('ELiminado')}
-                />
-              </List.Accordion>
-            </List.AccordionGroup>
+            <List.Accordion
+              title="Productos Alimentarios"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(alimentario).length === 0
+                ? null
+                : alimentario.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={item.name_product}
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDeleteAlimentario(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
           </View>
         </View>
 
@@ -244,4 +302,14 @@ const FormAgroIndustria = ({
   );
 };
 
-export default FormAgroIndustria;
+const mapStateToProps = (state) => {
+  return {
+    production_agroindustrial: state.production_agroindustrial,
+  };
+};
+
+const mapDispatchToProps = {
+  productionAgroindustrialPost,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormAgroIndustria);

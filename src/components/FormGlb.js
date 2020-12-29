@@ -47,16 +47,6 @@ const FormGlb = ({
         />
       );
 
-    case 'Informe Social':
-      return (
-        <FormInformeSocial
-          titulo={titulo}
-          setCurrentPosition={setCurrentPosition}
-          currentPosition={currentPosition}
-          styles={styles}
-        />
-      );
-
     case 'Vehiculos':
       return (
         <FormVehiculos

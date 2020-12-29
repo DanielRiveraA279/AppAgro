@@ -9,6 +9,7 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
 
@@ -30,63 +31,77 @@ const FormModal = ({visible, hideModal}) => {
       <View>
         <Title>Ciclo Avicultura</Title>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Avicultura Intensiva"
-            disabled={false}
-            value={checkedAviCultIntensiva}
-            onValueChange={(value) => setCheckedAviCultIntensiva(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Avicultura Intensiva"
+              disabled={false}
+              value={checkedAviCultIntensiva}
+              onValueChange={(value) => setCheckedAviCultIntensiva(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Planta de Incuvacion"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Planta de Incuvacion"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Machos Reproductores"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Machos Reproductores"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Huevos incubables y Pollos bebes"
-            disabled={false}
-            value={checkedHuvosIncubPollosBebes}
-            onValueChange={(value) => setCheckedHuvosIncubPollosBebes(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Huevos incubables y Pollos bebes"
+              disabled={false}
+              value={checkedHuvosIncubPollosBebes}
+              onValueChange={(value) => setCheckedHuvosIncubPollosBebes(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Cantidad de Incubadoras"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Cantidad de Incubadoras"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Parrillero en Engorde"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Parrillero en Engorde"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Ponedores Reproductores"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Ponedores Reproductores"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View
           style={{
@@ -96,35 +111,39 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Existencia</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Gallinas"
-            disabled={false}
-            value={checkedGallinas}
-            onValueChange={(value) => setCheckedGallinas(value)}
-          />
-          <ComponentCheckBox
-            title="Gallos"
-            disabled={false}
-            value={checkedGallos}
-            onValueChange={(value) => setCheckedGallos(value)}
-          />
-          <ComponentCheckBox
-            title="Pollos"
-            disabled={false}
-            value={checkedPollos}
-            onValueChange={(value) => setCheckedPollos(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Gallinas"
+              disabled={false}
+              value={checkedGallinas}
+              onValueChange={(value) => setCheckedGallinas(value)}
+            />
+            <ComponentCheckBox
+              title="Gallos"
+              disabled={false}
+              value={checkedGallos}
+              onValueChange={(value) => setCheckedGallos(value)}
+            />
+            <ComponentCheckBox
+              title="Pollos"
+              disabled={false}
+              value={checkedPollos}
+              onValueChange={(value) => setCheckedPollos(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

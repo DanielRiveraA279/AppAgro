@@ -10,6 +10,7 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentRadioButton from '../RadioButton';
 import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
@@ -38,31 +39,35 @@ const FormModal = ({visible, hideModal}) => {
           </View>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Especie 1"
-            value="especia 1"
-            status={checkedEspecie === 'especia 1' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedEspecie('especia 1')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Especie 2"
-            value="Especie 2"
-            status={checkedEspecie === 'Especie 2' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedEspecie('Especie 2')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Especie 1"
+              value="especia 1"
+              status={checkedEspecie === 'especia 1' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedEspecie('especia 1')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Especie 2"
+              value="Especie 2"
+              status={checkedEspecie === 'Especie 2' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedEspecie('Especie 2')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Existencia Colmena"
-            disabled={false}
-            value={checkedExistColmena}
-            onValueChange={(value) => setCheckedExistColmena(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="Existencia Colmena"
+              disabled={false}
+              value={checkedExistColmena}
+              onValueChange={(value) => setCheckedExistColmena(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View
           style={{
@@ -71,39 +76,44 @@ const FormModal = ({visible, hideModal}) => {
           }}>
           <Caption>Tipo</Caption>
         </View>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Propias"
+              value="propias"
+              status={checkedTipo === 'propias' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedTipo('propias')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Terceros"
+              value="terceros"
+              status={checkedTipo === 'terceros' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedTipo('terceros')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Propias"
-            value="propias"
-            status={checkedTipo === 'propias' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipo('propias')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Terceros"
-            value="terceros"
-            status={checkedTipo === 'terceros' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipo('terceros')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Cantidad de Cajones"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Cantidad de Cajones"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Cant. Alsas por Cajones"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Cant. Alsas por Cajones"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View style={{flexDirection: 'row'}}>
           <View
@@ -116,38 +126,44 @@ const FormModal = ({visible, hideModal}) => {
           </View>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Fijos"
-            value="fijos"
-            status={checkedCajones === 'fijos' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedCajones('fijos')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Moviles"
-            value="moviles"
-            status={checkedCajones === 'moviles' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedCajones('moviles')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Fijos"
+              value="fijos"
+              status={checkedCajones === 'fijos' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedCajones('fijos')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Moviles"
+              value="moviles"
+              status={checkedCajones === 'moviles' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedCajones('moviles')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Litros por Cajon"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Litros por Cajon"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Periodo de Ponilizacion"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Periodo de Ponilizacion"
+              style={styles.TextInput}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
         <View
           style={{
@@ -157,40 +173,46 @@ const FormModal = ({visible, hideModal}) => {
           <Caption>Tipo de Flor</Caption>
         </View>
 
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Tipo 1"
-            value="Tipo 1"
-            status={checkedTipoFlor === 'Tipo 1' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoFlor('Tipo 1')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Tipo 2"
-            value="Tipo 2"
-            status={checkedTipoFlor === 'Tipo 2' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoFlor('Tipo 2')}
-            color="#008577"
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Tipo 1"
+              value="Tipo 1"
+              status={checkedTipoFlor === 'Tipo 1' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedTipoFlor('Tipo 1')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Tipo 2"
+              value="Tipo 2"
+              status={checkedTipoFlor === 'Tipo 2' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedTipoFlor('Tipo 2')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="RENAPA"
-            disabled={false}
-            value={checkedRenapa}
-            onValueChange={(value) => setCheckedRenapa(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentCheckBox
+              title="RENAPA"
+              disabled={false}
+              value={checkedRenapa}
+              onValueChange={(value) => setCheckedRenapa(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

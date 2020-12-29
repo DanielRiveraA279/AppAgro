@@ -10,18 +10,55 @@ import {
   Caption,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
+
 import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
+import ComponentRadioButton from '../RadioButton';
 
-const FormModal = ({visible, hideModal}) => {
-  const [checkedAgricola, setCheckedAgricola] = React.useState(false);
-  const [checkedGanadera, setCheckedGanadera] = React.useState(false);
-  const [checkedAgroIndustria, setCheckedAgroIndustria] = React.useState(false);
-  const [checkedPropia, setCheckedPropia] = React.useState(false);
-  const [checkedAlquilada, setCheckedAlquilada] = React.useState(false);
-  const [checkedPrestada, setCheckedPrestada] = React.useState(false);
+const FormModal = ({visible, hideModal, maquinaria, setMaquinaria}) => {
+  const [checkedDestino, setCheckedDestino] = React.useState('');
+  const [checkedTipoMaquina, setCheckedTipoMaquina] = React.useState('');
+
+  const [nombre, setNombre] = React.useState('');
+  const [modelo, setModelo] = React.useState('');
+  const [antiguedad, setAntiguedad] = React.useState('');
+  const [estado, setEstado] = React.useState('');
+  const [observacion, setObservacion] = React.useState('');
 
   const FormMaquinaria = () => {
+    
+    const addProductionMachine = () => {
+      const dataNew = {
+        destination: checkedDestino,
+        name_machine: nombre,
+        type_maquinary: checkedTipoMaquina,
+        model: modelo,
+        state_machine: estado,
+        age: antiguedad,
+        observation: observacion,
+      };
+
+      const dataOld = [];
+
+      if (Object.keys(maquinaria).length !== 0) {
+        maquinaria.map((item) => {
+          dataOld.push(item);
+        });
+        setMaquinaria([...dataOld, dataNew]);
+      } else {
+        setMaquinaria([dataNew]);
+      }
+
+      setCheckedDestino('');
+      setNombre('');
+      setCheckedTipoMaquina('');
+      setModelo('');
+      setAntiguedad('');
+      setEstado('');
+      setObservacion('');
+    };
+
     return (
       <View style={styles.container}>
         <Title>Maquinaria</Title>
@@ -32,93 +69,147 @@ const FormModal = ({visible, hideModal}) => {
           }}>
           <Caption>Destino</Caption>
         </View>
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Agricola"
-            disabled={false}
-            value={checkedAgricola}
-            onValueChange={(value) => setCheckedAgricola(value)}
-          />
-          <ComponentCheckBox
-            title="Ganadera"
-            disabled={false}
-            value={checkedGanadera}
-            onValueChange={(value) => setCheckedGanadera(value)}
-          />
-        </ComponentContainer>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Agro-Industria"
-            disabled={false}
-            value={checkedAgroIndustria}
-            onValueChange={(value) => setCheckedAgroIndustria(value)}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Agricola"
+              value="agricola"
+              status={checkedDestino === 'agricola' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedDestino('agricola')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Ganadera"
+              value="ganadera"
+              status={checkedDestino === 'ganadera' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedDestino('ganadera')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Agro-Industria"
+              value="agroindustria"
+              status={
+                checkedDestino === 'agroindustria' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedDestino('agroindustria')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Maquinaria"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Maquinaria"
+              style={styles.TextInput}
+              value={nombre}
+              onChangeText={(value) => setNombre(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Propia"
-            disabled={false}
-            value={checkedPropia}
-            onValueChange={(value) => setCheckedPropia(value)}
-          />
-          <ComponentCheckBox
-            title="Alquilada"
-            disabled={false}
-            value={checkedAlquilada}
-            onValueChange={(value) => setCheckedAlquilada(value)}
-          />
-        </ComponentContainer>
-        <ComponentContainer>
-          <ComponentCheckBox
-            title="Prestada"
-            disabled={false}
-            value={checkedPrestada}
-            onValueChange={(value) => setCheckedPrestada(value)}
-          />
-        </ComponentContainer>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Caption>Tipo</Caption>
+        </View>
 
-        <ComponentContainer>
-          <TextInput mode="outlined" label="Modelo" style={styles.TextInput} />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <ComponentRadioButton
+              title="Propia"
+              value="propia"
+              status={checkedTipoMaquina === 'propia' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedTipoMaquina('propia')}
+              color="#008577"
+            />
+            <ComponentRadioButton
+              title="Alquilada"
+              value="alquilada"
+              status={
+                checkedTipoMaquina === 'alquilada' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedTipoMaquina('alquilada')}
+              color="#008577"
+            />
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Antiguedad"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+            <ComponentRadioButton
+              title="Prestada"
+              value="prestada"
+              status={
+                checkedTipoMaquina === 'prestada' ? 'checked' : 'unchecked'
+              }
+              onPress={() => setCheckedTipoMaquina('prestada')}
+              color="#008577"
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput mode="outlined" label="Estado" style={styles.TextInput} />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              label="Modelo"
+              value={modelo}
+              style={styles.TextInput}
+              onChangeText={(value) => setModelo(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Observacion"
-            style={styles.TextInput}
-          />
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              value={antiguedad}
+              label="Antiguedad"
+              style={styles.TextInput}
+              onChangeText={(value) => setAntiguedad(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-        <ComponentContainer>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Guardar
-          </Button>
-          <Button mode="text" style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
-        </ComponentContainer>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              value={estado}
+              label="Estado"
+              style={styles.TextInput}
+              onChangeText={(value) => setEstado(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
+
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <TextInput
+              mode="outlined"
+              value={observacion}
+              label="Observacion"
+              style={styles.TextInput}
+              onChangeText={(value) => setObservacion(value)}
+            />
+          </ComponentContainer>
+        </ComponentContainerGlobal>
+
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => addProductionMachine()}>
+              Guardar
+            </Button>
+            <Button mode="text" style={styles.SectionRight__button} onPress={() => hideModal()}>
+              Cancelar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
       </View>
     );
   };

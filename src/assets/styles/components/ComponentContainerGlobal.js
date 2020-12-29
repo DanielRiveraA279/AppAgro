@@ -1,9 +1,7 @@
 const styles = {
   container: {
-    flex:1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginBottom: 7,
+    justifyContent: 'center',
   },
 };
 

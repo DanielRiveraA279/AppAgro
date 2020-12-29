@@ -1,9 +1,9 @@
 const styles = {
   container: {
     backgroundColor: 'white',
-    margin: 6,
-    padding: 3,
     borderRadius: 8,
+    margin: '4%', 
+    padding: '1%',
   },
   TextInput: {
     width: '100%',

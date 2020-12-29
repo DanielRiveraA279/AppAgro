@@ -7,6 +7,11 @@ import StackNavigator from './src/routes/StackNavigator';
 const initialState = {
   "data_producer": [],
   "producer_activity": [],
+  "family_relation": [],
+  "producer_vehicle": [],
+  "production": [],
+  "production_agricultural": [],
+  "production_agroindustrial": [],
 };
 
 const store = createStore(reducer, initialState);

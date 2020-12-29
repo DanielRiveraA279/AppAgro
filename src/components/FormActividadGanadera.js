@@ -93,10 +93,10 @@ const FormActividadGanadera = ({
   const hideModalTipoAlimentacion = () => setVisibleTipoAlimentacion(false);
 
   const backStep = () => {
-    if (currentPosition === 8) {
+    if (currentPosition === 7) {
       setCurrentPosition(currentPosition - 1);
     } else {
-      setCurrentPosition(8);
+      setCurrentPosition(7);
     }
   };
 
@@ -179,7 +179,7 @@ const FormActividadGanadera = ({
               }}>
               <List.AccordionGroup>
                 <List.Accordion
-                  title="Seleccione Tipo Actividad"
+                  title="Tipo Actividad"
                   id="4"
                   left={(props) => <List.Icon {...props} icon="equal" />}>
                   <List.Item title="Bovinos" />
@@ -215,7 +215,7 @@ const FormActividadGanadera = ({
               }}>
               <List.AccordionGroup>
                 <List.Accordion
-                  title="Seleccione Tipo de Destino"
+                  title="Tipo de Destino"
                   id="4"
                   left={(props) => <List.Icon {...props} icon="equal" />}>
                   <List.Item title="Consumo" />

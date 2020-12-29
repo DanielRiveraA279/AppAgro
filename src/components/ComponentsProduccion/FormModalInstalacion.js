@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import Geolocation from '@react-native-community/geolocation';
 import {View, ScrollView} from 'react-native';
 
 import {
@@ -9,26 +10,184 @@ import {
   Title,
   Caption,
   List,
+  Paragraph,
 } from 'react-native-paper';
 import ComponentContainer from '../ComponentContainer';
+import ComponentContainerGlobal from '../ComponentContainerGlobal';
 import ComponentCheckBox from '../CheckBox';
 import styles from '../../assets/styles/components/Modals';
+import MessageError from '../MessageError';
 
-const FormModal = ({visible, hideModal}) => {
-
+const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
   const [checkedMolinoViento, setCheckedMolinoViento] = React.useState(false);
-  const [checkedTanqueAustraliano, setCheckedTanqueAustraliano] = React.useState(false);
+  const [
+    checkedTanqueAustraliano,
+    setCheckedTanqueAustraliano,
+  ] = React.useState(false);
   const [checkedRepresa, setCheckedRepresa] = React.useState(false);
   const [checkedBalanzaCamion, setCheckedBalanzaCamion] = React.useState(false);
-  const [checkedPicadaCortFueg, setCheckedPicadaCortFueg] = React.useState(false);
+  const [checkedPicadaCortFueg, setCheckedPicadaCortFueg] = React.useState(
+    false,
+  );
   const [checkedPicadaAcceso, setCheckedPicadaAcceso] = React.useState(false);
-  const [checkedPiletaAcuicultura, setCheckedPiletaAcuicultura] = React.useState(false);
+  const [
+    checkedPiletaAcuicultura,
+    setCheckedPiletaAcuicultura,
+  ] = React.useState(false);
   const [checkedActivo, setCheckedActivo] = React.useState(false);
- 
+
+  const [superficie, setSuperficie] = React.useState('');
+
+  const [latGalpon, setLatGalpon] = React.useState('');
+  const [lonGalpon, setLonGalpon] = React.useState('');
+  const [latPozo, setLatPozo] = React.useState('');
+  const [lonPozo, setLonPozo] = React.useState('');
+  const [geo, setGeo] = React.useState([]);
+
+  const [pozos, setPozos] = React.useState([]);
+  const [galpon, setGalpon] = React.useState([]);
+  const data = [];
+
   const FormInstalacion = () => {
+    const ShowAlert = () => {
+      MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
+    };
+
+    const ValidationGalpon = () => {
+      if (latGalpon.trim() === '' || lonGalpon.trim() === '') {
+        ShowAlert();
+      } else {
+        addGalpon();
+      }
+    };
+
+    const ValidationPozos = () => {
+      if (latPozo.trim() === '' || lonPozo.trim() === '') {
+        ShowAlert();
+      } else {
+        addPozo();
+      }
+    };
+
+    const addGalpon = () => {
+      const dataNew = {
+        surface: superficie,
+        lat: latGalpon,
+        lng: lonGalpon,
+      };
+
+      let dataOld = [];
+
+      if (Object.keys(galpon).length !== 0) {
+        galpon.map((item) => {
+          dataOld.push(item);
+        });
+        setGalpon([...dataOld, dataNew]);
+      } else {
+        setGalpon([dataNew]);
+      }
+
+      setSuperficie('');
+      setLatGalpon('');
+      setLonGalpon('');
+    };
+
+    const addPozo = () => {
+      const dataNew = {
+        is_active: checkedActivo,
+        lat: latPozo,
+        lng: lonPozo,
+      };
+
+      let dataOld = [];
+
+      if (Object.keys(pozos).length !== 0) {
+        pozos.map((item) => {
+          dataOld.push(item);
+        });
+        setPozos([...dataOld, dataNew]);
+      } else {
+        setPozos([dataNew]);
+      }
+
+      setCheckedActivo(false);
+      setLatPozo('');
+      setLonPozo('');
+    };
+
+    const itemDeleteGalpon = (value) => {
+      setGalpon(galpon.filter((item) => item !== value));
+    };
+
+    const itemDeletePozo = (value) => {
+      setPozos(pozos.filter((item) => item !== value));
+    };
+
+    const GeoGalpon = () => {
+      Geolocation.getCurrentPosition((info) => data.push(info));
+
+      setGeo(data);
+
+      geo.map((item) => {
+        console.log('Lat:', item.coords.latitude);
+        console.log('Lon:', item.coords.longitude);
+
+        setLatGalpon(String(item.coords.latitude));
+        setLonGalpon(String(item.coords.longitude));
+      });
+    };
+
+    const GeoPozo = () => {
+      Geolocation.getCurrentPosition((info) => data.push(info));
+
+      setGeo(data);
+
+      geo.map((item) => {
+        console.log('Lat:', item.coords.latitude);
+        console.log('Lon:', item.coords.longitude);
+
+        setLatPozo(String(item.coords.latitude));
+        setLonPozo(String(item.coords.longitude));
+      });
+    };
+
+    const addInstalacion = () => {
+      const dataNew = {
+        has_windmills: checkedMolinoViento,
+        has_australian_tanks: checkedTanqueAustraliano,
+        has_dams: checkedRepresa,
+        has_truck_scale: checkedBalanzaCamion,
+        has_fire_break: checkedPicadaCortFueg,
+        has_minced_steel: checkedPicadaAcceso,
+        has_pools: checkedPiletaAcuicultura,
+        installation_barn: galpon,
+        installation_well: pozos,
+      };
+
+      const dataOld = [];
+
+      if (Object.keys(instalacion).length !== 0) {
+        instalacion.map((item) => {
+          dataOld.push(item);
+        });
+        setInstalacion([...dataOld, dataNew]);
+      } else {
+        setInstalacion([dataNew]);
+      }
+      
+      setCheckedMolinoViento(false);
+      setCheckedTanqueAustraliano(false);
+      setCheckedRepresa(false);
+      setCheckedBalanzaCamion(false);
+      setCheckedPicadaCortFueg(false);
+      setCheckedPicadaAcceso(false);
+      setCheckedPiletaAcuicultura(false);
+    };
+
     return (
-        <View style={styles.container}>
-          <Title>Instalaciones</Title>
+      <View style={styles.container}>
+        <Title>Instalaciones</Title>
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Molino de Viento"
@@ -37,7 +196,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedMolinoViento(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Tanques Australianos"
@@ -46,7 +207,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedTanqueAustraliano(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Represas/Tajamares"
@@ -55,7 +218,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedRepresa(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Balanza para Camiones"
@@ -64,7 +229,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedBalanzaCamion(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Picadas Cortafuego"
@@ -73,7 +240,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedPicadaCortFueg(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Picadas de Acceso"
@@ -82,7 +251,9 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedPicadaAcceso(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Piletas para Acuicultura"
@@ -91,53 +262,77 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedPiletaAcuicultura(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Caption>Galpones</Caption>
-          </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Caption>Galpones</Caption>
+        </View>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <TextInput
               mode="outlined"
               label="Superficie"
               style={styles.TextInput}
+              value={superficie}
+              onChangeText={(value) => setSuperficie(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              label="Latitud"
-              style={styles.TextInput}
-            />
+            <Paragraph>{`LATITUD:`} </Paragraph>
+            <Paragraph
+              style={{
+                color: '#2B4A73',
+                fontWeight: 'bold',
+              }}>{`${latGalpon}`}</Paragraph>
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              label="Longitud"
-              style={styles.TextInput}
-            />
+            <Paragraph>{`LONGIUD:`} </Paragraph>
+            <Paragraph
+              style={{
+                color: '#2B4A73',
+                fontWeight: 'bold',
+              }}>{`${lonGalpon}`}</Paragraph>
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
-            <Button mode="text" style={styles.SectionRight__button}>
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => GeoGalpon()}>
               Localizar
             </Button>
+
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => ValidationGalpon()}>
+              Agregar
+            </Button>
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Caption>Posos de Agua</Caption>
-          </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Caption>Posos de Agua</Caption>
+        </View>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <ComponentCheckBox
               title="Activo?"
@@ -146,86 +341,111 @@ const FormModal = ({visible, hideModal}) => {
               onValueChange={(value) => setCheckedActivo(value)}
             />
           </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              label="Latitud"
-              style={styles.TextInput}
-            />
-          </ComponentContainer>
-
-          <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              label="Longitud"
-              style={styles.TextInput}
-            />
-          </ComponentContainer>
-
-          <ComponentContainer>
-            <Button mode="text" style={styles.SectionRight__button}>
-              Localizar
-            </Button>
-          </ComponentContainer>
-
-          <ComponentContainer>
-            <Button mode="text" style={styles.SectionRight__button}>
-              Agregar
-            </Button>
-            <Button mode="text" style={styles.SectionRight__button}>
-              Cancelar
-            </Button>
-          </ComponentContainer>
-
-          <View style={{flexDirection: 'row'}}>
-            <View
+            <Paragraph>{`LATITUD:`} </Paragraph>
+            <Paragraph
               style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}>
-              <List.AccordionGroup>
-                <List.Accordion
-                  title="Lista de Galpones"
-                  id="0"
-                  left={(props) => <List.Icon {...props} icon="equal" />}>
-                  <List.Item
-                    title="First Item"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
+                color: '#2B4A73',
+                fontWeight: 'bold',
+              }}>{`${latPozo}`}</Paragraph>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
-                <List.Accordion
-                  title="Lista de Pozos de Agua"
-                  id="0"
-                  left={(props) => <List.Icon {...props} icon="equal" />}>
-                  <List.Item
-                    title="First Item"
-                    left={(props) => <List.Icon {...props} icon="delete" />}
-                    onPress={() => console.log('ELiminado')}
-                  />
-                </List.Accordion>
-              </List.AccordionGroup>
-            </View>
-          </View>
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Paragraph>{`LONGITUD:`} </Paragraph>
+            <Paragraph
+              style={{
+                color: '#2B4A73',
+                fontWeight: 'bold',
+              }}>{`${lonPozo}`}</Paragraph>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
 
+        <ComponentContainerGlobal>
           <ComponentContainer>
             <Button
               mode="text"
               style={styles.SectionRight__button}
-              onPress={hideModal}>
+              onPress={() => GeoPozo()}>
+              Localizar
+            </Button>
+
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => ValidationPozos()}>
+              Agregar
+            </Button>
+          </ComponentContainer>
+        </ComponentContainerGlobal>
+
+        <ComponentContainerGlobal>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+            }}>
+            <List.Accordion
+              title="Lista de Galpones"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(galpon).length === 0
+                ? null
+                : galpon.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={`Lat: ${item.lat} - Long ${item.lng}`}
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDeleteGalpon(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
+
+            <List.Accordion
+              title="Lista de Pozos"
+              left={(props) => <List.Icon {...props} icon="equal" />}>
+              {Object.keys(pozos).length === 0
+                ? null
+                : pozos.map((item, key) => {
+                    return (
+                      <List.Item
+                        key={key}
+                        title={`Lat: ${item.lat} - Long ${item.lng}`}
+                        description={
+                          item.is_active ? 'Si Esta Activo' : 'No Esta Activo'
+                        }
+                        left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={() => itemDeletePozo(item)}
+                      />
+                    );
+                  })}
+            </List.Accordion>
+          </View>
+        </ComponentContainerGlobal>
+
+        <ComponentContainerGlobal>
+          <ComponentContainer>
+            <Button
+              mode="text"
+              style={styles.SectionRight__button}
+              onPress={() => addInstalacion()}>
               Guardar
             </Button>
             <Button
               mode="text"
               style={styles.SectionRight__button}
-              onPress={hideModal}>
+              onPress={() => hideModal()}>
               Cancelar
             </Button>
           </ComponentContainer>
-        </View>
+        </ComponentContainerGlobal>
+      </View>
     );
   };
 

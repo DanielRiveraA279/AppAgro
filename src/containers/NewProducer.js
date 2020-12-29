@@ -34,7 +34,6 @@ const datos = [
   'Productor',
   'Actividad Laboral',
   'Grupo Familiar',
-  'Informe Social',
   'Vehiculos',
   'Produccion',
   'Produccion Agricola',
@@ -58,18 +57,18 @@ const NewProducer = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.SectionLeft}>
-        <StepIndicator
-          customStyles={customStyles}
-          currentPosition={currentPosition}
-          stepCount={8}
-          direction="vertical"
-        />
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.SectionLeft}>
+          <StepIndicator
+            customStyles={customStyles}
+            currentPosition={currentPosition}
+            stepCount={8}
+            direction="vertical"
+          />
+        </View>
 
-      <View style={styles.SectionRight}>
-        <ScrollView>
+        <View style={styles.SectionRight}>
           {currentPosition === 0 ? (
             <FormGlb
               nameForm="Productor"
@@ -102,7 +101,7 @@ const NewProducer = () => {
 
           {currentPosition === 3 ? (
             <FormGlb
-              nameForm="Informe Social"
+              nameForm="Vehiculos"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
@@ -112,7 +111,7 @@ const NewProducer = () => {
 
           {currentPosition === 4 ? (
             <FormGlb
-              nameForm="Vehiculos"
+              nameForm="Produccion"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
@@ -122,7 +121,7 @@ const NewProducer = () => {
 
           {currentPosition === 5 ? (
             <FormGlb
-              nameForm="Produccion"
+              nameForm="Produccion Agricola"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
@@ -132,7 +131,7 @@ const NewProducer = () => {
 
           {currentPosition === 6 ? (
             <FormGlb
-              nameForm="Produccion Agricola"
+              nameForm="Agroindustria"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
@@ -142,16 +141,6 @@ const NewProducer = () => {
 
           {currentPosition === 7 ? (
             <FormGlb
-              nameForm="Agroindustria"
-              titulo={datos[currentPosition]}
-              setCurrentPosition={setCurrentPosition}
-              currentPosition={currentPosition}
-              styles={styles}
-            />
-          ) : null}
-
-          {currentPosition === 8 ? (
-            <FormGlb
               nameForm="Actividad Ganadera"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
@@ -159,9 +148,9 @@ const NewProducer = () => {
               styles={styles}
             />
           ) : null}
-        </ScrollView>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
