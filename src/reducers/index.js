@@ -1,44 +1,107 @@
-const reducer = (state, action) => {
+const reducer = (
+  state = {
+    data_producer: {},
+    producer: {
+      producer_home: {},
+      producer_activity: {},
+      producer_person: [],
+      producer_vehicle: [],
+      production: [],
+    },
+    body: {},
+    result: [],
+    token: [],
+    user_login: [],
+  },
+  action,
+) => {
   switch (action.type) {
     case 'SHOW_USER':
       return {
         ...state,
       };
-
     case 'PRODUCER_POST_LOCAL':
       return {
-        ...state,
-        data_producer: [action.payload],
+        ...state, //copia la estructura del state inicial
+        data_producer: action.payload,
       };
-
+    case 'PRODUCER_HOME':
+      return {
+        ...state,
+        producer: {
+          ...state.producer,
+          producer_home: action.payload,
+        },
+      };
     case 'PRODUCER_ACTIVITY':
       return {
         ...state,
-        producer_activity: [action.payload],
+        producer: {
+          ...state.producer,
+          producer_activity: action.payload,
+        },
       };
-    case 'FAMILY_RELATION':
+    case 'PRODUCER_PERSON':
       return {
         ...state,
-        family_relation: [action.payload],
-      }
+        producer: {
+          ...state.producer,
+          producer_person: action.payload,
+        },
+      };
     case 'PRODUCER_VEHICLE':
       return {
         ...state,
-        producer_vehicle: [action.payload],
-      }
+        producer: {
+          ...state.producer,
+          producer_vehicle: action.payload,
+        },
+      };
     case 'PRODUCTION':
       return {
-        production: [action.payload],
+        ...state,
+        producer: {
+          ...state.producer,
+          production: action.payload,
+        },
       };
-    case 'PRODUCTION_AGRICULTURAL':
+    case 'PRODUCER':
       return {
-        production_agricultural: [action.payload],
-      }
-    case 'PRODUCTION_AGROINDUSTRIAL':
+        ...state,
+        body: {
+          producer: action.payload,
+        },
+      };
+    case 'RESULT':
       return {
-        production_agroindustrial: [action.payload],
-      }
+        ...state,
+        result: [...state.result, action.payload],
+      };
 
+    case 'CLEAR_PRODUCER_FORMS':
+      return {
+        ...state, //copio todo lo que tenga a lado del obj producer
+        data_producer: [],
+        producer: {
+          ...state.producer, //tragio todo lo que tenga dentro del obj producer (arrays)
+          producer_home: {},
+          producer_activity: {},
+          producer_person: [],
+          producer_vehicle: [],
+          production: [],
+        },
+        body: [],
+      };
+    case 'TOKEN_UPDATE':
+      return {
+        ...state,
+        token: action.payload,
+      };
+    case 'USER_LOGIN_UPDATE':
+      return {
+        ...state,
+        user_login: action.payload,
+      };
     default:
       return state;
   }

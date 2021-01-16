@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {producerPostLocal} from '../actions/index';
-import {View, Platform} from 'react-native';
+import {producerPostLocal, producerHomePost} from '../actions/index';
+import {View} from 'react-native';
 import {TextInput, Button, Title, Caption} from 'react-native-paper';
 import ComponentContainer from './ComponentContainer';
 import ComponentRadioButton from './RadioButton';
@@ -13,8 +13,10 @@ const FormProductor = ({
   setCurrentPosition,
   currentPosition,
   styles,
+  producer,
   data_producer,
   producerPostLocal,
+  producerHomePost,
 }) => {
   //valor inicial
   const [nombre, setNombre] = React.useState('');
@@ -46,7 +48,10 @@ const FormProductor = ({
   useEffect(() => {
     //cada vez que entro a esta pantalla seteo lo que tenga redux guardado en su store
     if (Object.keys(data_producer).length !== 0) {
-      seteoComponentes();
+      seteoComponentesProducer();
+    }
+    if (Object.keys(producer.producer_home).length !== 0) {
+      seteoComponentesHome();
     }
   }, []);
 
@@ -61,28 +66,28 @@ const FormProductor = ({
   };
 
   //redux guarda estos datos y cada datos son asignados a su correspondiente campos
-  const seteoComponentes = () => {
-    data_producer.map((item) => {
-      setNombre(item.first_name);
-      setApellido(item.last_name);
-      setFecNac(item.date_birth);
-      setDocumento(item.document);
-      setGenero(item.gender);
-      setTelefono(item.phone_number);
-      setDistrito(item.producer_home.district);
-      setDireccion(item.producer_home.address);
-      setTipoResidencia(item.producer_home.type_recidence);
-      setEstadoResidencia(item.producer_home.state_recidence);
-      console.log('PRODUCTOR: ', item);
-    });
+  const seteoComponentesProducer = () => {
+    setNombre(data_producer.first_name);
+    setApellido(data_producer.last_name);
+    setFecNac(data_producer.date_birth);
+    setDocumento(data_producer.document);
+    setGenero(data_producer.gender);
+    setTelefono(data_producer.phone_number);
+  };
+
+  const seteoComponentesHome = () => {
+    const {producer_home} = producer;
+    setDistrito(producer_home.district);
+    setDireccion(producer_home.address);
+    setTipoResidencia(producer_home.type_recidence);
+    setEstadoResidencia(producer_home.state_recidence);
   };
 
   const showAlertError = () => {
     MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
   };
 
-  /*const siguientePaso = () => {
-
+  const siguientePaso = () => {
     if (nombre.trim() === '') {
       setNombre_error(true);
       showAlertError();
@@ -114,6 +119,7 @@ const FormProductor = ({
       showAlertError();
     } else {
       //ingreso registros y envio al store
+
       producerPostLocal({
         first_name: nombre,
         last_name: apellido,
@@ -121,12 +127,13 @@ const FormProductor = ({
         document: documento,
         gender: genero,
         phone_number: telefono,
-        producer_home: {
-          district: distrito,
-          address: direccion,
-          type_recidence: tipoResidencia,
-          state_recidence: estadoResidencia,
-        },
+      });
+
+      producerHomePost({
+        district: distrito,
+        address: direccion,
+        type_recidence: tipoResidencia,
+        state_recidence: estadoResidencia,
       });
 
       setNombre_error(false);
@@ -144,14 +151,6 @@ const FormProductor = ({
       } else {
         setCurrentPosition(0);
       }
-    }
-  }; */
-
-  const siguientePaso = () => {
-    if (currentPosition === 0) {
-      setCurrentPosition(currentPosition + 1);
-    } else {
-      setCurrentPosition(0);
     }
   };
 
@@ -210,6 +209,7 @@ const FormProductor = ({
       <ComponentContainer>
         <Button
           mode="outlined"
+          color="#008080"
           onPress={() => showDatepicker()}
           style={styles.SectionRight__button}>
           Calendario
@@ -306,6 +306,7 @@ const FormProductor = ({
       <ComponentContainer>
         <Button
           mode="outlined"
+          color="#008080"
           onPress={() => siguientePaso()}
           style={styles.SectionRight__button}>
           Siguiente
@@ -317,12 +318,14 @@ const FormProductor = ({
 
 const mapStateToProps = (state) => {
   return {
+    producer: state.producer,
     data_producer: state.data_producer,
   };
 };
 
 const mapDispatchToProps = {
   producerPostLocal,
+  producerHomePost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormProductor);

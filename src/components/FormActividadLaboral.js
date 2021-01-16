@@ -22,7 +22,7 @@ const FormGrupoActividadLaboral = ({
   setCurrentPosition,
   currentPosition,
   styles,
-  producer_activity,
+  producer,
   producerPostActivity,
 }) => {
   const [checkedTrabajoInformal, setCheckedTrabajoInformal] = React.useState(
@@ -49,21 +49,22 @@ const FormGrupoActividadLaboral = ({
   const [listWorker, setListWorker] = React.useState([]);
 
   useEffect(() => {
-    if (Object.keys(producer_activity).length !== 0) {
-      producer_activity.map((item) => {
-        console.log(item);
-
-        setCheckedTrabajoInformal(item.is_informal_worker);
-        setCheckedTrabajoBajoDependencia(item.works_under_dependency);
-        setCheckedTrabajoMonotributo(item.is_monotributista);
-        setcheckCategoria(item.category);
-        setCheckedContrObrExt(item.use_external_labor);
-        setListWorker(item.activity_worker);
-      });
+    if (Object.keys(producer.producer_activity).length !== 0) {
+      seteoComponente();
     }
   }, []);
 
-  
+  const seteoComponente = () => {
+    const {producer_activity} = producer;
+
+    setCheckedTrabajoInformal(producer_activity.is_informal_worker);
+    setCheckedTrabajoBajoDependencia(producer_activity.works_under_dependency);
+    setCheckedTrabajoMonotributo(producer_activity.is_monotributista);
+    setcheckCategoria(producer_activity.category);
+    setCheckedContrObrExt(producer_activity.use_external_labor);
+    setListWorker(producer_activity.activity_worker);
+  };
+
   const clearData = () => {
     setCheckedTipoPersona('');
     setCheckedResidente(false);
@@ -83,20 +84,11 @@ const FormGrupoActividadLaboral = ({
       work_position: cargo,
       type_job: checkTipo,
     };
-    //2- array
-    let dataOld = [];
-    //3- count of list
-    let i = 1;
-    //4 alidate array
+
+    //alidate array
     if (Object.keys(listWorker).length !== 0) {
-      //map of listWorker
-      listWorker.map((item) => {
-        i += 1;
-        //>>> add register
-        dataOld.push(item);
-      });
       //add dataOld and dataNew
-      setListWorker([...dataOld, dataNew]); //si listWorker esta vacio lo mismo agrega el dato nuevo solo eso
+      setListWorker([...listWorker, dataNew]); //si listWorker esta vacio lo mismo agrega el dato nuevo solo eso
     } else {
       //add dataNew
       setListWorker([dataNew]);
@@ -105,9 +97,6 @@ const FormGrupoActividadLaboral = ({
     setErrorCargo(false);
 
     clearData();
-
-    //Show Count Registers
-    console.log('COUNT: ', i);
   };
 
   const ShowAlert = () => {
@@ -140,7 +129,7 @@ const FormGrupoActividadLaboral = ({
       is_monotributista: checkedTrabajoMonotributo,
       category: checkCategoria,
       use_external_labor: checkedContrObrExt,
-      activity_worker: listWorker,
+      activity_worker: Object.values(listWorker),
     });
 
     //---------------------------------------------------------------
@@ -371,8 +360,6 @@ const FormGrupoActividadLaboral = ({
             onPress={() => setcheckTipo('permanente')}
             color="#008577"
           />
-        </ComponentContainer>
-        <ComponentContainer>
           <ComponentRadioButton
             title="Transitorio"
             value={checkTipo}
@@ -381,15 +368,18 @@ const FormGrupoActividadLaboral = ({
             color="#008577"
           />
         </ComponentContainer>
+
         <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addProducerActivity()}>
             Guardar
           </Button>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => clearData()}>
             Cancelar
@@ -430,12 +420,14 @@ const FormGrupoActividadLaboral = ({
         <ComponentContainer>
           <Button
             mode="outlined"
+            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
           <Button
             mode="outlined"
+            color="#008080"
             onPress={nextStep}
             style={styles.SectionRight__button}>
             Siguiente
@@ -448,7 +440,7 @@ const FormGrupoActividadLaboral = ({
 
 const mapStateToProps = (state) => {
   return {
-    producer_activity: state.producer_activity,
+    producer: state.producer,
   };
 };
 

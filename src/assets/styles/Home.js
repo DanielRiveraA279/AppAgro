@@ -3,7 +3,7 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     alignContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#F1F1F1',
   },
 };
 

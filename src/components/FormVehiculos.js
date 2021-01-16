@@ -16,7 +16,7 @@ const FormVehiculo = ({
   currentPosition,
   styles,
   producerVehiclePost,
-  producer_vehicle,
+  producer,
 }) => {
   const [checkedTipoVehiculo, setCheckedTipoVehiculo] = React.useState('');
   const [checkedSemiRemolque, setCheckedSemiRemolque] = React.useState(false);
@@ -26,16 +26,15 @@ const FormVehiculo = ({
   const [tipoAcopladoError, setTipoAcopladoError] = React.useState(false);
 
   useEffect(() => {
-    if (Object.keys(producer_vehicle).length !== 0) {
-      let dataOld = [];
-      producer_vehicle.map((item) => {
-        item.vehicle.map((item) => {
-          dataOld.push(item);
-        });
-      });
-      setVehicle(dataOld);
+    if (Object.keys(producer.producer_vehicle).length !== 0) {
+      seteoComponente();
     }
   }, []);
+
+  const seteoComponente = () => {
+    const {producer_vehicle} = producer;
+    setVehicle(producer_vehicle);
+  };
 
   const ValidationSuccess = () => {
     const dataNew = {
@@ -43,22 +42,12 @@ const FormVehiculo = ({
       type_trailer: tipoAcoplado,
       use_semitrailer: checkedSemiRemolque,
     };
-    const dataOld = [];
-
-    let i = 1;
 
     if (Object.keys(vehicle).length !== 0) {
-      vehicle.map((item) => {
-        i += 1;
-        dataOld.push(item);
-      });
-
-      setVehicle([...dataOld, dataNew]);
+      setVehicle([...vehicle, dataNew]);
     } else {
       setVehicle([dataNew]);
     }
-
-    console.log('COUNT: ', i);
   };
 
   const ShowAlertError = () => {
@@ -89,7 +78,7 @@ const FormVehiculo = ({
 
   //accion del boton
   const nextStep = () => {
-    producerVehiclePost({vehicle});
+    producerVehiclePost(Object.values(vehicle));
 
     if (currentPosition === 3) {
       setCurrentPosition(currentPosition + 1);
@@ -168,11 +157,12 @@ const FormVehiculo = ({
       <ComponentContainer>
         <Button
           mode="text"
+          color="#008080"
           style={styles.SectionRight__button}
           onPress={() => addVehicle()}>
           Guardar
         </Button>
-        <Button mode="text" style={styles.SectionRight__button}>
+        <Button mode="text" color="#008080" style={styles.SectionRight__button}>
           Cancelar
         </Button>
       </ComponentContainer>
@@ -206,12 +196,14 @@ const FormVehiculo = ({
       <ComponentContainer>
         <Button
           mode="outlined"
+          color="#008080"
           onPress={backStep}
           style={styles.SectionRight__button}>
           Anterior
         </Button>
         <Button
           mode="outlined"
+          color="#008080"
           onPress={nextStep}
           style={styles.SectionRight__button}>
           Siguiente
@@ -223,7 +215,7 @@ const FormVehiculo = ({
 
 const mapStateToProps = (state) => {
   return {
-    producer_vehicle: state.producer_vehicle,
+    producer: state.producer,
   };
 };
 

@@ -8,13 +8,18 @@ export const producerPostLocal = (payload) => ({
   payload,
 });
 
+export const producerHomePost = (payload) => ({
+  type: 'PRODUCER_HOME',
+  payload,
+});
+
 export const producerPostActivity = (payload) => ({
   type: 'PRODUCER_ACTIVITY',
   payload,
 });
 
 export const familyRelationPost = (payload) => ({
-  type: 'FAMILY_RELATION',
+  type: 'PRODUCER_PERSON',
   payload,
 });
 
@@ -23,18 +28,48 @@ export const producerVehiclePost = (payload) => ({
   payload,
 });
 
+//---------------------------------PROPIEDADES DE PRODUCCION-------------------------------------
 export const productionPost = (payload) => ({
   type: 'PRODUCTION',
   payload,
 });
 
-export const productionAgriculturalPost = (payload) => ({
-  type: 'PRODUCTION_AGRICULTURAL',
+export const agriculturalPost = (payload) => ({
+  type: 'AGRICULTURAL',
   payload,
 });
 
 export const productionAgroindustrialPost = (payload) => ({
   type: 'PRODUCTION_AGROINDUSTRIAL',
   payload,
-})
+});
 
+export const productionLivestockPost = (payload) => ({
+  type: 'PRODUCTION_LIVE_STOCK',
+  payload,
+});
+//------------------------------------------------------------------------------------
+
+export const producerPost = (payload) => ({
+  type: 'PRODUCER',
+  payload,
+});
+
+export const resultPost = (payload) => ({
+  type: 'RESULT',
+  payload,
+});
+
+export const clearProducerForms = () => ({
+  type: 'CLEAR_PRODUCER_FORMS',
+});
+
+export const TokenUpdate = (payload) => ({
+  type:'TOKEN_UPDATE',
+  payload,
+});
+
+export const User_login_update = (payload) => ({
+  type: 'USER_LOGIN_UPDATE',
+  payload,
+})

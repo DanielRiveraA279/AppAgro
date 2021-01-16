@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
+import Geolocation from '@react-native-community/geolocation';
 import {productionPost} from '../actions/index';
 
 import {View, ScrollView, SafeAreaView, Dimensions} from 'react-native';
@@ -13,14 +14,21 @@ import {
   Provider,
 } from 'react-native-paper';
 import FormModalTitulo from './ComponentsProduccion/FormModalTitulo.js';
+
 import FormModalServicio from './ComponentsProduccion/FormModalServicio.js';
 import FormModalMaquinaria from './ComponentsProduccion/FormModalMaquinaria.js';
 import FormModalInstalacion from './ComponentsProduccion/FormModalInstalacion.js';
 import FormModalRiego from './ComponentsProduccion/FormModalRiego.js';
+
+import FormModalActividadGanadera from './ComponentsProduccion/FormModalActividadGanadera';
+import FormModalAgroindustria from './ComponentsProduccion/FormModalAgroindustria';
+import FormModalProduccionAgricola from './ComponentsProduccion/FormModalProduccionAgricola';
+
+import FormModalGuardarRedux from './FormGuardarRedux';
+
 import ComponentContainer from './ComponentContainer';
 import ComponentCheckBox from './CheckBox';
 import MessageError from './MessageError';
-import Geolocation from '@react-native-community/geolocation';
 
 const FormProduccion = ({
   titulo,
@@ -28,13 +36,20 @@ const FormProduccion = ({
   currentPosition,
   styles,
   productionPost,
-  production,
+  producer,
 }) => {
   const [visible, setVisible] = React.useState(false);
+  const [visibleTitulo, setVisibleTitulo] = React.useState(false);
   const [visibleServicio, setVisibleServicio] = React.useState(false);
   const [visibleMaquinaria, setVisibleMaquinaria] = React.useState(false);
   const [visibleInstalacion, setVisibleInstalacion] = React.useState(false);
   const [visibleRiego, setVisibleRiego] = React.useState(false);
+  const [visibleGuardarRedux, setVisibleGuardarRedux] = React.useState(false);
+
+  const [visibleActGanadera, setVisibleActGanadera] = React.useState(false);
+  const [visibleAgroindustria, setVisibleAgroindustria] = React.useState(false);
+  const [visibleProdAgricola, setVisibleProdAgricola] = React.useState(false);
+
   const [checkedResidente, setCheckedResidente] = React.useState(false);
 
   const [lat, setLat] = React.useState('');
@@ -49,6 +64,9 @@ const FormProduccion = ({
   const [instalacion, setInstalacion] = React.useState([]);
   const [servicio, setServicio] = React.useState([]);
   const [riego, setRiego] = React.useState([]);
+  const [actGanadera, setActGanadera] = React.useState([]);
+  const [agroIndustria, setAgroIndustria] = React.useState([]);
+  const [prodAgricola, setProdAgricola] = React.useState([]);
 
   //DIMENSIONS
   const CARD_WIDTH = Dimensions.get('window').width * 0.8;
@@ -57,31 +75,64 @@ const FormProduccion = ({
   const [dataProduc, setDataProduc] = React.useState([]);
 
   const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-
+  const showModalTitulo = () => setVisibleTitulo(true);
+  const hideModalTitulo = () => setVisibleTitulo(false);
   const showModalServicio = () => setVisibleServicio(true);
   const hideModalServicio = () => setVisibleServicio(false);
-
   const showModalMaquinaria = () => setVisibleMaquinaria(true);
   const hideModalMaquinaria = () => setVisibleMaquinaria(false);
-
   const showModalInstalacion = () => setVisibleInstalacion(true);
   const hideModalInstalacion = () => setVisibleInstalacion(false);
-
   const showModalRiego = () => setVisibleRiego(true);
   const hideModalRiego = () => setVisibleRiego(false);
+
+  const showModalActGanadera = () => setVisibleActGanadera(true);
+  const hideModalActGanadera = () => setVisibleActGanadera(false);
+  const showModalAgroindustria = () => setVisibleAgroindustria(true);
+  const hideModalAgroindustria = () => setVisibleAgroindustria(false);
+
+  const showModalProdAgricola = () => setVisibleProdAgricola(true);
+  const hideModalProdAgricola = () => setVisibleProdAgricola(false);
+
+  const showModalGuardarRedux = () => setVisibleGuardarRedux(true);
+  const hideModalGuardarRedux = () => setVisibleGuardarRedux(false);
 
   const data = [];
   const [geo, setGeo] = React.useState([]);
 
   useEffect(() => {
-    GeoProduction();
+    dataProduc.map((item) => {
+      item.production_installation.map((item) => {
+        if (Object.values(item.installation_barn).length !== 0) {
+          console.log('Si tiene galpon');
+        } else {
+          console.log('No contiene galpon');
+        }
+
+        if (Object.values(item.installation_well).length !== 0) {
+          console.log('si contiene pozos de agus');
+        } else {
+          console.log('No contene pozos');
+        }
+      });
+    });
+  }, []);
+  useEffect(() => {
+    if (Object.keys(producer.production).length !== 0) {
+      const {production} = producer;
+      setDataProduc(production);
+    }
   }, []);
 
   const addProduc = () => {
     if (distrito.trim() === 'Seleccione un Distrito') {
       ShowAlert();
     } else {
+      const {0: service} = Object.assign({}, servicio);
+      const {0: property} = Object.assign({}, titulos);
+      const {0: installation} = Object.assign({}, instalacion);
+      const {0: irrigation} = Object.assign({}, riego);
+
       const dataNew = {
         is_resident: checkedResidente,
         district: distrito,
@@ -90,20 +141,18 @@ const FormProduccion = ({
         lat: lat,
         lng: lon,
         has_renspa: checkedRenspa,
-        production_property: titulos,
-        production_service: servicio,
-        production_installation: instalacion,
+        production_property: property, //objeto
+        production_service: service, //objeto
+        production_installation: installation, //objeto
         production_machine: maquinaria,
-        production_irrigation: riego,
+        production_irrigation: irrigation, //objeto
+        production_livestock: actGanadera,
+        production_agroindustrial: agroIndustria,
+        production_agricultural: prodAgricola,
       };
 
-      const dataOld = [];
-
       if (Object.keys(dataProduc).length !== 0) {
-        dataProduc.map((item) => {
-          dataOld.push(item);
-        });
-        setDataProduc([...dataOld, dataNew]);
+        setDataProduc([...dataProduc, dataNew]);
       } else {
         setDataProduc([dataNew]);
       }
@@ -120,6 +169,10 @@ const FormProduccion = ({
       setInstalacion([]);
       setMaquinaria([]);
       setRiego([]);
+
+      setProdAgricola([]);
+      setAgroIndustria([]);
+      setActGanadera([]);
     }
   };
 
@@ -139,16 +192,16 @@ const FormProduccion = ({
   };
 
   const GeoProduction = () => {
-    Geolocation.getCurrentPosition((info) => data.push(info));
+    Geolocation.getCurrentPosition((info) => data.push(info.coords));
 
     setGeo(data);
 
     geo.map((item) => {
-      console.log('Lat:', item.coords.latitude);
-      console.log('Lon:', item.coords.longitude);
+      console.log('Lat:', item.latitude);
+      console.log('Lon:', item.longitude);
 
-      setLat(String(item.coords.latitude));
-      setLon(String(item.coords.longitude));
+      setLat(String(item.latitude));
+      setLon(String(item.longitude));
     });
   };
 
@@ -157,19 +210,12 @@ const FormProduccion = ({
   };
 
   //accion del boton
-  const nextStep = () => {
-    productionPost({dataProduc});
+  const guardar = () => {
+    productionPost(dataProduc);
 
-    production.map((item) => {
-      console.log(item.dataProduc);
-    });
-
-    if (currentPosition === 4) {
-      setCurrentPosition(currentPosition + 1);
-      console.log('Produccion: ' + currentPosition);
-    } else {
-      setCurrentPosition(4);
-    }
+    setTimeout(() => {
+      showModalGuardarRedux();
+    }, 2000);
   };
 
   const backStep = () => {
@@ -187,9 +233,14 @@ const FormProduccion = ({
   return (
     <Provider>
       <View>
+        <FormModalGuardarRedux
+          visible={visibleGuardarRedux}
+          hideModal={hideModalGuardarRedux}
+        />
+
         <FormModalTitulo
-          visible={visible}
-          hideModal={hideModal}
+          visible={visibleTitulo}
+          hideModal={hideModalTitulo}
           titulos={titulos}
           setTitulos={setTitulos}
         />
@@ -219,6 +270,27 @@ const FormProduccion = ({
           hideModal={hideModalRiego}
           riego={riego}
           setRiego={setRiego}
+        />
+
+        <FormModalActividadGanadera
+          visibleActGanadera={visibleActGanadera}
+          hideModalActGanadera={hideModalActGanadera}
+          actGanadera={actGanadera}
+          setActGanadera={setActGanadera}
+        />
+
+        <FormModalAgroindustria
+          visibleAgroindustria={visibleAgroindustria}
+          hideModalAgroindustria={hideModalAgroindustria}
+          agroIndustria={agroIndustria}
+          setAgroIndustria={setAgroIndustria}
+        />
+
+        <FormModalProduccionAgricola
+          visibleProdAgricola={visibleProdAgricola}
+          hideModalProdAgricola={hideModalProdAgricola}
+          prodAgricola={prodAgricola}
+          setProdAgricola={setProdAgricola}
         />
 
         <View
@@ -260,7 +332,7 @@ const FormProduccion = ({
         <ComponentContainer>
           <Button
             mode="text"
-            onPress={nextStep}
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => GeoProduction()}>
             Localizar
@@ -383,51 +455,77 @@ const FormProduccion = ({
         <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
-            onPress={showModal}>
+            onPress={showModalTitulo}>
             Titulos
           </Button>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalMaquinaria}>
             Maquinaria
           </Button>
-        </ComponentContainer>
-
-        <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalInstalacion}>
             Instalacion
           </Button>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalServicio}>
             Servicio
           </Button>
-        </ComponentContainer>
-
-        <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalRiego}>
             Riego
+          </Button>
+
+          <Button
+            mode="text"
+            color="#008080"
+            style={styles.SectionRight__button}
+            onPress={showModalProdAgricola}>
+            Agricola
           </Button>
         </ComponentContainer>
 
         <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
+            style={styles.SectionRight__button}
+            onPress={showModalAgroindustria}>
+            Agroindustria
+          </Button>
+          <Button
+            mode="text"
+            color="#008080"
+            style={styles.SectionRight__button}
+            onPress={showModalActGanadera}>
+            Ganadera
+          </Button>
+        </ComponentContainer>
+
+        <ComponentContainer>
+          <Button
+            mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addProduc()}>
             Agregar
           </Button>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => cancelar()}>
             Cancelar
@@ -442,6 +540,7 @@ const FormProduccion = ({
               : dataProduc.map((item, key) => {
                   return (
                     <Card
+                      key={key}
                       elevation={10}
                       style={{
                         backgroundColor: '#fff5ee',
@@ -457,112 +556,155 @@ const FormProduccion = ({
                           left={(props) => (
                             <List.Icon {...props} icon="equal" />
                           )}>
-                          {Object.keys(item.production_property).length === 0
-                            ? null
-                            : item.production_property.map((item, key) => {
-                                return (
-                                  <List.Item
-                                    key={key}
-                                    title={
-                                      'Mtr. Catastr. ' +
-                                      item.cadastre_registration
-                                    }
-                                    description={item.land_tenure}
-                                    left={(props) => <List.Icon {...props} />}
-                                  />
-                                );
-                              })}
+                          {Object.keys(item.production_property).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={
+                                'Mtr. Catastr. ' +
+                                item.production_property.cadastre_registration
+                              }
+                              description={item.production_property.land_tenure}
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )}
                         </List.Accordion>
+
                         <List.Accordion
                           title="Maquinaria"
                           left={(props) => (
                             <List.Icon {...props} icon="equal" />
                           )}>
-                          {Object.keys(item.production_machine).length === 0
-                            ? null
-                            : item.production_machine.map((item, key) => {
-                                return (
-                                  <List.Item
-                                    key={key}
-                                    title={item.name_machine}
-                                    description={'Destino: ' + item.destination}
-                                    left={(props) => <List.Icon {...props} />}
-                                  />
-                                );
-                              })}
+                          {Object.keys(item.production_machine).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={item.production_machine.name_machine}
+                              description={
+                                'Destino: ' +
+                                item.production_machine.destination
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )}
                         </List.Accordion>
+
                         <List.Accordion
                           title="Instalacion"
                           left={(props) => (
                             <List.Icon {...props} icon="equal" />
                           )}>
-                          {Object.keys(item.production_installation).length ===
-                          0
-                            ? null
-                            : item.production_installation.map((item, key) => {
-                                return (
-                                  <List.Item
-                                    key={key}
-                                    title={
-                                      Object.values(item.installation_well)
-                                        .length !== 0
-                                        ? 'Pozo/s de Agua?: Si'
-                                        : 'Pozo/s ?: No'
-                                    }
-                                    description={
-                                      Object.values(item.installation_barn)
-                                        .length !== 0
-                                        ? 'Galpon?: Si'
-                                        : 'Galpon?: No'
-                                    }
-                                    left={(props) => <List.Icon {...props} />}
-                                  />
-                                );
-                              })}
+                          {/* {Object.keys(item.production_installation).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={
+                                 item.production_installation
+                                  .installation_well 
+                              }
+                              description={
+                                 item.production_installation
+                                  .installation_barn 
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )} */}
                         </List.Accordion>
+
                         <List.Accordion
                           title="Servicio"
                           left={(props) => (
                             <List.Icon {...props} icon="equal" />
                           )}>
-                          {Object.keys(item.production_service).length === 0
-                            ? null
-                            : item.production_service.map((item, key) => {
-                                return (
-                                  <List.Item
-                                    key={key}
-                                    title={
-                                      item.has_service_aqua
-                                        ? 'Servicio de Agua?: Si'
-                                        : 'Servicio de Agua?: No'
-                                    }
-                                    description={
-                                      item.has_service_energy
-                                        ? 'Servicio de Luz?: Si'
-                                        : 'Servicio de Luz?: No'
-                                    }
-                                    left={(props) => <List.Icon {...props} />}
-                                  />
-                                );
-                              })}
+                          {Object.keys(item.production_service).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={
+                                item.production_service.has_service_aqua
+                                  ? 'Servicio de Agua?: Si'
+                                  : 'Servicio de Agua?: No'
+                              }
+                              description={
+                                item.production_service.has_service_energy
+                                  ? 'Servicio de Luz?: Si'
+                                  : 'Servicio de Luz?: No'
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )}
                         </List.Accordion>
+
                         <List.Accordion
                           title="Riego"
                           left={(props) => (
                             <List.Icon {...props} icon="equal" />
                           )}>
-                          {Object.keys(item.production_irrigation).length === 0
-                            ? null
-                            : item.production_irrigation.map((item, key) => {
-                                return (
-                                  <List.Item
-                                    key={key}
-                                    title={item.type_irrigation}
-                                    description={item.surface_irrigation}
-                                    left={(props) => <List.Icon {...props} />}
-                                  />
-                                );
-                              })}
+                          {Object.keys(item.production_irrigation).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={item.production_irrigation.type_irrigation}
+                              description={
+                                item.production_irrigation.surface_irrigation
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )}
+                        </List.Accordion>
+
+                        <List.Accordion
+                          title="Produccion Agricola"
+                          left={(props) => (
+                            <List.Icon {...props} icon="equal" />
+                          )}>
+                          {/* {Object.keys(item.production_agricultural).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={item.production_irrigation.type_irrigation}
+                              description={
+                                item.production_irrigation.surface_irrigation
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )} */}
+                        </List.Accordion>
+
+                        <List.Accordion
+                          title="Agroindustria"
+                          left={(props) => (
+                            <List.Icon {...props} icon="equal" />
+                          )}>
+                          {/* {Object.keys(item.production_irrigation).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={item.production_irrigation.type_irrigation}
+                              description={
+                                item.production_irrigation.surface_irrigation
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )} */}
+                        </List.Accordion>
+
+                        <List.Accordion
+                          title="Act. Ganadera"
+                          left={(props) => (
+                            <List.Icon {...props} icon="equal" />
+                          )}>
+                          {/* {Object.keys(item.production_irrigation).length ===
+                          0 ? null : (
+                            <List.Item
+                              key={key}
+                              title={item.production_irrigation.type_irrigation}
+                              description={
+                                item.production_irrigation.surface_irrigation
+                              }
+                              left={(props) => <List.Icon {...props} />}
+                            />
+                          )} */}
                         </List.Accordion>
                       </Card.Content>
 
@@ -582,15 +724,17 @@ const FormProduccion = ({
         <ComponentContainer>
           <Button
             mode="outlined"
+            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
           <Button
-            mode="outlined"
-            onPress={nextStep}
+            mode="contained"
+            color="#008080"
+            onPress={() => guardar()}
             style={styles.SectionRight__button}>
-            Siguiente
+            Confirmacion
           </Button>
         </ComponentContainer>
       </View>
@@ -600,7 +744,7 @@ const FormProduccion = ({
 
 const mapStateToProps = (state) => {
   return {
-    production: state.production,
+    producer: state.producer,
   };
 };
 

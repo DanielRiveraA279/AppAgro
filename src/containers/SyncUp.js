@@ -19,14 +19,42 @@ const MyNotification = ({visible, setVisible}) => {
   );
 };
 
-const SyncUp = ({navigation, MyListProducer}) => {
+const SyncUp = ({navigation, MyListProducer, result}) => {
   const [visible, setVisible] = React.useState(false);
+
+  const show = () => {
+    //console.log(result);
+
+    result.map((item) => {
+      console.log(JSON.stringify(Object.assign({}, item)));
+    });
+
+    // result.map((item) => {
+
+    //   console.log(JSON.stringify(Object.assign({}, item))); //convertir array a string
+    // });
+  };
+
+  const addProducer = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: 'e791816aba638d22c132b84ceee5792d21820de2',
+      },
+      body: JSON.stringify(Object.assign({}, result)),
+    };
+
+    fetch('http://www.agrapi.com.ar/api/v1.0/producers/?fbclid=IwAR0VqJWG3zfytXw3ti3T-lx_RHKSQZVOORtH5rvPU-4pZyey9JDSR6eVVFw', requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log('RESULTADO: ' + data));
+  };
 
   return (
     <ScrollView>
       <View>
         <View style={{width: '100%'}}>
-          <Appbar.Header style={{backgroundColor: '#3399D9'}}>
+          <Appbar.Header style={{backgroundColor: '#333366'}}>
             <Appbar.BackAction
               color="white"
               onPress={() => navigation.goBack()}
@@ -47,20 +75,22 @@ const SyncUp = ({navigation, MyListProducer}) => {
             <DataTable.Title>Localidad</DataTable.Title>
           </DataTable.Header>
 
-          {MyListProducer.map((item, key) => {
-            const {first_name, last_name, producer_home} = item.producer; //desestructuro campos de tabla producer
-
+          {result.map((item, key) => {
+            const {first_name, last_name} = item.producer;
+            const {district} = item.producer.producer_home;
             return (
-              <DataTable.Row key={key} onPress={() => console.log('Nombre: ' + first_name)}>
+              <DataTable.Row
+                key={key}
+                onPress={() => console.log('Nombre: ' + first_name)}>
                 <DataTable.Cell>{first_name}</DataTable.Cell>
                 <DataTable.Cell>{last_name}</DataTable.Cell>
-                <DataTable.Cell>{producer_home.district}</DataTable.Cell>
+                <DataTable.Cell>{district}</DataTable.Cell>
               </DataTable.Row>
             );
           })}
         </DataTable>
 
-        <Button mode="contained" onPress={() => setVisible(true)}>
+        <Button mode="contained" color="#008080" onPress={() => addProducer()}>
           Sincronizar
         </Button>
       </View>
@@ -70,8 +100,8 @@ const SyncUp = ({navigation, MyListProducer}) => {
 
 const mapStateToProps = (state) => {
   return {
-    MyListProducer: state.MyListProducer,
+    result: state.result,
   };
 };
 
-export default connect(mapStateToProps, null)(SyncUp);
+export default connect(mapStateToProps)(SyncUp);

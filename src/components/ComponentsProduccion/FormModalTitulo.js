@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 
 import {
   TextInput,
   Button,
-  Modal,
-  Portal,
   Title,
   Caption,
+  Modal,
+  Portal,
 } from 'react-native-paper';
 
 import ComponentContainer from '../ComponentContainer';
@@ -23,128 +23,121 @@ const FormModal = ({visible, hideModal, titulos, setTitulos}) => {
   const [matricula, setMatricula] = React.useState('');
   const [padron, setPadron] = React.useState('');
 
-  const FormTitulo = () => {
-    const addTitle = () => {
-      const dataNew = {
-        land_tenure: checkedTenencia,
-        has_land_title: checkedTitulo,
-        cadastre_registration: matricula,
-        starting_number: padron,
-      };
-
-      const dataOld = [];
-
-      if (Object.keys(titulos).length !== 0) {
-        titulos.map((item) => {
-          dataOld.push(item);
-        });
-        setTitulos([...dataOld, dataNew]);
-      } else {
-        setTitulos([dataNew]);
-      }
-      setCheckedTenencia('');
-      setCheckedTitulo(false);
-      setMatricula('');
-      setPadron('');
+  const addTitle = () => {
+    const dataNew = {
+      land_tenure: checkedTenencia,
+      has_land_title: checkedTitulo,
+      cadastre_registration: matricula,
+      starting_number: padron,
     };
 
-    return (
-      <View style={styles.container}>
-        <Title>Titulos</Title>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}>
-          <Caption>Tenencia</Caption>
-        </View>
-
-        <ComponentContainerGlobal>
-          <ComponentContainer>
-            <ComponentRadioButton
-              title="Arriendatario"
-              value="arriendatario"
-              status={
-                checkedTenencia === 'arriendatario' ? 'checked' : 'unchecked'
-              }
-              onPress={() => setCheckedTenencia('arriendatario')}
-              color="#008577"
-            />
-            <ComponentRadioButton
-              title="Propietario"
-              value="propietario"
-              status={
-                checkedTenencia === 'propietario' ? 'checked' : 'unchecked'
-              }
-              onPress={() => setCheckedTenencia('propietario')}
-              color="#008577"
-            />
-          </ComponentContainer>
-        </ComponentContainerGlobal>
-
-        <ComponentContainerGlobal>
-          <ComponentContainer>
-            <ComponentCheckBox
-              title="Titulo"
-              disabled={false}
-              value={checkedTitulo}
-              onValueChange={(value) => setCheckedTitulo(value)}
-            />
-          </ComponentContainer>
-        </ComponentContainerGlobal>
-
-        <ComponentContainerGlobal>
-          <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              value={matricula}
-              label="Matricula Catastral"
-              style={styles.TextInput}
-              onChangeText={(value) => setMatricula(value)}
-            />
-          </ComponentContainer>
-        </ComponentContainerGlobal>
-
-        <ComponentContainerGlobal>
-          <ComponentContainer>
-            <TextInput
-              mode="outlined"
-              label="Padron de Riego"
-              value={padron}
-              style={styles.TextInput}
-              onChangeText={(value) => setPadron(value)}
-            />
-          </ComponentContainer>
-        </ComponentContainerGlobal>
-
-        <ComponentContainerGlobal>
-          <ComponentContainer>
-            <Button
-              mode="text"
-              style={styles.SectionRight__button}
-              onPress={() => addTitle()}>
-              Guardar
-            </Button>
-            <Button
-              mode="text"
-              style={styles.SectionRight__button}
-              onPress={() => hideModal()}>
-              Cancelar
-            </Button>
-          </ComponentContainer>
-        </ComponentContainerGlobal>
-      </View>
-    );
+  
+    setTitulos([dataNew]);
+    
+    setCheckedTenencia('');
+    setCheckedTitulo(false);
+    setMatricula('');
+    setPadron('');
   };
 
   return (
-    <>
-      <Portal>
-        <Modal animationType="slide" visible={visible} onDismiss={hideModal}>
-          <FormTitulo />
-        </Modal>
-      </Portal>
-    </>
+    <Portal>
+      <Modal
+        animationType="slide"
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={styles.container}>
+        <View>
+          <Title>Titulos</Title>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Caption>Tenencia</Caption>
+          </View>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <ComponentRadioButton
+                title="Arriendatario"
+                value={checkedTenencia}
+                status={
+                  checkedTenencia === 'arriendatario' ? 'checked' : 'unchecked'
+                }
+                onPress={() => setCheckedTenencia('arriendatario')}
+                color="#008577"
+              />
+              <ComponentRadioButton
+                title="Propietario"
+                value={checkedTenencia}
+                status={
+                  checkedTenencia === 'propietario' ? 'checked' : 'unchecked'
+                }
+                onPress={() => setCheckedTenencia('propietario')}
+                color="#008577"
+              />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <ComponentCheckBox
+                title="Titulo"
+                value={checkedTitulo}
+                disabled={false}
+                onValueChange={(value) => setCheckedTitulo(value)}
+              />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                value={matricula}
+                label="Matricula Catastral"
+                style={styles.TextInput}
+                onChangeText={(value) => setMatricula(value)}
+                keyboardType="default"
+              />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                value={padron}
+                label="Padron de Riego"
+                style={styles.TextInput}
+                onChangeText={(value) => setPadron(value)}
+                keyboardType="default"
+              />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <Button
+                mode="text"
+                color="#008080"
+                style={styles.SectionRight__button}
+                onPress={() => addTitle()}>
+                Guardar
+              </Button>
+              <Button
+                mode="text"
+                color="#008080"
+                style={styles.SectionRight__button}
+                onPress={() => hideModal()}>
+                Cancelar
+              </Button>
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+        </View>
+      </Modal>
+    </Portal>
   );
 };
 

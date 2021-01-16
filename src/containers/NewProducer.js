@@ -11,18 +11,18 @@ const customStyles = {
   currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#5596e6',
+  stepStrokeCurrentColor: '#333366',
   stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#5596e6',
+  stepStrokeFinishedColor: '#333366',
   stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#5596e6',
+  separatorFinishedColor: '#333366',
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#5596e6',
+  stepIndicatorFinishedColor: '#333366',
   stepIndicatorUnFinishedColor: '#ffffff',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 13,
   currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#5596e6',
+  stepIndicatorLabelCurrentColor: '#333366',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
   labelColor: '#999999',
@@ -36,9 +36,6 @@ const datos = [
   'Grupo Familiar',
   'Vehiculos',
   'Produccion',
-  'Produccion Agricola',
-  'Agroindustria',
-  'Actividad Ganadera',
 ];
 
 const NewProducer = () => {
@@ -63,7 +60,7 @@ const NewProducer = () => {
           <StepIndicator
             customStyles={customStyles}
             currentPosition={currentPosition}
-            stepCount={8}
+            stepCount={5}
             direction="vertical"
           />
         </View>
@@ -112,36 +109,6 @@ const NewProducer = () => {
           {currentPosition === 4 ? (
             <FormGlb
               nameForm="Produccion"
-              titulo={datos[currentPosition]}
-              setCurrentPosition={setCurrentPosition}
-              currentPosition={currentPosition}
-              styles={styles}
-            />
-          ) : null}
-
-          {currentPosition === 5 ? (
-            <FormGlb
-              nameForm="Produccion Agricola"
-              titulo={datos[currentPosition]}
-              setCurrentPosition={setCurrentPosition}
-              currentPosition={currentPosition}
-              styles={styles}
-            />
-          ) : null}
-
-          {currentPosition === 6 ? (
-            <FormGlb
-              nameForm="Agroindustria"
-              titulo={datos[currentPosition]}
-              setCurrentPosition={setCurrentPosition}
-              currentPosition={currentPosition}
-              styles={styles}
-            />
-          ) : null}
-
-          {currentPosition === 7 ? (
-            <FormGlb
-              nameForm="Actividad Ganadera"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}

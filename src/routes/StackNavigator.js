@@ -8,6 +8,7 @@ import Home from '../containers/Home';
 import NewProducer from '../containers/NewProducer';
 import Setting from '../containers/Setting';
 import SyncUp from '../containers/SyncUp';
+import UpadateRedux from '../components/FormGuardarRedux';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default class StackNavigator extends Component {
             <Stack.Screen name="NewProducer" component={NewProducer} />
             <Stack.Screen name="SyncUp" component={SyncUp} />
             <Stack.Screen name="Setting" component={Setting} />
+            <Stack.Screen name="UpadateRedux" component={UpadateRedux} />
           </Stack.Navigator>
         </NavigationContainer>
     );

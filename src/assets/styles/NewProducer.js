@@ -2,7 +2,8 @@ const styles = {
   container: {
     flex: 1,
     flexDirection: 'row',
-
+    backgroundColor: '#F2F2F2', 
+ 
   },
 
   header_title: {
@@ -10,13 +11,16 @@ const styles = {
   },
 
   SectionLeft: {
+    flex: 1,
     flexDirection: 'row',
   },
 
   SectionRight: {
     flexDirection: 'column',
     width: '100%',
-    padding: '10%',
+    padding: '5%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   SectionRight__button: {
@@ -39,7 +43,7 @@ const styles = {
     width: 100,
   },
   estiloTitulo: {
-    color: 'gray',
+    color: '#333366',
     fontSize: 15,
     alignItems: 'center',
     alignContent: 'center',

@@ -22,7 +22,7 @@ const FormGrupoFamiliar = ({
   currentPosition,
   styles,
   familyRelationPost,
-  family_relation,
+  producer,
 }) => {
   const [nombre, setNombre] = React.useState('');
   const [apellido, setApellido] = React.useState('');
@@ -53,16 +53,15 @@ const FormGrupoFamiliar = ({
   const [descripcionError, setDescripcionError] = React.useState(false);
 
   useEffect(() => {
-    if (Object.keys(family_relation).length !== 0) {
-      let dataOld = [];
-      family_relation.map((item) => {
-        item.grupoFamiliar.map((item) => {
-          dataOld.push(item);
-        });
-      });
-      setGrupoFamiliar(dataOld);
+    if (Object.keys(producer.producer_person).length !== 0) {
+      seteoComponente();
     }
   }, []);
+
+  const seteoComponente = () => {
+    const {producer_person} = producer;
+    setGrupoFamiliar(producer_person);
+  };
 
   const ValidationSuccessGroup = () => {
     //data new
@@ -79,25 +78,12 @@ const FormGrupoFamiliar = ({
       description: descripcion,
     };
 
-    const dataOld = [];
-
-    //count of list
-    let i = 1;
-
     //validate array
     if (Object.keys(grupoFamiliar).length !== 0) {
-      //map of list group family
-      grupoFamiliar.map((item) => {
-        i += 1;
-        dataOld.push(item);
-      });
-
-      setGrupoFamiliar([...dataOld, dataNew]);
+      setGrupoFamiliar([...grupoFamiliar, dataNew]);
     } else {
       setGrupoFamiliar([dataNew]);
     }
-
-    console.log('COUNT: ', i);
   };
 
   const ShowAlertError = () => {
@@ -147,9 +133,7 @@ const FormGrupoFamiliar = ({
 
   //accion del boton
   const nextStep = () => {
-    familyRelationPost({
-      grupoFamiliar,
-    });
+    familyRelationPost(Object.values(grupoFamiliar));
 
     if (currentPosition === 2) {
       setCurrentPosition(currentPosition + 1);
@@ -304,8 +288,6 @@ const FormGrupoFamiliar = ({
             value={checkedEducacionTerciaria}
             onValueChange={(value) => setCheckedEducacionTerciaria(value)}
           />
-        </ComponentContainer>
-        <ComponentContainer>
           <ComponentCheckBox
             title="Universitario"
             disabled={false}
@@ -316,12 +298,14 @@ const FormGrupoFamiliar = ({
         <ComponentContainer>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addGroup()}>
             Guardar
           </Button>
           <Button
             mode="text"
+            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => clearDate()}>
             Cancelar
@@ -358,12 +342,14 @@ const FormGrupoFamiliar = ({
         <ComponentContainer>
           <Button
             mode="outlined"
+            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
           <Button
             mode="outlined"
+            color="#008080"
             onPress={nextStep}
             style={styles.SectionRight__button}>
             Siguiente
@@ -376,7 +362,7 @@ const FormGrupoFamiliar = ({
 
 const mapStateToProps = (state) => {
   return {
-    family_relation: state.family_relation,
+    producer: state.producer,
   };
 };
 

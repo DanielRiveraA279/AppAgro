@@ -1,52 +1,48 @@
 const styles = {
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   header: {
-    padding: 10,
-  },
-  header__title: {},
-  header__subTitle: {
-    color: 'gray',
-  },
-  section: {
     flex: 1,
-    width: '100%',
-    justifyContent: 'center',
+    backgroundColor: '#333366',
+  },
+
+  container: {
+    flex: 10,
+    backgroundColor: '#F1F1F1',
+    alignContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    padding: '10%',
   },
-  section__user__logo: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-  },
-  section__user: {
-    width: '100%',
-    paddingBottom: 10,
-  },
-  section__password: {
-    width: '100%',
-    paddingBottom: 10,
-  },
-  section__button: {
-    width: '100%',
-  },
-  section__button__login: {
-    width: '100%',
-    justifyContent: 'center',
-  },
-  footer: {
+
+  container_titleLogin: {
     flex: 1,
+    backgroundColor: '#333366',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '90%',
   },
-  footer__signUp: {
-    flexDirection: 'row',
+
+  container_componentLogin: {
+    flex: 2,
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    width: '90%',
+    justifyContent: 'space-around',
+    padding: '5%',
+  },
+
+  componentLogin: {
+    flex: 2,
+    flexDirection: 'column',
+    width: '100%',
+    justifyContent: 'space-around',
+  },
+
+  componentLogin_inputs: {
+    width: '100%',
+    marginBottom: 5,
+  },
+  componentLogin_buttons: {
+    width: '100%',
   },
 };
 
-export default styles
+export default styles;

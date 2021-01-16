@@ -18,6 +18,7 @@
     "@react-navigation/native": "^5.8.9",
     "@react-navigation/stack": "^5.12.6",
     "react": "16.13.1",
+    "react-moment": "^1.1.1",
     "react-native": "0.63.3",
     "react-native-dashboard": "0.0.4",
     "react-native-gesture-handler": "^1.8.0",
@@ -29,7 +30,8 @@
     "react-native-step-indicator": "^1.0.3",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-persist": "^5.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
