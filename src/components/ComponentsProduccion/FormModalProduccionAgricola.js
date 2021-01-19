@@ -88,11 +88,47 @@ const FormModal = ({
 
   //accion del boton
   const guardar = () => {
-    const {0: agricultural_attendance} = Object.values(cultural);
-    const {0: agricultural_sales_channel} = Object.values(venta);
-    const {0: agricultural_harvest} = Object.values(cosecha);
+    if (Object.keys(cultural).length === 0) {
+      var agricultural_attendance = {
+        use_fertilizers: false,
+        use_food_organic: false,
+        use_pheromones: false,
+        use_hail_mesh: false,
+        make_frost_control: false,
+        other_practices: '',
+      };
+    } else {
+      var {0: agricultural_attendance} = Object.values(cultural);
+    }
 
-    dataNew = {
+    if (Object.keys(venta).length === 0) {
+      var agricultural_sales_channel = {
+        is_collector: false,
+        is_cooperative: false,
+        is_exporter: false,
+        use_baler: false,
+        use_fair: false,
+        use_industry: false,
+        use_fridge: false,
+      };
+    } else {
+      var {0: agricultural_sales_channel} = Object.values(venta);
+    }
+
+    if (Object.keys(cosecha).length === 0) {
+      var agricultural_harvest = {
+        harvest_surface: 0,
+        tons_production: 0,
+        has_curtains_insulated: false,
+        plant_length_curtains: 0,
+        plant_species_curtains: '',
+        harvest_time: '',
+      };
+    } else {
+      var {0: agricultural_harvest} = Object.values(cosecha);
+    }
+
+   const dataNew = {
       activity_name: actividad,
       surface: superficie,
       destination: checkedDestino,
@@ -106,7 +142,7 @@ const FormModal = ({
       agricultural_pests: plaga, //array
       agricultural_sales_channel: agricultural_sales_channel,
       agricultural_harvest: agricultural_harvest,
-    }
+    };
     const dataOld = [];
 
     if (Object.keys(prodAgricola).length !== 0) {
@@ -231,12 +267,12 @@ const FormModal = ({
             <ComponentContainerGlobal>
               <ComponentContainer>
                 <ComponentRadioButton
-                  title="Peregme"
-                  value="peregme"
+                  title="Perenne"
+                  value="perenne"
                   status={
-                    checkedTipoSiembra === 'peregme' ? 'checked' : 'unchecked'
+                    checkedTipoSiembra === 'perenne' ? 'checked' : 'unchecked'
                   }
-                  onPress={() => setCheckedTipoSiembra('peregme')}
+                  onPress={() => setCheckedTipoSiembra('perenne')}
                   color="#008577"
                 />
                 <ComponentRadioButton

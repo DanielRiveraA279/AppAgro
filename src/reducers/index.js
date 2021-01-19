@@ -77,6 +77,11 @@ const reducer = (
         ...state,
         result: [...state.result, action.payload],
       };
+    case 'REMOVE_PRODUCER':
+      return {
+        ...state,
+        result: state.result.filter((item) => item !== action.payload),
+      };
 
     case 'CLEAR_PRODUCER_FORMS':
       return {

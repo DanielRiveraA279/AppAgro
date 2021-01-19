@@ -238,7 +238,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Condicion de Asequias y Canales"
+                label="Condicion de Acequias y Canales"
                 style={styles.TextInput}
                 value={condAseqCan}
                 onChangeText={(value) => setCondAseCan(value)}

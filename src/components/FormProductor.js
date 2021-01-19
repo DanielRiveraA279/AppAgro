@@ -235,15 +235,15 @@ const FormProductor = ({
         <ComponentRadioButton
           title="Femenino"
           value={genero}
-          status={genero === 'femenino' ? 'checked' : 'unchecked'}
-          onPress={() => setGenero('femenino')}
+          status={genero === 'Femenino' ? 'checked' : 'unchecked'}
+          onPress={() => setGenero('Femenino')}
           color="#008577"
         />
         <ComponentRadioButton
           title="Masculino"
           value={genero}
-          status={genero === 'masculino' ? 'checked' : 'unchecked'}
-          onPress={() => setGenero('masculino')}
+          status={genero === 'Masculino' ? 'checked' : 'unchecked'}
+          onPress={() => setGenero('Masculino')}
           color="#008577"
         />
       </ComponentContainer>

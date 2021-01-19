@@ -21,6 +21,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
   const [descripcion, setDescripcion] = React.useState('');
   const [vigencia, setVigencia] = React.useState('');
   const [precio, setPrecio] = React.useState('');
+  const [cantidad, setCantidad] = React.useState('');
 
   const ShowAlert = () => {
     MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
@@ -35,6 +36,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
         validity: vigencia,
         origin: checkedOrigen,
         price: precio,
+        quantity: cantidad,
       };
 
       let dataOld = [];
@@ -53,6 +55,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
       setVigencia('');
       setCheckedOrigen('');
       setPrecio('');
+      setCantidad('');
     }
   };
 
@@ -121,6 +124,18 @@ const FormModal = ({alimentario, setAlimentario}) => {
             style={styles.TextInput}
             value={precio}
             onChangeText={(value) => setPrecio(value)}
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
+      
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+          <TextInput
+            mode="outlined"
+            label="Cantidad"
+            style={styles.TextInput}
+            value={cantidad}
+            onChangeText={(value) => setCantidad(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>

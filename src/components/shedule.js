@@ -24,7 +24,7 @@ const Shedule = ({mode, setMode, setShow, setFecNac}) => {
     const month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
     const year = currentDate.getFullYear();
 
-    const fecha = year + "/" + month + "/" + day
+    const fecha = year + "-" + month + "-" + day
 
     setFecNac(fecha);
 

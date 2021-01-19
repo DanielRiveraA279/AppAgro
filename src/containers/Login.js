@@ -118,6 +118,7 @@ const Login = ({
               <TextInput
                 mode="outlined"
                 label="Ingresar Usuario"
+                disabled={true}
                 value={email}
                 style={styles.componentLogin_inputs}
                 onChangeText={(value) => setEmail(value)}
@@ -125,6 +126,7 @@ const Login = ({
               <TextInput
                 mode="outlined"
                 label="Ingresar Clave"
+                disabled={true}
                 secureTextEntry={!visualizar}
                 value={password}
                 style={styles.componentLogin_inputs}
@@ -136,6 +138,7 @@ const Login = ({
                   value={visualizar}
                   onValueChange={setVisualizar}
                   color="#008080"
+                  disabled={true}
                 />
               </View>
 
@@ -153,6 +156,7 @@ const Login = ({
                   value={isSwitchOn}
                   onValueChange={onToggleSwitch}
                   color="#008080"
+                  disabled={true}
                 />
               </View>
             </View>

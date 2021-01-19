@@ -58,6 +58,7 @@ const FormProduccion = ({
   const [distrito, setDistrito] = React.useState('Seleccione un Distrito');
   const [superficie, setSuperficie] = React.useState('');
   const [checkedRenspa, setCheckedRenspa] = React.useState(false);
+  const [checkedRenaf, setCheckedRenaf] = React.useState(false);
 
   const [titulos, setTitulos] = React.useState([]);
   const [maquinaria, setMaquinaria] = React.useState([]);
@@ -128,10 +129,63 @@ const FormProduccion = ({
     if (distrito.trim() === 'Seleccione un Distrito') {
       ShowAlert();
     } else {
-      const {0: service} = Object.assign({}, servicio);
-      const {0: property} = Object.assign({}, titulos);
-      const {0: installation} = Object.assign({}, instalacion);
-      const {0: irrigation} = Object.assign({}, riego);
+
+      if (Object.keys(servicio).length === 0) {
+        var service = {
+          has_service_aqua: false,
+          type_service_aqua: '',
+          has_service_energy: false,
+          type_service_energy: '',
+          has_rural_energy: false,
+          has_generator: false,
+          has_hydraulic_generator: false,
+          has_solar_panels: false,
+        };
+      } else {
+        var {0: service} = Object.assign({}, servicio);
+      }
+
+      if (Object.entries(titulos).length === 0) {
+        var property = {
+          land_tenure: '',
+          has_land_title: false,
+          cadastre_registration: '',
+          starting_number: '',
+        };
+      } else {
+        var {0: property} = Object.assign({}, titulos);
+      }
+
+      if (Object.keys(instalacion).length === 0) {
+        var installation = {
+          has_windmills: false,
+          has_australian_tanks: false,
+          has_dams: false,
+          has_truck_scale: false,
+          has_fire_break: false,
+          has_minced_steel: false,
+          has_pools: false,
+          installation_barn: [],
+          installation_well: [],
+        };
+      } else {
+        var {0: installation} = Object.assign({}, instalacion);
+      }
+
+      if (Object.keys(riego).length === 0) {
+        var irrigation = {
+          type_irrigation: '',
+          pressurized_irrigation: '',
+          surface_irrigation: '',
+          take_section: '',
+          watering_hours: 0,
+          channel_conditions: '',
+          right: '',
+          shifts: '',
+        };
+      } else {
+        var {0: irrigation} = Object.assign({}, riego);
+      }
 
       const dataNew = {
         is_resident: checkedResidente,
@@ -141,6 +195,7 @@ const FormProduccion = ({
         lat: lat,
         lng: lon,
         has_renspa: checkedRenspa,
+        has_renaf: checkedRenaf,
         production_property: property, //objeto
         production_service: service, //objeto
         production_installation: installation, //objeto
@@ -164,6 +219,7 @@ const FormProduccion = ({
       setLat('');
       setLon('');
       setCheckedRenspa(false);
+      setCheckedRenaf(false);
       setTitulos([]);
       setServicio([]);
       setInstalacion([]);
@@ -449,6 +505,12 @@ const FormProduccion = ({
             disabled={false}
             value={checkedRenspa}
             onValueChange={(value) => setCheckedRenspa(value)}
+          />
+           <ComponentCheckBox
+            title="RENAF"
+            disabled={false}
+            value={checkedRenaf}
+            onValueChange={(value) => setCheckedRenaf(value)}
           />
         </ComponentContainer>
 

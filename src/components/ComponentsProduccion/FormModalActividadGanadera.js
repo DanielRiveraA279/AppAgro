@@ -114,20 +114,197 @@ const FormModal = ({
     if (selectCiclo.trim() === '') {
       showAlertError();
     } else {
-      const {0: livestock_reproduction} = Object.assign({}, reproduccion);
-      const {0: livestock_health} = Object.assign({}, sanidad);
-      const {0: livestock_marketing} = Object.assign({}, comercializacion);
-      const {0: livestock_sales_channel} = Object.assign({}, venta);
-      const {0: livestock_bovine_cycle} = Object.assign({}, bovino);
-      const {0: livestock_sheep_cycle} = Object.assign({}, ovino);
-      const {0: livestock_goat_cycle} = Object.assign({}, caprino);
-      const {0: livestock_pig_cycle} = Object.assign({}, porcino);
-      const {0: livestock_llama_cycle} = Object.assign({}, llama);
-      const {0: livestock_poultry_cycle} = Object.assign({}, avicultura);
-      const {0: livestock_rabbit_cycle} = Object.assign({}, cunicultura);
-      const {0: livestock_beekeeping_cycle} = Object.assign({}, apicultura);
-      const {0: livestock_aquaculture_cycle} = Object.assign({}, acuicultura);
+      if (Object.keys(reproduccion).length === 0) {
+        //reproduccion
+        var livestock_reproduction = {
+          make_reproductive_management: false,
+          make_continuous_service: false,
+          make_corral_service: false,
+          make_artificial_insemination: false,
+          make_embryo_transplant: false,
+          other_practices: '',
+        };
+      } else {
+        var {0: livestock_reproduction} = Object.assign({}, reproduccion);
+      }
 
+      if (Object.keys(sanidad).length === 0) {
+        //sanidad
+        var livestock_health = {
+          type_technical_assistance: '',
+          vitamin_complex: '',
+          make_internal_deworming: false,
+          make_external_deworming: false,
+          type_antiparasitic: '',
+          make_vaccination: false,
+          type_vaccination: '',
+          type_disease: '',
+          name_disease: '',
+          other_practices: '',
+        };
+      } else {
+        var {0: livestock_health} = Object.assign({}, sanidad);
+      }
+
+      if (Object.keys(comercializacion).length === 0) {
+        //comercializacion
+        var livestock_marketing = {
+          number_slaughtered: 0,
+          number_shorn: 0,
+          amount_wool_hair: 0,
+          amount_leather: 0,
+          liters_milk: 0,
+          milk_destination: '',
+          wool_hair_destination: '',
+          leather_destination: '',
+          slaughter_destination: '',
+        };
+      } else {
+        var {0: livestock_marketing} = Object.assign({}, comercializacion);
+      }
+
+      if (Object.keys(venta).length === 0) {
+        //venta
+        var livestock_sales_channel = {
+          is_collector: false,
+          is_cooperative: false,
+          is_exporter: false,
+          use_baler: false,
+          use_fair: false,
+          use_industry: false,
+          use_fridge: false,
+        };
+      } else {
+        var {0: livestock_sales_channel} = Object.assign({}, venta);
+      }
+
+      if (Object.keys(bovino).length === 0) {
+        //bovino
+        var livestock_bovine_cycle = {
+          calves_under_one_year: 0,
+          heifers_one_to_two_years: 0,
+          heifers_over_two_years: 0,
+          number_cows: 0,
+          steers_one_to_two_years: 0,
+          steers_older_two_years: 0,
+          bulls_one_to_two_years: 0,
+          bulls_older_two_years: 0,
+          number_oxen_torunos: 0,
+        };
+      } else {
+        var {0: livestock_bovine_cycle} = Object.assign({}, bovino);
+      }
+
+      if (Object.keys(ovino).length === 0) {
+        //ovino
+        var livestock_sheep_cycle = {
+          sheep_under_six_months: 0,
+          sheep_older_six_months_to_calving: 0,
+          sheep_older_six_months_one_year: 0,
+          number_sheep: 0,
+          number_capons: 0,
+          number_rams: 0,
+        };
+      } else {
+        var {0: livestock_sheep_cycle} = Object.assign({}, ovino);
+      }
+
+      if (Object.keys(caprino).length === 0) {
+        //caprino
+        var livestock_goat_cycle = {
+          goats_under_six_months: 0,
+          goats_six_months_to_first_calving: 0,
+          number_goats: 0,
+          number_capons: 0,
+          number_stallions: 0,
+        };
+      } else {
+        var {0: livestock_goat_cycle} = Object.assign({}, caprino);
+      }
+
+      if (Object.keys(porcino).length === 0) {
+        //porcino
+        var livestock_pig_cycle = {
+          up_two_months: 0,
+          older_two_months: 0,
+          less_four_months: 0,
+          older_four_months: 0,
+          number_pigs: 0,
+          number_stallions: 0,
+        };
+      } else {
+        var {0: livestock_pig_cycle} = Object.assign({}, porcino);
+      }
+
+      if (Object.keys(llama).length === 0) {
+        //llama
+        var livestock_llama_cycle = {
+          number_chitas_teques: 0,
+          number_maltones: 0,
+          number_janachos: 0,
+          number_llamas_mothers: 0,
+          number_capons: 0,
+        };
+      } else {
+        var {0: livestock_llama_cycle} = Object.assign({}, llama);
+      }
+
+      if (Object.keys(avicultura).length === 0) {
+        //avicultura
+        var livestock_poultry_cycle = {
+          is_intensive_poultry: false,
+          number_broilers_incubated: 0,
+          breeding_males: 0,
+          number_eggs_chickens_babies: 0,
+          number_incubators: 0,
+          number_broilers_fattening: 0,
+          number_breeding_layers: 0,
+          existence: '',
+        };
+      } else {
+        var {0: livestock_poultry_cycle} = Object.assign({}, avicultura);
+      }
+
+      if (Object.keys(cunicultura).length === 0) {
+        //cunicultura
+        var livestock_rabbit_cycle = {
+          orientation: '',
+          number_breeding_males: 0,
+          number_breeding_females: 0,
+          number_rabbit: 0,
+        };
+      } else {
+        var {0: livestock_rabbit_cycle} = Object.assign({}, cunicultura);
+      }
+
+      if (Object.keys(apicultura).length === 0) {
+        //avicultura
+        var livestock_beekeeping_cycle = {
+          kind_bee: '',
+          has_bee_hives: false,
+          type_bee_hives: '',
+          number_drawers: 0,
+          alsas_drawer: 0,
+          type_drawer: '',
+          honey_stones: 0,
+          pollination_period: '',
+          pollinated_flower: '',
+          has_renapa: false,
+        };
+      } else {
+        var {0: livestock_beekeeping_cycle} = Object.assign({}, apicultura);
+      }
+
+      if (Object.keys(acuicultura).length === 0) {
+        //acuicultura
+        var livestock_aquaculture_cycle = {
+          orientation: '',
+          existence: '',
+        };
+      } else {
+        var {0: livestock_aquaculture_cycle} = Object.assign({}, acuicultura);
+      }
+      //---------------------------------------------------------------------
       const dataNew = {
         type_activity: selectCiclo,
         surface: superficie,
@@ -151,8 +328,6 @@ const FormModal = ({
         livestock_beekeeping_cycle: livestock_beekeeping_cycle, //objeto
         livestock_aquaculture_cycle: livestock_aquaculture_cycle, //objeto
       };
-
-
 
       if (Object.keys(dataActGanadera).length !== 0) {
         setDataActGanadera([...dataActGanadera, dataNew]);
@@ -208,7 +383,7 @@ const FormModal = ({
     setCunicultura([]);
     setApicultura([]);
     setAcuicultura([]);
-    hideModalActGanadera();
+    
   };
 
   return (
@@ -761,7 +936,7 @@ const FormModal = ({
                 mode="text"
                 color="#008080"
                 style={styles.SectionRight__button}
-                onPress={() => cancelar()}>
+                onPress={hideModalActGanadera}>
                 Cancelar
               </Button>
             </ComponentContainer>

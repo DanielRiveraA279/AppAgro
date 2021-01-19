@@ -25,7 +25,7 @@ const FormGrupoActividadLaboral = ({
   producer,
   producerPostActivity,
 }) => {
-  const [checkedTrabajoInformal, setCheckedTrabajoInformal] = React.useState(
+  const [checkedTrabajoFormal, setCheckedTrabajoFormal] = React.useState(
     false,
   );
   const [
@@ -57,7 +57,8 @@ const FormGrupoActividadLaboral = ({
   const seteoComponente = () => {
     const {producer_activity} = producer;
 
-    setCheckedTrabajoInformal(producer_activity.is_informal_worker);
+    //setCheckedTrabajoFormal(producer_activity.is_formal_worker);
+
     setCheckedTrabajoBajoDependencia(producer_activity.works_under_dependency);
     setCheckedTrabajoMonotributo(producer_activity.is_monotributista);
     setcheckCategoria(producer_activity.category);
@@ -66,6 +67,7 @@ const FormGrupoActividadLaboral = ({
   };
 
   const clearData = () => {
+    setCheckedTrabajoFormal(false);
     setCheckedTipoPersona('');
     setCheckedResidente(false);
     setCheckedSexo('');
@@ -77,6 +79,7 @@ const FormGrupoActividadLaboral = ({
   const ValidationSuccess = () => {
     //data nuew
     const dataNew = {
+      is_formal_worker: checkedTrabajoFormal, //trabajo formal
       type_person: checkedTipoPersona,
       is_resident: checkedResidente,
       gender: checkedSexo,
@@ -124,7 +127,6 @@ const FormGrupoActividadLaboral = ({
   const nextStep = () => {
     //setter in action
     producerPostActivity({
-      is_informal_worker: checkedTrabajoInformal,
       works_under_dependency: checkedTrabajoBajoDependencia,
       is_monotributista: checkedTrabajoMonotributo,
       category: checkCategoria,
@@ -133,19 +135,19 @@ const FormGrupoActividadLaboral = ({
     });
 
     //---------------------------------------------------------------
-    if (currentPosition === 1) {
+    if (currentPosition === 2) {
       setCurrentPosition(currentPosition + 1);
       console.log('Actividad Laboral: ' + currentPosition);
     } else {
-      setCurrentPosition(1);
+      setCurrentPosition(2);
     }
   };
 
   const backStep = () => {
-    if (currentPosition === 1) {
+    if (currentPosition === 2) {
       setCurrentPosition(currentPosition - 1);
     } else {
-      setCurrentPosition(1);
+      setCurrentPosition(2);
     }
   };
 
@@ -165,13 +167,6 @@ const FormGrupoActividadLaboral = ({
         </View>
 
         <ComponentContainer>
-          <ComponentCheckBox
-            title="Informal"
-            disabled={false}
-            value={checkedTrabajoInformal}
-            onValueChange={(value) => setCheckedTrabajoInformal(value)}
-          />
-
           <ComponentCheckBox
             title="Bajo Dependencia"
             disabled={false}
@@ -252,6 +247,15 @@ const FormGrupoActividadLaboral = ({
 
         <ComponentContainer>
           <Subheading>Trabajador</Subheading>
+        </ComponentContainer>
+
+        <ComponentContainer>
+        <ComponentCheckBox
+            title="Trabajo Formal?"
+            disabled={false}
+            value={checkedTrabajoFormal}
+            onValueChange={(value) => setCheckedTrabajoFormal(value)}
+          />
         </ComponentContainer>
 
         <View

@@ -21,6 +21,8 @@ const FormVehiculo = ({
   const [checkedTipoVehiculo, setCheckedTipoVehiculo] = React.useState('');
   const [checkedSemiRemolque, setCheckedSemiRemolque] = React.useState(false);
   const [tipoAcoplado, setTipoAcoplado] = React.useState('');
+  const [checkedAcoplado, setCheckedAcoplado] = React.useState(false);
+
   const [vehicle, setVehicle] = React.useState([]);
 
   const [tipoAcopladoError, setTipoAcopladoError] = React.useState(false);
@@ -39,6 +41,7 @@ const FormVehiculo = ({
   const ValidationSuccess = () => {
     const dataNew = {
       name_vehicle: checkedTipoVehiculo,
+      use_trailer: checkedAcoplado,
       type_trailer: tipoAcoplado,
       use_semitrailer: checkedSemiRemolque,
     };
@@ -66,6 +69,7 @@ const FormVehiculo = ({
     } else {
       setTipoAcopladoError(false);
       setCheckedTipoVehiculo('');
+      setCheckedAcoplado(false);
       setTipoAcoplado('');
       setCheckedSemiRemolque(false);
       ValidationSuccess();
@@ -124,12 +128,14 @@ const FormVehiculo = ({
           onPress={() => setCheckedTipoVehiculo('camion')}
           color="#008577"
         />
-        <ComponentRadioButton
+      </ComponentContainer>
+
+      <ComponentContainer>
+        <ComponentCheckBox
           title="Acoplado"
-          value="acoplado"
-          status={checkedTipoVehiculo === 'acoplado' ? 'checked' : 'unchecked'}
-          onPress={() => setCheckedTipoVehiculo('acoplado')}
-          color="#008577"
+          disabled={false}
+          value={checkedAcoplado}
+          onValueChange={(value) => setCheckedAcoplado(value)}
         />
       </ComponentContainer>
 
@@ -141,7 +147,7 @@ const FormVehiculo = ({
           value={tipoAcoplado}
           onChangeText={(value) => setTipoAcoplado(value)}
           error={tipoAcopladoError}
-          disabled={checkedTipoVehiculo.trim() === 'acoplado' ? false : true}
+          disabled={checkedAcoplado ? false : true}
         />
       </ComponentContainer>
 

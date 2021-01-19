@@ -72,4 +72,9 @@ export const TokenUpdate = (payload) => ({
 export const User_login_update = (payload) => ({
   type: 'USER_LOGIN_UPDATE',
   payload,
-})
+});
+
+export const RemoveResult = (payload) => ({
+  type: 'REMOVE_PRODUCER',
+  payload,
+});

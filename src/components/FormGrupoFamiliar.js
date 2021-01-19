@@ -135,19 +135,19 @@ const FormGrupoFamiliar = ({
   const nextStep = () => {
     familyRelationPost(Object.values(grupoFamiliar));
 
-    if (currentPosition === 2) {
+    if (currentPosition === 1) {
       setCurrentPosition(currentPosition + 1);
       console.log('Grupo Familiar: ' + currentPosition);
     } else {
-      setCurrentPosition(2);
+      setCurrentPosition(1);
     }
   };
 
   const backStep = () => {
-    if (currentPosition === 2) {
+    if (currentPosition === 1) {
       setCurrentPosition(currentPosition - 1);
     } else {
-      setCurrentPosition(2);
+      setCurrentPosition(1);
     }
   };
 

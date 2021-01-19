@@ -29,12 +29,12 @@ const FormModal = ({sanidad, setSanidad}) => {
     setCheckedDesparacitInterna,
   ] = React.useState(false);
   const [checkedTipoEnfermedad, setCheckedTipoEnfermedad] = React.useState('');
+  const [nombreEnfermedad, setNombreEnfermedad] = React.useState('');
   const [checkedVacunacion, setCheckedVacunacion] = React.useState(false);
 
   const [vitaminico, setVitaminico] = React.useState('');
   const [antiparasitario, setAntiparasitario] = React.useState('');
   const [tipoVacunacion, setTipoVacunacion] = React.useState('');
-  const [tipoEnfermedad, setEnfermedad] = React.useState('');
   const [otrasPracticas, setOtrasPracticas] = React.useState('');
 
   const addSanidad = () => {
@@ -47,6 +47,7 @@ const FormModal = ({sanidad, setSanidad}) => {
       make_vaccination: checkedVacunacion,
       type_vaccination: tipoVacunacion,
       type_disease: checkedTipoEnfermedad,
+      name_disease: nombreEnfermedad,
       other_practices: otrasPracticas,
     };
 
@@ -60,6 +61,7 @@ const FormModal = ({sanidad, setSanidad}) => {
     setCheckedVacunacion(false);
     setTipoVacunacion('');
     setCheckedTipoEnfermedad('');
+    setNombreEnfermedad('');
     setOtrasPracticas('');
   };
 
@@ -167,6 +169,18 @@ const FormModal = ({sanidad, setSanidad}) => {
             }
             onPress={() => setCheckedTipoEnfermedad('propia')}
             color="#008577"
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
+
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+        <TextInput
+            mode="outlined"
+            label="Nombre de la Enfermedad"
+            style={styles.TextInput}
+            value={nombreEnfermedad}
+            onChangeText={(value) => setNombreEnfermedad(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>

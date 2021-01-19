@@ -23,19 +23,19 @@ const FormGlb = ({
           styles={styles}
         />
       );
-    case 'Actividad Laboral':
+
+    case 'Grupo Familiar':
       return (
-        <FormActividadLaboral
+        <FormGrupoFamiliar
           titulo={titulo}
           setCurrentPosition={setCurrentPosition}
           currentPosition={currentPosition}
           styles={styles}
         />
       );
-
-    case 'Grupo Familiar':
+    case 'Actividad Laboral':
       return (
-        <FormGrupoFamiliar
+        <FormActividadLaboral
           titulo={titulo}
           setCurrentPosition={setCurrentPosition}
           currentPosition={currentPosition}

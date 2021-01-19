@@ -74,7 +74,7 @@ const Setting = ({navigation}) => {
             source={require('../assets/static/card_1.jpg')}
           />
           <Card.Actions>
-            <Button color="#008080">Cerrar</Button>
+            <Button color="#008080" onPress={() => navigation.navigate('Login')}>Cerrar</Button>
             <Button color="#008080">Acceder</Button>
           </Card.Actions>
         </Card>

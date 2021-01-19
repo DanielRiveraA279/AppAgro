@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
+import {RemoveResult} from '../actions/index';
 import {View, ScrollView} from 'react-native';
 import {DataTable, Button, Banner, Appbar} from 'react-native-paper';
 
@@ -14,40 +15,55 @@ const MyNotification = ({visible, setVisible}) => {
           onPress: () => setVisible(false),
         },
       ]}>
-      La sincronizacion fue realizada con exito, felicidades.
+      Sincronizacion exitosa!.
     </Banner>
   );
 };
 
-const SyncUp = ({navigation, MyListProducer, result}) => {
+const MyNotificationRemove = ({visible, setVisible}) => {
+  return (
+    <Banner
+      visible={visible}
+      icon="cloud"
+      actions={[
+        {
+          label: 'Aceptar',
+          onPress: () => setVisible(false),
+        },
+      ]}>
+      Se elimino correctamente!
+    </Banner>
+  );
+};
+
+const SyncUp = ({navigation, result, RemoveResult, token}) => {
   const [visible, setVisible] = React.useState(false);
+  const [visibleRemove, setVisibleRemove] = React.useState(false);
 
-  const show = () => {
-    //console.log(result);
-
-    result.map((item) => {
-      console.log(JSON.stringify(Object.assign({}, item)));
-    });
-
-    // result.map((item) => {
-
-    //   console.log(JSON.stringify(Object.assign({}, item))); //convertir array a string
-    // });
+  const removeProducer = (value) => {
+    RemoveResult(value);
+    setVisibleRemove(true);
   };
 
-  const addProducer = () => {
+  const addProducer = (index, value) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json; charset=UTF-8');
+    myHeaders.append(
+      'Authorization',
+      'Token ' + token, //token traido desde redux
+    );
     const requestOptions = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        token: 'e791816aba638d22c132b84ceee5792d21820de2',
-      },
-      body: JSON.stringify(Object.assign({}, result)),
+      headers: myHeaders,
+      body: JSON.stringify(result[index]), //result[posicion_obj]
     };
-
-    fetch('http://www.agrapi.com.ar/api/v1.0/producers/?fbclid=IwAR0VqJWG3zfytXw3ti3T-lx_RHKSQZVOORtH5rvPU-4pZyey9JDSR6eVVFw', requestOptions)
+    fetch('http://www.agrapi.com.ar/api/v1.0/producers/', requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log('RESULTADO: ' + data));
+      .then((data) => {
+        RemoveResult(value); //elimino de la lista de sincronizacion
+        setVisible(true);
+        console.log(data);
+      });
   };
 
   return (
@@ -67,12 +83,14 @@ const SyncUp = ({navigation, MyListProducer, result}) => {
           </Appbar.Header>
         </View>
         <MyNotification visible={visible} setVisible={setVisible} />
+        <MyNotificationRemove visible={visibleRemove} setVisible={setVisibleRemove} />
 
         <DataTable>
           <DataTable.Header>
             <DataTable.Title>Nombre</DataTable.Title>
             <DataTable.Title>Apellido</DataTable.Title>
             <DataTable.Title>Localidad</DataTable.Title>
+            <DataTable.Title>Sincronizacion</DataTable.Title>
           </DataTable.Header>
 
           {result.map((item, key) => {
@@ -85,14 +103,26 @@ const SyncUp = ({navigation, MyListProducer, result}) => {
                 <DataTable.Cell>{first_name}</DataTable.Cell>
                 <DataTable.Cell>{last_name}</DataTable.Cell>
                 <DataTable.Cell>{district}</DataTable.Cell>
+                <DataTable.Cell>
+                  <Button
+                    mode="contained"
+                    color="#008080"
+                    onPress={() => addProducer(key, item)}>
+                    Sincronizar
+                  </Button>
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Button
+                    mode="contained"
+                    color="red"
+                    onPress={() => removeProducer(item)}>
+                    Eliminar
+                  </Button>
+                </DataTable.Cell>
               </DataTable.Row>
             );
           })}
         </DataTable>
-
-        <Button mode="contained" color="#008080" onPress={() => addProducer()}>
-          Sincronizar
-        </Button>
       </View>
     </ScrollView>
   );
@@ -101,7 +131,12 @@ const SyncUp = ({navigation, MyListProducer, result}) => {
 const mapStateToProps = (state) => {
   return {
     result: state.result,
+    token: state.token,
   };
 };
 
-export default connect(mapStateToProps)(SyncUp);
+const mapDispatchToProps = {
+  RemoveResult,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SyncUp);

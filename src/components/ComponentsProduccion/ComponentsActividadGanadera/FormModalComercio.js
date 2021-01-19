@@ -168,12 +168,6 @@ const FormModal = ({
             onPress={() => addComercio()}>
             Guardar
           </Button>
-          <Button
-            mode="text"
-            color="#008080"
-            style={styles.SectionRight__button}>
-            Cancelar
-          </Button>
         </ComponentContainer>
       </ComponentContainerGlobal>
     </View>

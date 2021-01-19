@@ -32,8 +32,8 @@ const customStyles = {
 
 const datos = [
   'Productor',
-  'Actividad Laboral',
   'Grupo Familiar',
+  'Actividad Laboral',
   'Vehiculos',
   'Produccion',
 ];
@@ -78,7 +78,7 @@ const NewProducer = () => {
 
           {currentPosition === 1 ? (
             <FormGlb
-              nameForm="Actividad Laboral"
+              nameForm="Grupo Familiar"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
@@ -88,7 +88,7 @@ const NewProducer = () => {
 
           {currentPosition === 2 ? (
             <FormGlb
-              nameForm="Grupo Familiar"
+              nameForm="Actividad Laboral"
               titulo={datos[currentPosition]}
               setCurrentPosition={setCurrentPosition}
               currentPosition={currentPosition}
