@@ -8,23 +8,23 @@ import styles from '../assets/styles/Home';
 const items = [
   {
     name: 'Nuevo',
-    background: '#333366',
+    background: '#172B4D',
     icon: 'user',
   },
   {
     name: 'Sincronizar',
-    background: '#333366',
+    background: '#172B4D',
     icon: 'upload',
   },
   {
     name: 'Perfil',
-    background: '#333366',
+    background: '#172B4D',
     icon: 'check-circle',
   },
 
   {
     name: 'Salir',
-    background: '#333366',
+    background: '#172B4D',
     icon: 'close',
   },
 ];
@@ -54,7 +54,7 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={{width: '100%'}}>
-        <Appbar.Header style={{backgroundColor: '#333366'}}>
+        <Appbar.Header style={{backgroundColor: '#172B4D'}}>
           <Appbar.Content
             color="white"
             title="Produccion"

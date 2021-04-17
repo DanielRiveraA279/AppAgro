@@ -22,27 +22,23 @@ const FormModal = ({cultural, setCultural}) => {
   const [otro, setOtro] = React.useState('');
 
   const addProducAgricultural = () => {
-    if (checkedAbonoOrganico === false) {
-      MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
-    } else {
-      const dataNew = {
-        use_fertilizers: checkedAplicacionFertilizante,
-        use_food_organic: checkedAbonoOrganico,
-        use_pheromones: checkedUtilFeromonas,
-        use_hail_mesh: checkMallaAntiGranizo,
-        make_frost_control: checkedContrHeladas,
-        other_practices: otro,
-      };
+    const dataNew = {
+      use_fertilizers: checkedAplicacionFertilizante,
+      use_food_organic: checkedAbonoOrganico,
+      use_pheromones: checkedUtilFeromonas,
+      use_hail_mesh: checkMallaAntiGranizo,
+      make_frost_control: checkedContrHeladas,
+      other_practices: otro,
+    };
 
-      setCultural([dataNew]);
+    setCultural([dataNew]);
 
-      setCheckedAplicacionFertilizante(false);
-      setCheckedAbonoOrganico(false);
-      setCheckedUtilFeromonas(false);
-      setCheckMallaAntiGranizo(false);
-      setCheckedContrHeladas(false);
-      setOtro('');
-    }
+    setCheckedAplicacionFertilizante(false);
+    setCheckedAbonoOrganico(false);
+    setCheckedUtilFeromonas(false);
+    setCheckMallaAntiGranizo(false);
+    setCheckedContrHeladas(false);
+    setOtro('');
   };
 
   return (
@@ -52,19 +48,19 @@ const FormModal = ({cultural, setCultural}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <ComponentCheckBox
-            title="Aplicacion de Fertilizantes"
+            title="Aplicación de Fertilizantes"
             disabled={false}
             value={checkedAplicacionFertilizante}
             onValueChange={(value) => setCheckedAplicacionFertilizante(value)}
           />
           <ComponentCheckBox
-            title="Abono Organico"
+            title="Abono Orgánico"
             disabled={false}
             value={checkedAbonoOrganico}
             onValueChange={(value) => setCheckedAbonoOrganico(value)}
           />
           <ComponentCheckBox
-            title="Utiliz. de Feromonas"
+            title="Utiliz. de Hormonas"
             disabled={false}
             value={checkedUtilFeromonas}
             onValueChange={(value) => setCheckedUtilFeromonas(value)}
@@ -101,16 +97,14 @@ const FormModal = ({cultural, setCultural}) => {
 
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <Button
+          <Button color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addProducAgricultural()}>
             Guardar
           </Button>
-          <Button
+          <Button color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

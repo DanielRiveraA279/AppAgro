@@ -7,44 +7,48 @@ import ComponentContainerGlobal from '../../ComponentContainerGlobal';
 import styles from '../../../assets/styles/components/Modals';
 
 const FormModal = ({llama, setLlama}) => {
-  const [cantChitTeq, setCantChitTeq] = React.useState('');
-  const [cantMalt, setCantMalt] = React.useState('');
-  const [cantJanach, setCantJanach] = React.useState('');
-  const [cantLlamMadr, setCantLlamMadr] = React.useState('');
-  const [cantCapon, setCantCapon] = React.useState('');
+  const [cantTekes, setCantTekes] = React.useState('');
+  const [cantTekesDestetados, setCantTekesDestetados] = React.useState('');
+  const [cantMaltonasMaltones, setCantMaltonasMaltones] = React.useState('');
+  const [cantHembrasJovenes, setCantHembrasJovenes] = React.useState('');
+  const [cantMachosJovenes, setCantMachosJovenes] = React.useState('');
+  const [cantMadres, setCantMadres] = React.useState('');
+  const [cantCapones, setCantCapones] = React.useState('');
 
   const addLlama = () => {
     const dataNew = {
-      number_chitas_teques: cantChitTeq,
-      number_maltones: cantMalt,
-      number_janachos: cantJanach,
-      number_llamas_mothers: cantLlamMadr,
-      number_capons: cantCapon,
+      number_tekes: cantTekes,
+      number_tekes_weaned: cantTekesDestetados,
+      number_maltones: cantMaltonasMaltones,
+      number_young_females: cantHembrasJovenes,
+      number_young_males: cantMachosJovenes,
+      number_llamas_mothers: cantMadres,
+      number_capons: cantCapones,
     };
 
-   
     setLlama([dataNew]);
-    
 
-    setCantChitTeq('');
-    setCantMalt('');
-    setCantJanach('');
-    setCantLlamMadr('');
-    setCantCapon('');
+    setCantTekes('');
+    setCantTekesDestetados('');
+    setCantMaltonasMaltones('');
+    setCantHembrasJovenes('');
+    setCantMachosJovenes('');
+    setCantMadres('');
+    setCantCapones('');
   };
 
   return (
     <View>
-      <Title>Ciclo Llamas</Title>
+      <Title>Ciclo Camelidos</Title>
 
       <ComponentContainerGlobal>
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cantidad de Chitas y Tekes"
+            label="Cantidad de Tekes"
             style={styles.TextInput}
-            value={cantChitTeq}
-            onChangeText={(value) => setCantChitTeq(value)}
+            value={cantTekes}
+            onChangeText={(value) => setCantTekes(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -53,10 +57,10 @@ const FormModal = ({llama, setLlama}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cantidad de Maltonas y Maltones"
+            label="Cantidad de Tekes Destetados"
             style={styles.TextInput}
-            value={cantMalt}
-            onChangeText={(value) => setCantMalt(value)}
+            value={cantTekesDestetados}
+            onChangeText={(value) => setCantTekesDestetados(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -65,10 +69,10 @@ const FormModal = ({llama, setLlama}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cantidad de Janachos"
+            label="Cantidad Maltonas y Maltones"
             style={styles.TextInput}
-            value={cantJanach}
-            onChangeText={(value) => setCantJanach(value)}
+            value={cantMaltonasMaltones}
+            onChangeText={(value) => setCantMaltonasMaltones(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -77,10 +81,34 @@ const FormModal = ({llama, setLlama}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cantidad de llamas madres"
+            label="Cantidad de Hembras Jovenes"
             style={styles.TextInput}
-            value={cantLlamMadr}
-            onChangeText={(value) => setCantLlamMadr(value)}
+            value={cantHembrasJovenes}
+            onChangeText={(value) => setCantHembrasJovenes(value)}
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
+
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+          <TextInput
+            mode="outlined"
+            label="Cantidad de Machos Jovenes"
+            style={styles.TextInput}
+            value={cantMachosJovenes}
+            onChangeText={(value) => setCantMachosJovenes(value)}
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
+
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+          <TextInput
+            mode="outlined"
+            label="Cantidad de Madres"
+            style={styles.TextInput}
+            value={cantMadres}
+            onChangeText={(value) => setCantMadres(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -91,8 +119,8 @@ const FormModal = ({llama, setLlama}) => {
             mode="outlined"
             label="Cantidad de Capones"
             style={styles.TextInput}
-            value={cantCapon}
-            onChangeText={(value) => setCantCapon(value)}
+            value={cantCapones}
+            onChangeText={(value) => setCantCapones(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -100,15 +128,15 @@ const FormModal = ({llama, setLlama}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addLlama()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

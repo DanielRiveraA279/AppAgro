@@ -82,7 +82,6 @@ const reducer = (
         ...state,
         result: state.result.filter((item) => item !== action.payload),
       };
-
     case 'CLEAR_PRODUCER_FORMS':
       return {
         ...state, //copio todo lo que tenga a lado del obj producer
@@ -107,7 +106,7 @@ const reducer = (
         ...state,
         user_login: action.payload,
       };
-    default:
+      default:
       return state;
   }
 };

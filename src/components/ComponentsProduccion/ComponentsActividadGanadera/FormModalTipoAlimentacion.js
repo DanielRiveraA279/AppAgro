@@ -21,12 +21,14 @@ const FormModal = ({alimentacion, setAlimentacion}) => {
   );
   const [alimento, setAlimento] = React.useState('');
   const [razon, setRazon] = React.useState('');
+  const [descripcion, setDescripcion] = React.useState('');
 
   const addAlimento = () => {
     const dataNew = {
       feeding: alimento,
       type_feeding: checkedTipoAlimentacion,
       daily_rations: razon,
+      description: descripcion,
     };
     let dataOld = [];
 
@@ -46,7 +48,41 @@ const FormModal = ({alimentacion, setAlimentacion}) => {
 
   return (
     <View>
-      <Title>Alimentacion</Title>
+      <Title>Alimentación</Title>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+        <Caption style={{color: '#0079BF'}}>Tipo de Alimentación</Caption>
+      </View>
+
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+          <ComponentRadioButton
+            title="Propia"
+            value="propia"
+            status={checkedTipoAlimentacion === 'propia' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('pripia')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="Proveedor"
+            value="proveedor"
+            status={checkedTipoAlimentacion === 'proveedor' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('proveedor')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="Pastoreo"
+            value="pastoreo"
+            status={checkedTipoAlimentacion === 'pastoreo' ? 'checked' : 'unchecked'}
+            onPress={() => setCheckedTipoAlimentacion('pastoreo')}
+            color="#008577"
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
 
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -60,70 +96,11 @@ const FormModal = ({alimentacion, setAlimentacion}) => {
         </ComponentContainer>
       </ComponentContainerGlobal>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <Caption>Tipo de Alimentacion</Caption>
-      </View>
-
-      <ComponentContainerGlobal>
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Propia"
-            value="propia"
-            status={
-              checkedTipoAlimentacion === 'propia' ? 'checked' : 'unchecked'
-            }
-            onPress={() => setCheckedTipoAlimentacion('propia')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Compra"
-            value="compra"
-            status={
-              checkedTipoAlimentacion === 'compra' ? 'checked' : 'unchecked'
-            }
-            onPress={() => setCheckedTipoAlimentacion('compra')}
-            color="#008577"
-          />
-
-          <ComponentRadioButton
-            title="Trueque"
-            value="trueque"
-            status={
-              checkedTipoAlimentacion === 'trueque' ? 'checked' : 'unchecked'
-            }
-            onPress={() => setCheckedTipoAlimentacion('trueque')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Donaciones"
-            value="donaciones"
-            status={
-              checkedTipoAlimentacion === 'donaciones' ? 'checked' : 'unchecked'
-            }
-            onPress={() => setCheckedTipoAlimentacion('donaciones')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Naturales"
-            value="naturales"
-            status={
-              checkedTipoAlimentacion === 'naturales' ? 'checked' : 'unchecked'
-            }
-            onPress={() => setCheckedTipoAlimentacion('naturales')}
-            color="#008577"
-          />
-        </ComponentContainer>
-      </ComponentContainerGlobal>
-
       <ComponentContainerGlobal>
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Razones Diarias"
+            label="Raciones Diarias (Kg.)"
             style={styles.TextInput}
             value={razon}
             onChangeText={(value) => setRazon(value)}
@@ -134,15 +111,15 @@ const FormModal = ({alimentacion, setAlimentacion}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addAlimento()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

@@ -73,7 +73,7 @@ const FormModal = ({sanidad, setSanidad}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Tipo de Acesoramiento</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo de Acesoramiento</Caption>
       </View>
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -95,6 +95,17 @@ const FormModal = ({sanidad, setSanidad}) => {
             onPress={() => setCheckedTipoAsesoramiento('publico')}
             color="#008577"
           />
+          <ComponentRadioButton
+            title="Ambos"
+            value="privado y publico"
+            status={
+              checkedTipoAsesoramiento === 'privado y publico'
+                ? 'checked'
+                : 'unchecked'
+            }
+            onPress={() => setCheckedTipoAsesoramiento('privado y publico')}
+            color="#008577"
+          />
         </ComponentContainer>
       </ComponentContainerGlobal>
 
@@ -113,7 +124,7 @@ const FormModal = ({sanidad, setSanidad}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Desparacitacion</Caption>
+        <Caption style={{color: '#0079BF'}}>Desparacitacion</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -148,7 +159,7 @@ const FormModal = ({sanidad, setSanidad}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Tipo de Enfermedad</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo de Enfermedad</Caption>
       </View>
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -175,7 +186,7 @@ const FormModal = ({sanidad, setSanidad}) => {
 
       <ComponentContainerGlobal>
         <ComponentContainer>
-        <TextInput
+          <TextInput
             mode="outlined"
             label="Nombre de la Enfermedad"
             style={styles.TextInput}
@@ -223,15 +234,15 @@ const FormModal = ({sanidad, setSanidad}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addSanidad()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

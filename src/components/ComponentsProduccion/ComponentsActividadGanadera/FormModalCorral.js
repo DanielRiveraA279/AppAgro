@@ -83,7 +83,7 @@ const FormModal = ({corral, setCorral}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Orientacion</Caption>
+        <Caption style={{color: '#0079BF'}}>Orientacion</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -148,7 +148,7 @@ const FormModal = ({corral, setCorral}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Tipo de Suelo</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo de Suelo</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -229,8 +229,8 @@ const FormModal = ({corral, setCorral}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => GeoProduction()}>
             Localizar
@@ -241,15 +241,15 @@ const FormModal = ({corral, setCorral}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addCoral()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

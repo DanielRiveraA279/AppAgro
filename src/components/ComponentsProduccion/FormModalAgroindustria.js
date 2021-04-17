@@ -100,7 +100,7 @@ const FormModal = ({visibleAgroindustria, hideModalAgroindustria, agroIndustria,
               <ComponentContainer>
                 <TextInput
                   mode="outlined"
-                  label="Descripcion"
+                  label="Descripción de la actividad"
                   style={styles.TextInput}
                   value={descripcion}
                   onChangeText={(value) => setDescripcion(value)}
@@ -114,7 +114,7 @@ const FormModal = ({visibleAgroindustria, hideModalAgroindustria, agroIndustria,
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
-              <Caption>Materia Prima</Caption>
+              <Caption style={{color:"#0079BF"}}>Materia Prima</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -166,7 +166,7 @@ const FormModal = ({visibleAgroindustria, hideModalAgroindustria, agroIndustria,
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
-              <Caption>Conocimiento</Caption>
+              <Caption style={{color:"#0079BF"}}>Conocimiento</Caption>
             </View>
             <ComponentContainerGlobal>
               <ComponentContainer>
@@ -331,16 +331,14 @@ const FormModal = ({visibleAgroindustria, hideModalAgroindustria, agroIndustria,
 
             <ComponentContainerGlobal>
               <ComponentContainer>
-                <Button
+                <Button color="#0079BF"
                   mode="outlined"
-                  color="#008080"
                   onPress={() => addAgroindustria()}
                   style={styles.SectionRight__button}>
                   Agregar
                 </Button>
-                <Button
+                <Button color="#0079BF"
                   mode="outlined"
-                  color="#008080"
                   onPress={hideModalAgroindustria}
                   style={styles.SectionRight__button}>
                   Cancelar

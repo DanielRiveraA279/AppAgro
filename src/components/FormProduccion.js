@@ -386,9 +386,9 @@ const FormProduccion = ({
         </ComponentContainer>
 
         <ComponentContainer>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => GeoProduction()}>
             Localizar
@@ -515,45 +515,45 @@ const FormProduccion = ({
         </ComponentContainer>
 
         <ComponentContainer>
-          <Button
+          <Button 
+           color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalTitulo}>
             Titulos
           </Button>
-          <Button
+          <Button 
+           color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalMaquinaria}>
             Maquinaria
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalInstalacion}>
             Instalacion
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalServicio}>
             Servicio
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalRiego}>
             Riego
           </Button>
 
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalProdAgricola}>
             Agricola
@@ -561,16 +561,16 @@ const FormProduccion = ({
         </ComponentContainer>
 
         <ComponentContainer>
-          <Button
+          <Button 
+           color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalAgroindustria}>
             Agroindustria
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={showModalActGanadera}>
             Ganadera
@@ -578,16 +578,16 @@ const FormProduccion = ({
         </ComponentContainer>
 
         <ComponentContainer>
-          <Button
+          <Button 
+           color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addProduc()}>
             Agregar
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => cancelar()}>
             Cancelar
@@ -784,16 +784,16 @@ const FormProduccion = ({
         </SafeAreaView>
 
         <ComponentContainer>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="outlined"
-            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="contained"
-            color="#008080"
             onPress={() => guardar()}
             style={styles.SectionRight__button}>
             Confirmacion

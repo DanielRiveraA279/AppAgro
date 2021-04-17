@@ -93,7 +93,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Origen</Caption>
+          <Caption style={{color: '#0079BF'}}>Origen</Caption>
         </View>
       </View>
 
@@ -127,7 +127,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
-      
+
       <ComponentContainerGlobal>
         <ComponentContainer>
           <TextInput
@@ -136,6 +136,7 @@ const FormModal = ({alimentario, setAlimentario}) => {
             style={styles.TextInput}
             value={cantidad}
             onChangeText={(value) => setCantidad(value)}
+            keyboardType="numeric"
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -143,15 +144,15 @@ const FormModal = ({alimentario, setAlimentario}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addAlementario()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

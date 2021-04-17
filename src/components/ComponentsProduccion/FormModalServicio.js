@@ -44,9 +44,7 @@ const FormModal = ({visible, hideModal, servicio, setServicio}) => {
       has_solar_panels: checkedPanelesSolares,
     };
 
-    
     setServicio([dataNew]);
-    
 
     setCheckedAgua(false);
     setCheckedLuz(false);
@@ -84,38 +82,6 @@ const FormModal = ({visible, hideModal, servicio, setServicio}) => {
             </ComponentContainer>
           </ComponentContainerGlobal>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Caption>Tipos de Servicios</Caption>
-          </View>
-
-          <ComponentContainerGlobal>
-            <ComponentContainer>
-              <TextInput
-                mode="outlined"
-                label="Luz"
-                style={styles.TextInput}
-                value={tipoLuz}
-                onChangeText={(value) => setTipoLuz(value)}
-              />
-            </ComponentContainer>
-          </ComponentContainerGlobal>
-
-          <ComponentContainerGlobal>
-            <ComponentContainer>
-              <TextInput
-                mode="outlined"
-                label="Agua"
-                style={styles.TextInput}
-                value={tipoAgua}
-                onChangeText={(value) => setTipoAgua(value)}
-              />
-            </ComponentContainer>
-          </ComponentContainerGlobal>
-
           <ComponentContainerGlobal>
             <ComponentContainer>
               <ComponentCheckBox
@@ -131,7 +97,7 @@ const FormModal = ({visible, hideModal, servicio, setServicio}) => {
                 onValueChange={(value) => setCheckedGrupElectrogeno(value)}
               />
               <ComponentCheckBox
-                title="Generador Hidraulico"
+                title="Generador Hidráulico"
                 disabled={false}
                 value={checkedGereradorHidraulico}
                 onValueChange={(value) => setCheckedGereradorHidraulico(value)}
@@ -153,15 +119,15 @@ const FormModal = ({visible, hideModal, servicio, setServicio}) => {
           <ComponentContainerGlobal>
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addProductionService()}>
                 Guardar
               </Button>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => hideModal()}>
                 Cancelar

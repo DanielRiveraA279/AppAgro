@@ -77,6 +77,7 @@ const FormModal = ({herramienta, setHerramienta}) => {
             style={styles.TextInput}
             value={cantidad}
             onChangeText={(value) => setCantidad(value)}
+            keyboardType="numeric"
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -84,15 +85,15 @@ const FormModal = ({herramienta, setHerramienta}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addHerramienta()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

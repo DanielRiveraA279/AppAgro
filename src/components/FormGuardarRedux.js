@@ -128,17 +128,21 @@ const FormModal = ({
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>
-                    <Title style={{color: '#333366'}}>Paso 1: Datos del Productor</Title>
+                    <Title style={{color: '#333366'}}>
+                      Paso 1: Datos del Productor
+                    </Title>
                   </DataTable.Title>
                   <DataTable.Title>
-                    <Title style={{color: '#333366'}}>Paso 2: Datos de su Produccion</Title>
+                    <Title style={{color: '#333366'}}>
+                      Paso 2: Datos de su Produccion
+                    </Title>
                   </DataTable.Title>
                 </DataTable.Header>
 
                 <DataTable.Row>
                   <DataTable.Cell>
                     <Button
-                      color="#008080"
+                      color="#0079BF"
                       mode="outlined"
                       onPress={paso1}
                       disabled={estadoProductor}>
@@ -147,11 +151,11 @@ const FormModal = ({
                   </DataTable.Cell>
                   <DataTable.Cell>
                     <Button
-                      color="#008080"
+                      color="#0079BF"
                       mode="outlined"
                       onPress={paso2}
                       disabled={estadoProduccion}>
-                       {estadoProduccion ? 'Confirmado' : 'Confirmar'}
+                      {estadoProduccion ? 'Confirmado' : 'Confirmar'}
                     </Button>
                   </DataTable.Cell>
                 </DataTable.Row>
@@ -162,7 +166,7 @@ const FormModal = ({
           <View style={styles.containerComponentGlobal}>
             <View style={styles.containerComponent}>
               <Button
-                color="#008080"
+                color="#0079BF"
                 mode="contained"
                 onPress={paso3}
                 disabled={estadoGuardar}>

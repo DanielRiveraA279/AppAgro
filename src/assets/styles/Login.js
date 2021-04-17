@@ -1,7 +1,7 @@
 const styles = {
   header: {
     flex: 1,
-    backgroundColor: '#333366',
+    backgroundColor: '#172B4D',
   },
 
   container: {
@@ -14,7 +14,7 @@ const styles = {
 
   container_titleLogin: {
     flex: 1,
-    backgroundColor: '#333366',
+    backgroundColor: '#172B4D',
     justifyContent: 'center',
     alignItems: 'center',
     width: '90%',

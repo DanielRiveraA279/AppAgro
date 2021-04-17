@@ -16,40 +16,36 @@ import ComponentCheckBox from '../../CheckBox';
 import styles from '../../../assets/styles/components/Modals';
 
 const FormModal = ({apicultura, setApicultura}) => {
-  const [checkedEspecie, setCheckedEspecie] = React.useState('');
+ 
+  const [checkedRenapa, setCheckedRenapa] = React.useState(false);
+  const [Especie, setEspecie] = React.useState('');
   const [checkedExistColmena, setCheckedExistColmena] = React.useState(false);
   const [checkedTipo, setCheckedTipo] = React.useState('');
-  const [checkedCajones, setCheckedCajones] = React.useState('');
-  const [checkedTipoFlor, setCheckedTipoFlor] = React.useState('');
-  const [checkedRenapa, setCheckedRenapa] = React.useState(false);
   const [cantCajon, setCantCajon] = React.useState('');
   const [canAlsXCajon, setCanAlsXCajon] = React.useState('');
-  const [ltrsXCajon, setLtrsXCajon] = React.useState('');
   const [periodPonil, setPeriodPonil] = React.useState('');
+  const [TipoFlor, setTipoFlor] = React.useState('');
 
   const addApicultura = () => {
     const dataNew = {
-      kind_bee: checkedEspecie,
-      has_bee_hives: checkedExistColmena,
-      type_bee_hives: checkedTipo,
+      renapa: checkedRenapa,
+      kind_bee: Especie,
+      has_bee_hives: checkedExistColmena, //bool
+      type_bee_hives: checkedTipo,  //select
       number_drawers: cantCajon,
       alsas_drawer: canAlsXCajon,
-      type_drawer: checkedCajones,
-      honey_stones: ltrsXCajon,
       pollination_period: periodPonil,
-      pollinated_flower: checkedTipoFlor,
-      has_renapa: checkedRenapa,
+      pollinated_flower: TipoFlor,
+      
     };
 
-    setCheckedEspecie('');
+    setEspecie('');
     setCheckedExistColmena(false);
     setCheckedTipo('');
     setCantCajon('');
     setCanAlsXCajon('');
-    setCheckedCajones('');
-    setLtrsXCajon('');
     setPeriodPonil('');
-    setCheckedTipoFlor('');
+    setTipoFlor('');
     setCheckedRenapa(false);
 
     setApicultura([dataNew]);
@@ -59,32 +55,14 @@ const FormModal = ({apicultura, setApicultura}) => {
     <View>
       <Title>Ciclo Apicultura</Title>
 
-      <View style={{flexDirection: 'row'}}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}>
-          <Caption>Especie</Caption>
-        </View>
-      </View>
-
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <ComponentRadioButton
-            title="Especie 1"
-            value="especia 1"
-            status={checkedEspecie === 'especia 1' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedEspecie('especia 1')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Especie 2"
-            value="Especie 2"
-            status={checkedEspecie === 'Especie 2' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedEspecie('Especie 2')}
-            color="#008577"
+          <TextInput
+            mode="outlined"
+            label="Especie de Abeja"
+            style={styles.TextInput}
+            value={Especie}
+            onChangeText={(value) => setEspecie(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -105,7 +83,7 @@ const FormModal = ({apicultura, setApicultura}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Tipo</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo</Caption>
       </View>
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -157,40 +135,9 @@ const FormModal = ({apicultura, setApicultura}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Cajones</Caption>
+          <Caption style={{color: '#0079BF'}}>Cajones</Caption>
         </View>
       </View>
-
-      <ComponentContainerGlobal>
-        <ComponentContainer>
-          <ComponentRadioButton
-            title="Fijos"
-            value="fijos"
-            status={checkedCajones === 'fijos' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedCajones('fijos')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Moviles"
-            value="moviles"
-            status={checkedCajones === 'moviles' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedCajones('moviles')}
-            color="#008577"
-          />
-        </ComponentContainer>
-      </ComponentContainerGlobal>
-
-      <ComponentContainerGlobal>
-        <ComponentContainer>
-          <TextInput
-            mode="outlined"
-            label="Litros por Cajon"
-            style={styles.TextInput}
-            value={ltrsXCajon}
-            onChangeText={(value) => setLtrsXCajon(value)}
-          />
-        </ComponentContainer>
-      </ComponentContainerGlobal>
 
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -204,29 +151,14 @@ const FormModal = ({apicultura, setApicultura}) => {
         </ComponentContainer>
       </ComponentContainerGlobal>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <Caption>Tipo de Flor</Caption>
-      </View>
-
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <ComponentRadioButton
-            title="Tipo 1"
-            value="Tipo 1"
-            status={checkedTipoFlor === 'Tipo 1' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoFlor('Tipo 1')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Tipo 2"
-            value="Tipo 2"
-            status={checkedTipoFlor === 'Tipo 2' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedTipoFlor('Tipo 2')}
-            color="#008577"
+          <TextInput
+            mode="outlined"
+            label="Tipo de Flor"
+            style={styles.TextInput}
+            value={TipoFlor}
+            onChangeText={(value) => setTipoFlor(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -245,15 +177,15 @@ const FormModal = ({apicultura, setApicultura}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addApicultura()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

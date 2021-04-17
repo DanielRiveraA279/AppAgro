@@ -24,6 +24,7 @@ const FormModal = ({plaga, setPlaga}) => {
 
   const [checkedContrPlaga, setCheckedContrPlaga] = React.useState(false);
   const [checkedPlaguicida, setCheckedPlaguicida] = React.useState(false);
+  const [tipoCtrlPlaga, setTipoCtrlPlaga] = React.useState('');
 
   const [descripcion, setDescripcion] = React.useState('');
   const [tipoPlaguicida, setTipoPlaguicida] = React.useState('');
@@ -41,6 +42,7 @@ const FormModal = ({plaga, setPlaga}) => {
         type_pests: checkedTipoEnfermedad,
         pests_description: descripcion,
         make_pests_control: checkedContrPlaga,
+        type_pests_control: tipoCtrlPlaga,
         make_pesticide: checkedPlaguicida,
         type_pesticide: tipoPlaguicida,
         other_practices: otro,
@@ -63,6 +65,7 @@ const FormModal = ({plaga, setPlaga}) => {
       setCheckedPlaguicida(false);
       setTipoPlaguicida('');
       setOtro('');
+      setTipoCtrlPlaga('');
     }
   };
 
@@ -74,7 +77,7 @@ const FormModal = ({plaga, setPlaga}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Tipo</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo</Caption>
       </View>
       <ComponentContainerGlobal>
         <ComponentContainer>
@@ -102,6 +105,40 @@ const FormModal = ({plaga, setPlaga}) => {
               checkedTipoEnfermedad === 'maleza' ? 'checked' : 'unchecked'
             }
             onPress={() => setCheckedTipoEnfermedad('maleza')}
+            color="#008577"
+          />
+        </ComponentContainer>
+      </ComponentContainerGlobal>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+        <Caption style={{color: '#0079BF'}}>Tipo de Control</Caption>
+      </View>
+
+      <ComponentContainerGlobal>
+        <ComponentContainer>
+          <ComponentRadioButton
+            title="Quimico"
+            value="quimico"
+            status={tipoCtrlPlaga === 'quimico' ? 'checked' : 'unchecked'}
+            onPress={() => setTipoCtrlPlaga('quimico')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="Biologico"
+            value="biologico"
+            status={tipoCtrlPlaga === 'biologico' ? 'checked' : 'unchecked'}
+            onPress={() => setTipoCtrlPlaga('biologico')}
+            color="#008577"
+          />
+          <ComponentRadioButton
+            title="Cultural"
+            value="cultural"
+            status={tipoCtrlPlaga === 'cultural' ? 'checked' : 'unchecked'}
+            onPress={() => setTipoCtrlPlaga('cultural')}
             color="#008577"
           />
         </ComponentContainer>
@@ -141,7 +178,7 @@ const FormModal = ({plaga, setPlaga}) => {
           <TextInput
             mode="outlined"
             disabled={!checkedPlaguicida}
-            label="Tipo de Plaguicida"
+            label="Tipo de Agroquimico"
             style={styles.TextInput}
             value={tipoPlaguicida}
             onChangeText={(value) => setTipoPlaguicida(value)}
@@ -164,15 +201,15 @@ const FormModal = ({plaga, setPlaga}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addAgricultPests()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

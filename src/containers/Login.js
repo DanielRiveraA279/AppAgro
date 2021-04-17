@@ -29,20 +29,19 @@ const Login = ({
   const [show, setShow] = React.useState(false);
 
   useEffect(() => {
-    //si esta como cuenta activa permanente acredito credenciales y accedo al home
-    if (user_login.activo) {
       const {user} = user_login;
-      setEmail(user.email);
-      setPassword(user_login.password);
-      setIsSwitchOn(user_login.activo);
-    } else {
+      
+      User_login_update({
+        user,
+        password: '',
+        activo: false,
+      });
+      
       setEmail('');
       setPassword('');
       setIsSwitchOn(false);
-    }
-  }, []);
-
-
+   }, []);
+  
   const MyNotification = ({show, setShow}) => {
     return (
       <Banner
@@ -54,7 +53,7 @@ const Login = ({
             onPress: () => setShow(false),
           },
         ]}>
-        Verivique sus credenciales si son correctas.
+        Verifique sus credenciales si son correctas.
       </Banner>
     );
   };
@@ -64,7 +63,7 @@ const Login = ({
   const requestAPI = () => {
     //comparo lo que me traiga redux-persist
     const url =
-      'http://www.agrapi.com.ar/api/v1.0/users/login/?fbclid=IwAR3nBHuIkmyKsH4WfwoqUqlvUEkHFSgZSD3bUm6X2PFJRsDxytu9-R0zbCk';
+      'http://www.agrapi.com.ar/api/v1.0/users/login/';
 
     const requestOptions = {
       method: 'POST',
@@ -118,7 +117,6 @@ const Login = ({
               <TextInput
                 mode="outlined"
                 label="Ingresar Usuario"
-                disabled={true}
                 value={email}
                 style={styles.componentLogin_inputs}
                 onChangeText={(value) => setEmail(value)}
@@ -126,7 +124,6 @@ const Login = ({
               <TextInput
                 mode="outlined"
                 label="Ingresar Clave"
-                disabled={true}
                 secureTextEntry={!visualizar}
                 value={password}
                 style={styles.componentLogin_inputs}
@@ -137,15 +134,14 @@ const Login = ({
                 <Switch
                   value={visualizar}
                   onValueChange={setVisualizar}
-                  color="#008080"
-                  disabled={true}
+                  color="#0079BF"
                 />
               </View>
 
-              <Button
+              <Button 
+                color="#0079BF"
                 style={styles.componentLogin_buttons}
                 mode="contained"
-                color="#008080"
                 onPress={() => requestAPI()}>
                 Acceder
               </Button>
@@ -155,8 +151,7 @@ const Login = ({
                 <Switch
                   value={isSwitchOn}
                   onValueChange={onToggleSwitch}
-                  color="#008080"
-                  disabled={true}
+                  color="#0079BF"
                 />
               </View>
             </View>

@@ -207,7 +207,7 @@ const FormProductor = ({
       </ComponentContainer>
 
       <ComponentContainer>
-        <Button
+        <Button color="#0079BF"
           mode="outlined"
           color="#008080"
           onPress={() => showDatepicker()}
@@ -220,15 +220,16 @@ const FormProductor = ({
         <TextInput
           mode="outlined"
           value={documento}
-          label="DNI"
+          label="DNI (Sin Puntos)"
           style={styles.TextInput}
           onChangeText={(value) => setDocumento(value)}
           error={dni_error}
+          keyboardType="numeric"
         />
       </ComponentContainer>
 
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Caption>Sexo</Caption>
+        <Caption style={{color:"#0079BF"}}>Sexo</Caption>
       </View>
 
       <ComponentContainer>
@@ -252,10 +253,11 @@ const FormProductor = ({
         <TextInput
           mode="outlined"
           value={telefono}
-          label="Telèfono"
+          label="Celular (Sin 0 y 15)"
           style={styles.TextInput}
           onChangeText={(value) => setTelefono(value)}
           error={telefono_error}
+          keyboardType="numeric"
         />
       </ComponentContainer>
 
@@ -274,7 +276,7 @@ const FormProductor = ({
         <TextInput
           mode="outlined"
           value={direccion}
-          label="Direccion"
+          label="Dirección"
           style={styles.TextInput}
           onChangeText={(value) => setDireccion(value)}
           error={direccion_error}
@@ -285,7 +287,7 @@ const FormProductor = ({
         <TextInput
           mode="outlined"
           value={tipoResidencia}
-          label="Tipo de la Residencia"
+          label="Material de construcción de la vivienda y techo"
           style={styles.TextInput}
           onChangeText={(value) => setTipoResidencia(value)}
           error={tipoResidencia_error}
@@ -296,7 +298,7 @@ const FormProductor = ({
         <TextInput
           mode="outlined"
           value={estadoResidencia}
-          label="Estado de la Residencia"
+          label="Estado de la Vivienda (Malo, Regular, Bueno)"
           style={styles.TextInput}
           onChangeText={(value) => setEstadoResidencia(value)}
           error={estadoResidencia_error}
@@ -304,9 +306,9 @@ const FormProductor = ({
       </ComponentContainer>
 
       <ComponentContainer>
-        <Button
+        <Button 
+          color="#0079BF"
           mode="outlined"
-          color="#008080"
           onPress={() => siguientePaso()}
           style={styles.SectionRight__button}>
           Siguiente

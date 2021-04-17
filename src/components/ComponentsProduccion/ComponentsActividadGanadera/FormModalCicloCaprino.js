@@ -97,16 +97,16 @@ const FormModal = ({caprino, setCaprino}) => {
 
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addCaprino()}>
             Guardar
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

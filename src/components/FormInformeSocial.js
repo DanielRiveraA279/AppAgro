@@ -58,13 +58,13 @@ const FormInformeSocial = ({
       </ComponentContainer>
 
       <ComponentContainer>
-        <Button
+        <Button color="#0079BF"
           mode="outlined"
           onPress={backStep}
           style={styles.SectionRight__button}>
           Anterior
         </Button>
-        <Button
+        <Button color="#0079BF"
           mode="outlined"
           onPress={nextStep}
           style={styles.SectionRight__button}>

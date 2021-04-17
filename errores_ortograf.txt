@@ -1,0 +1,73 @@
+# Error -> Corrección
+
+# Tabla Productor
+DNI -> DNI (Sin puntos)
+Teléfono -> Celular (sin 0 y 15)
+Direccion -> Dirección
+Tipo de residencia -> Material de construcción de la vivienda y techo
+Estado de la Residendencia -> Estado de la vivienda (Malo, Regular, Bueno)
+
+# Tabla grupo familiar
+Laso famila -> Lazo familiar
+Edad -> Edad en años
+
+# Tabla Vehículos
+Vehiculos -> Vehículos (falta acento)
+
+# Tabla produccion agricola
+Edad -> Edad en años
+
+# Tabla Producción
+Produccion -> Producción
+
+# Tabla Producción/Servicios
+Generador Hidaulico -> Generador Hidráulico
+
+# Tabla Producción/Riego
+Aspercion -> Asperción
+Inundacion -> Inundación
+Toma/Seccion -> Toma/Sección
+Condicion -> Condición
+
+# Tabla Producción/Agricola/Labor Cultural
+Aplicacion -> Aplicación
+Organico -> Orgánico
+Biologico -> Biológico
+
+# Tabla Producción/Agricola/Epoca de Cosecha
+Hectareas -> Héctareas
+Exportacion -> Exportación
+
+# Tabla Producción/Agroindustria
+Descripcion -> Descripción de la actividad
+
+# Tabla Producción/Agroindustria/Producto Artesanal
+Descripcion -> Descripción
+
+# Tabla Producción/Actividad Ganadera
+Superficie Actividad -> Superficie Actividad en Héctareas
+
+# Tabla Producción/Actividad Ganadera/Reproducción
+Reproduccion -> Reproducción
+Servicios Continuos -> Servicio Continuo
+
+# Tabla Producción/Actividad Ganadera/Comercialización
+Comercializacion -> Comercialización
+Exportacion -> Exportación
+
+Ordenar campos en orden consecutivos descendente (faltaria)
+-> Cantidad de Faenados, Destino de Faenados
+-> Cantidad de Piel, Destino de Piel
+-> Cantidad de Lana Pelo -> Destino de Lana Pelo
+-> Cantidad de Piel -> Destino de Piel
+
+# Tabla Producción/Actividad Ganadera/Alimentación
+Alimentaion -> Alimentación
+Razones Diarias -> Raciones Diarias (Kg.)
+
+-> Problemas en los check de tipo de alimentación no se puede seleccionar
+Propia
+
+# Tabla Producción/Actividad Ganadera/Todos los ciclos
+Paricion -> Parición (faltaria)
+

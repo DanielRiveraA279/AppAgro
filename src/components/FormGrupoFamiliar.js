@@ -26,7 +26,7 @@ const FormGrupoFamiliar = ({
 }) => {
   const [nombre, setNombre] = React.useState('');
   const [apellido, setApellido] = React.useState('');
-  const [lasoFamiliar, setLasoFamiliar] = React.useState('Laso Familiar');
+  const [lasoFamiliar, setLasoFamiliar] = React.useState('Lazo Familiar');
   const [edad, setEdad] = React.useState('');
   const [checkedActLaboral, setCheckedActLaboral] = React.useState(false);
   const [descripcion, setDescripcion] = React.useState('');
@@ -220,6 +220,11 @@ const FormGrupoFamiliar = ({
                   left={(props) => <List.Icon {...props} />}
                   onPress={() => setLasoFamiliar('Madre')}
                 />
+                 <List.Item
+                  title="Hermano/a"
+                  left={(props) => <List.Icon {...props} />}
+                  onPress={() => setLasoFamiliar('Hermano/a')}
+                />
                 <List.Item
                   title="Abuelo/a"
                   left={(props) => <List.Icon {...props} />}
@@ -239,10 +244,11 @@ const FormGrupoFamiliar = ({
           <TextInput
             mode="outlined"
             value={edad}
-            label="Edad"
+            label="Edad en años"
             style={styles.TextInput}
             onChangeText={(value) => setEdad(value)}
             error={edadError}
+            keyboardType="numeric"
           />
         </ComponentContainer>
 
@@ -266,7 +272,7 @@ const FormGrupoFamiliar = ({
         </ComponentContainer>
 
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Caption>Educaciòn</Caption>
+          <Caption style={{color:"#0079BF"}}>Educaciòn</Caption>
         </View>
 
         <ComponentContainer>
@@ -296,16 +302,15 @@ const FormGrupoFamiliar = ({
           />
         </ComponentContainer>
         <ComponentContainer>
-          <Button
+          <Button color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addGroup()}>
             Guardar
           </Button>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => clearDate()}>
             Cancelar
@@ -340,16 +345,15 @@ const FormGrupoFamiliar = ({
         </View>
 
         <ComponentContainer>
-          <Button
+          <Button 
+            color="#0079BF"
             mode="outlined"
-            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
-          <Button
+          <Button color="#0079BF"
             mode="outlined"
-            color="#008080"
             onPress={nextStep}
             style={styles.SectionRight__button}>
             Siguiente

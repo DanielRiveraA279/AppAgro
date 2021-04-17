@@ -38,7 +38,7 @@ const FormModal = ({acuicultura, setAcuicultura}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Orientacion</Caption>
+        <Caption style={{color:"#0079BF"}}>Orientacion</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -76,7 +76,7 @@ const FormModal = ({acuicultura, setAcuicultura}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Existencia</Caption>
+        <Caption style={{color:"#0079BF"}}>Existencia</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -121,16 +121,14 @@ const FormModal = ({acuicultura, setAcuicultura}) => {
 
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <Button
+          <Button color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addAcuicultura()}>
             Guardar
           </Button>
-          <Button
+          <Button color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

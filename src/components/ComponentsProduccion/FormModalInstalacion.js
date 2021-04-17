@@ -163,9 +163,7 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
       installation_well: pozos,
     };
 
-   
     setInstalacion([dataNew]);
-    
 
     setCheckedMolinoViento(false);
     setCheckedTanqueAustraliano(false);
@@ -183,7 +181,6 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
         visible={visible}
         onDismiss={hideModal}
         contentContainerStyle={styles.container}>
-        
         <View style={styles.container}>
           <Title>Instalaciones</Title>
           <ComponentContainerGlobal>
@@ -248,7 +245,7 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Galpones</Caption>
+            <Caption style={{color: '#0079BF'}}>Galpones</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -276,7 +273,7 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
 
           <ComponentContainerGlobal>
             <ComponentContainer>
-              <Paragraph>{`LONGIUD:`} </Paragraph>
+              <Paragraph>{`LONGITUD:`} </Paragraph>
               <Paragraph
                 style={{
                   color: '#2B4A73',
@@ -288,16 +285,16 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
           <ComponentContainerGlobal>
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => GeoGalpon()}>
                 Localizar
               </Button>
 
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => ValidationGalpon()}>
                 Agregar
@@ -310,13 +307,13 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Posos de Agua</Caption>
+            <Caption style={{color: '#0079BF'}}>Pozos de Agua</Caption>
           </View>
 
           <ComponentContainerGlobal>
             <ComponentContainer>
               <ComponentCheckBox
-                title="Activo?"
+                title="Activo"
                 disabled={false}
                 value={checkedActivo}
                 onValueChange={(value) => setCheckedActivo(value)}
@@ -349,16 +346,16 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
           <ComponentContainerGlobal>
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => GeoPozo()}>
                 Localizar
               </Button>
 
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => ValidationPozos()}>
                 Agregar
@@ -419,15 +416,15 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
           <ComponentContainerGlobal>
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addInstalacion()}>
                 Guardar
               </Button>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => hideModal()}>
                 Cancelar

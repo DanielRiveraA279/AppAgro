@@ -69,7 +69,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Tipo de Riego</Caption>
+            <Caption style={{color:"#0079BF"}}>Tipo de Riego</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -107,7 +107,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Riego Presurizado</Caption>
+            <Caption style={{color:"#0079BF"}}>Riego Presurizado</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -122,7 +122,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
                 color="#008577"
               />
               <ComponentRadioButton
-                title="Aspercion"
+                title="Asperción"
                 value="aspercion"
                 status={
                   checkedRiegoPresurizado === 'aspercion'
@@ -151,13 +151,13 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Riego Superficial</Caption>
+            <Caption style={{color:"#0079BF"}}>Riego Superficial</Caption>
           </View>
 
           <ComponentContainerGlobal>
             <ComponentContainer>
               <ComponentRadioButton
-                title="Inundacion"
+                title="Inundación"
                 value="inundacion"
                 status={
                   checkedRiegoSuperficial === 'inundacion'
@@ -214,7 +214,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Toma/Seccion"
+                label="Toma/Sección"
                 style={styles.TextInput}
                 value={tomaSeccion}
                 onChangeText={(value) => setTomaSeccion(value)}
@@ -238,7 +238,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Condicion de Acequias y Canales"
+                label="Condición de Acequias y Canales"
                 style={styles.TextInput}
                 value={condAseqCan}
                 onChangeText={(value) => setCondAseCan(value)}
@@ -251,7 +251,7 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Derecho</Caption>
+            <Caption style={{color:"#0079BF"}}>Derecho</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -280,26 +280,26 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Turnos</Caption>
+            <Caption style={{color:"#0079BF"}}>Turnos</Caption>
           </View>
           <ComponentContainerGlobal>
             <ComponentContainer>
               <ComponentRadioButton
-                title="Cortos"
+                title="Cortos (7 dias)"
                 value="cortos"
                 status={checkedTurnos === 'cortos' ? 'checked' : 'unchecked'}
                 onPress={() => setCheckedTurnos('cortos')}
                 color="#008577"
               />
               <ComponentRadioButton
-                title="Medios"
+                title="Medios (14 dias)"
                 value="medios"
                 status={checkedTurnos === 'medios' ? 'checked' : 'unchecked'}
                 onPress={() => setCheckedTurnos('medios')}
                 color="#008577"
               />
               <ComponentRadioButton
-                title="Largos"
+                title="Largos (30 dias)"
                 value="largos"
                 status={checkedTurnos === 'largos' ? 'checked' : 'unchecked'}
                 onPress={() => setCheckedTurnos('largos')}
@@ -310,16 +310,14 @@ const FormModal = ({visible, hideModal, riego, setRiego}) => {
 
           <ComponentContainerGlobal>
             <ComponentContainer>
-              <Button
+              <Button color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addProductionIrrigation()}>
                 Guardar
               </Button>
-              <Button
+              <Button color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => hideModal()}>
                 Cancelar

@@ -65,13 +65,13 @@ const FormModal = ({visible, hideModal, maquinaria, setMaquinaria}) => {
         onDismiss={hideModal}
         contentContainerStyle={styles.container}>
         <View style={styles.container}>
-          <Title>Maquinaria</Title>
+          <Title>Maquinaria/Implemento</Title>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Destino</Caption>
+            <Caption style={{color: '#0079BF'}}>Destino</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -119,7 +119,7 @@ const FormModal = ({visible, hideModal, maquinaria, setMaquinaria}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Tipo</Caption>
+            <Caption style={{color: '#0079BF'}}>Tipo</Caption>
           </View>
 
           <ComponentContainerGlobal>
@@ -206,15 +206,15 @@ const FormModal = ({visible, hideModal, maquinaria, setMaquinaria}) => {
           <ComponentContainerGlobal>
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addProductionMachine()}>
                 Guardar
               </Button>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => hideModal()}>
                 Cancelar

@@ -30,9 +30,7 @@ const FormModal = ({bovino, setBovino}) => {
       number_oxen_torunos: bueyesTorunos,
     };
 
-  
     setBovino([dataNew]);
-    
 
     setTernMen1Anio('');
     setVaqui1a2Anios('');
@@ -159,15 +157,15 @@ const FormModal = ({bovino, setBovino}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addBovino()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

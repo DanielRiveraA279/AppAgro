@@ -6,37 +6,32 @@ import ComponentContainerGlobal from '../../ComponentContainerGlobal';
 import styles from '../../../assets/styles/components/Modals';
 
 const FormModal = ({porcino, setPorcino}) => {
-  const [hast2Mes, setHast2Mes] = React.useState('');
-  const [may2Mes, setMay2Mes] = React.useState('');
-  const [men4Mes, setMen4Mes] = React.useState('');
-  const [may4Mes, setMay4Mes] = React.useState('');
-  const [totalCerd, setTotalCerd] = React.useState('');
-  const [totalPadr, setTotalPadr] = React.useState('');
+  const [lechonesHast3Mes, setLechonesHast3Mes] = React.useState('');
+  const [lechones3a8Mes, setLechones3a8Mes] = React.useState('');
+  const [machosMay8Mes, setMachosMay8Mes] = React.useState('');
+  const [hembraMay8Mes, setHembraMay8Mes] = React.useState('');
+  const [cantCapon, setCantCapon] = React.useState('');
+  const [cantPadrill, setCantPadrill] = React.useState('');
 
   const addPorcino = () => {
+    //todos son integer
     const dataNew = {
-      up_two_months: hast2Mes,
-
-      older_two_months: may2Mes,
-
-      less_four_months: men4Mes,
-
-      older_four_months: may4Mes,
-
-      number_pigs: totalCerd,
-      number_stallions: totalPadr,
+      up_three_months: lechonesHast3Mes,
+      three_eight_months: lechones3a8Mes,
+      males_older_eight_months: machosMay8Mes,
+      females_older_eight_months: hembraMay8Mes,
+      number_pigs: cantCapon,
+      number_stallions: cantPadrill,
     };
 
-   
     setPorcino([dataNew]);
-    
 
-    setHast2Mes('');
-    setMay2Mes('');
-    setMen4Mes('');
-    setMay4Mes('');
-    setTotalCerd('');
-    setTotalPadr('');
+    setLechonesHast3Mes('');
+    setLechones3a8Mes('');
+    setMachosMay8Mes('');
+    setHembraMay8Mes('');
+    setCantCapon('');
+    setCantPadrill('');
   };
 
   return (
@@ -47,10 +42,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cantidad de Lechones hasta 2 meses"
+            label="Lechones hasta 3 meses"
             style={styles.TextInput}
-            value={hast2Mes}
-            onChangeText={(value) => setHast2Mes(value)}
+            value={lechonesHast3Mes}
+            onChangeText={(value) => setLechonesHast3Mes(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -59,10 +54,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Mayor de 2 meses"
+            label="Lechones de 3 a 8 Meses"
             style={styles.TextInput}
-            value={may2Mes}
-            onChangeText={(value) => setMay2Mes(value)}
+            value={lechones3a8Mes}
+            onChangeText={(value) => setLechones3a8Mes(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -71,10 +66,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Menor de 4 meses"
+            label="Machos Mayor a 8 Meses"
             style={styles.TextInput}
-            value={men4Mes}
-            oonChangeText={(value) => setMen4Mes(value)}
+            value={machosMay8Mes}
+            oonChangeText={(value) => setMachosMay8Mes(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -83,10 +78,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Mayor de 4 meses"
+            label="Hembras Mayor a 8 Meses"
             style={styles.TextInput}
-            value={may4Mes}
-            onChangeText={(value) => setMay4Mes(value)}
+            value={hembraMay8Mes}
+            onChangeText={(value) => setHembraMay8Mes(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -95,10 +90,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Total de Cerdos"
+            label="Cantidad de Capones"
             style={styles.TextInput}
-            value={totalCerd}
-            onChangeText={(value) => setTotalCerd(value)}
+            value={cantCapon}
+            onChangeText={(value) => setCantCapon(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -107,10 +102,10 @@ const FormModal = ({porcino, setPorcino}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Total de Padrillos"
+            label="Cantidad de Padrillos"
             style={styles.TextInput}
-            value={totalPadr}
-            onChangeText={(value) => setTotalPadr(value)}
+            value={cantPadrill}
+            onChangeText={(value) => setCantPadrill(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -118,15 +113,15 @@ const FormModal = ({porcino, setPorcino}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addPorcino()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

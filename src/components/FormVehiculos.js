@@ -19,6 +19,8 @@ const FormVehiculo = ({
   producer,
 }) => {
   const [checkedTipoVehiculo, setCheckedTipoVehiculo] = React.useState('');
+  const [tipoVehiculo, setTipoVehiculo] = React.useState('');
+
   const [checkedSemiRemolque, setCheckedSemiRemolque] = React.useState(false);
   const [tipoAcoplado, setTipoAcoplado] = React.useState('');
   const [checkedAcoplado, setCheckedAcoplado] = React.useState(false);
@@ -40,7 +42,7 @@ const FormVehiculo = ({
 
   const ValidationSuccess = () => {
     const dataNew = {
-      name_vehicle: checkedTipoVehiculo,
+      name_vehicle: tipoVehiculo,
       use_trailer: checkedAcoplado,
       type_trailer: tipoAcoplado,
       use_semitrailer: checkedSemiRemolque,
@@ -58,22 +60,12 @@ const FormVehiculo = ({
   };
 
   const addVehicle = () => {
-    if (checkedTipoVehiculo.trim() === '') {
-      ShowAlertError();
-    } else if (
-      checkedTipoVehiculo.trim() === 'acoplado' &&
-      tipoAcoplado.trim() === ''
-    ) {
-      setTipoAcopladoError(true);
-      ShowAlertError();
-    } else {
-      setTipoAcopladoError(false);
-      setCheckedTipoVehiculo('');
-      setCheckedAcoplado(false);
-      setTipoAcoplado('');
-      setCheckedSemiRemolque(false);
-      ValidationSuccess();
-    }
+    setTipoAcopladoError(false);
+    setTipoVehiculo('');
+    setCheckedAcoplado(false);
+    setTipoAcoplado('');
+    setCheckedSemiRemolque(false);
+    ValidationSuccess(); //aqui guardo
   };
 
   const itemDelete = (value) => {
@@ -110,23 +102,16 @@ const FormVehiculo = ({
       </View>
 
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Caption>Tipo Vehiculo</Caption>
+        <Caption style={{color: '#0079BF'}}>Tipo Vehiculo</Caption>
       </View>
 
       <ComponentContainer>
-        <ComponentRadioButton
-          title="Camioneta"
-          value="camioneta"
-          status={checkedTipoVehiculo === 'camioneta' ? 'checked' : 'unchecked'}
-          onPress={() => setCheckedTipoVehiculo('camioneta')}
-          color="#008577"
-        />
-        <ComponentRadioButton
-          title="Camion"
-          value="camion"
-          status={checkedTipoVehiculo === 'camion' ? 'checked' : 'unchecked'}
-          onPress={() => setCheckedTipoVehiculo('camion')}
-          color="#008577"
+        <TextInput
+          mode="outlined"
+          label="Tipo de Vehículo"
+          style={styles.TextInput}
+          value={tipoVehiculo}
+          onChangeText={(value) => setTipoVehiculo(value)}
         />
       </ComponentContainer>
 
@@ -162,13 +147,13 @@ const FormVehiculo = ({
 
       <ComponentContainer>
         <Button
+          color="#0079BF"
           mode="text"
-          color="#008080"
           style={styles.SectionRight__button}
           onPress={() => addVehicle()}>
           Guardar
         </Button>
-        <Button mode="text" color="#008080" style={styles.SectionRight__button}>
+        <Button color="#0079BF" mode="text" style={styles.SectionRight__button}>
           Cancelar
         </Button>
       </ComponentContainer>
@@ -181,7 +166,7 @@ const FormVehiculo = ({
             justifyContent: 'flex-end',
           }}>
           <List.Accordion
-            title="Lista de Vehiculos"
+            title="Lista de Vehículos"
             left={(props) => <List.Icon {...props} icon="equal" />}>
             {Object.keys(vehicle).length === 0
               ? null
@@ -201,15 +186,15 @@ const FormVehiculo = ({
 
       <ComponentContainer>
         <Button
+          color="#0079BF"
           mode="outlined"
-          color="#008080"
           onPress={backStep}
           style={styles.SectionRight__button}>
           Anterior
         </Button>
         <Button
+          color="#0079BF"
           mode="outlined"
-          color="#008080"
           onPress={nextStep}
           style={styles.SectionRight__button}>
           Siguiente

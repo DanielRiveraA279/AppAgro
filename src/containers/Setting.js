@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {View, Dimensions} from 'react-native';
 import {Avatar, Title, Paragraph, Card, Button} from 'react-native-paper';
 import styles from '../assets/styles/Setting';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 
-const Setting = ({navigation}) => {
+const Setting = ({user_login, navigation}) => {
   const [expanded, setExpanded] = useState(true);
   const handlePress = () => setExpanded(!expanded);
 
@@ -16,40 +17,26 @@ const Setting = ({navigation}) => {
 
   const dataNew = [
     {
-      title: 'Sebastian Noblega',
-      description: 'Intendente',
+      title: user_login.user.first_name + ' ' + user_login.user.last_name,
+      description: user_login.user.email,
       distrit: 'Tinogasta',
-      label: 'S',
-    },
-    {
-      title: 'Ana Arevalo',
-      description: 'Secretaria Produccion',
-      distrit: 'Tinogasta',
-      label: 'A',
-    },
-    {
-      title: 'Walter Tapia',
-      description: 'Desarrollador Full Stack',
-      distrit: 'Tinogasta',
-      label: 'W',
-    },
-    {
-      title: 'Daniel Rivera',
-      description: 'Desarrollador Full Stack',
-      distrit: 'Tinogasta',
-      label: 'D',
-    },
+      label: user_login.user.first_name.charAt(0),
+    }  
   ];
+
+  const cerrar = () =>{
+    navigation.navigate('Login');
+  }
 
   const _renderItem = ({item, index}) => {
     const LeftContent = (props) => (
-      <Avatar.Text {...props} label={item.label} />
+      <Avatar.Text backgroundColor="#0079BF" {...props} label={item.label} />
     );
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: '#323266',
+          backgroundColor: '#172B4D',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -74,8 +61,7 @@ const Setting = ({navigation}) => {
             source={require('../assets/static/card_1.jpg')}
           />
           <Card.Actions>
-            <Button color="#008080" onPress={() => navigation.navigate('Login')}>Cerrar</Button>
-            <Button color="#008080">Acceder</Button>
+            <Button color="#0079BF" onPress={() => cerrar()}>Cerrar</Button>
           </Card.Actions>
         </Card>
       </View>
@@ -88,7 +74,7 @@ const Setting = ({navigation}) => {
         flex: 1,
         alignContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#323266',
+        backgroundColor: '#172B4D',
       }}>
       <Carousel
         ref={isCarousel}
@@ -120,4 +106,10 @@ const Setting = ({navigation}) => {
   );
 };
 
-export default Setting;
+const mapStateToProps = (state) => {
+  return {
+    user_login: state.user_login,
+  };
+};
+
+export default connect(mapStateToProps)(Setting)

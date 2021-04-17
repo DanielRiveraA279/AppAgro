@@ -25,9 +25,7 @@ const FormGrupoActividadLaboral = ({
   producer,
   producerPostActivity,
 }) => {
-  const [checkedTrabajoFormal, setCheckedTrabajoFormal] = React.useState(
-    false,
-  );
+  const [checkedTrabajoFormal, setCheckedTrabajoFormal] = React.useState(false);
   const [
     checkedTrabajoBajoDependencia,
     setCheckedTrabajoBajoDependencia,
@@ -76,7 +74,12 @@ const FormGrupoActividadLaboral = ({
     setcheckTipo('');
   };
 
-  const ValidationSuccess = () => {
+  const ShowAlert = () => {
+    setErrorCargo(true);
+    MessageError('Datos Faltante', 'Existe campo/s vacio/s');
+  };
+
+  const addProducerActivity = () => {
     //data nuew
     const dataNew = {
       is_formal_worker: checkedTrabajoFormal, //trabajo formal
@@ -100,21 +103,6 @@ const FormGrupoActividadLaboral = ({
     setErrorCargo(false);
 
     clearData();
-  };
-
-  const ShowAlert = () => {
-    setErrorCargo(true);
-    MessageError('Datos Faltante', 'Existe campo/s vacio/s');
-  };
-
-  const addProducerActivity = () => {
-    //validate
-    cargo.trim() === '' ||
-    checkedSexo.trim() === '' ||
-    checkedTipoPersona.trim() === '' ||
-    checkTipo.trim() === ''
-      ? ShowAlert()
-      : ValidationSuccess();
   };
 
   //delete item of listAccordion
@@ -163,7 +151,7 @@ const FormGrupoActividadLaboral = ({
         </View>
 
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Caption>Trabajo</Caption>
+          <Caption style={{color: '#0079BF'}}>Trabajo</Caption>
         </View>
 
         <ComponentContainer>
@@ -188,7 +176,7 @@ const FormGrupoActividadLaboral = ({
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Categoria</Caption>
+          <Caption style={{color: '#0079BF'}}>Categoria</Caption>
         </View>
 
         <ComponentContainer>
@@ -250,7 +238,7 @@ const FormGrupoActividadLaboral = ({
         </ComponentContainer>
 
         <ComponentContainer>
-        <ComponentCheckBox
+          <ComponentCheckBox
             title="Trabajo Formal?"
             disabled={false}
             value={checkedTrabajoFormal}
@@ -264,7 +252,7 @@ const FormGrupoActividadLaboral = ({
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Tipo de Persona</Caption>
+          <Caption style={{color: '#0079BF'}}>Tipo de Persona</Caption>
         </View>
 
         <ComponentContainer>
@@ -301,7 +289,7 @@ const FormGrupoActividadLaboral = ({
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Sexo</Caption>
+          <Caption style={{color: '#0079BF'}}>Sexo</Caption>
         </View>
 
         <ComponentContainer>
@@ -346,17 +334,10 @@ const FormGrupoActividadLaboral = ({
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Caption>Estadia</Caption>
+          <Caption style={{color: '#0079BF'}}>Estadia</Caption>
         </View>
 
         <ComponentContainer>
-          <ComponentRadioButton
-            title="Residente"
-            value={checkTipo}
-            status={checkTipo === 'residente' ? 'checked' : 'unchecked'}
-            onPress={() => setcheckTipo('residente')}
-            color="#008577"
-          />
           <ComponentRadioButton
             title="Permanente"
             value={checkTipo}
@@ -375,15 +356,15 @@ const FormGrupoActividadLaboral = ({
 
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addProducerActivity()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => clearData()}>
             Cancelar
@@ -423,15 +404,15 @@ const FormGrupoActividadLaboral = ({
 
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="outlined"
-            color="#008080"
             onPress={backStep}
             style={styles.SectionRight__button}>
             Anterior
           </Button>
           <Button
+            color="#0079BF"
             mode="outlined"
-            color="#008080"
             onPress={nextStep}
             style={styles.SectionRight__button}>
             Siguiente

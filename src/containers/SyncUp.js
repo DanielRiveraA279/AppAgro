@@ -70,7 +70,7 @@ const SyncUp = ({navigation, result, RemoveResult, token}) => {
     <ScrollView>
       <View>
         <View style={{width: '100%'}}>
-          <Appbar.Header style={{backgroundColor: '#333366'}}>
+          <Appbar.Header style={{backgroundColor: '#172B4D'}}>
             <Appbar.BackAction
               color="white"
               onPress={() => navigation.goBack()}
@@ -104,9 +104,9 @@ const SyncUp = ({navigation, result, RemoveResult, token}) => {
                 <DataTable.Cell>{last_name}</DataTable.Cell>
                 <DataTable.Cell>{district}</DataTable.Cell>
                 <DataTable.Cell>
-                  <Button
+                  <Button 
+                    color="#0079BF"
                     mode="contained"
-                    color="#008080"
                     onPress={() => addProducer(key, item)}>
                     Sincronizar
                   </Button>

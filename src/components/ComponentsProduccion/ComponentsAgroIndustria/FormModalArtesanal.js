@@ -1,12 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {
-  TextInput,
-  Button,
-  Title,
-  Caption,
-} from 'react-native-paper';
+import {TextInput, Button, Title, Caption} from 'react-native-paper';
 
 import ComponentContainer from '../../ComponentContainer';
 import ComponentContainerGlobal from '../../ComponentContainerGlobal';
@@ -56,7 +51,7 @@ const FormModal = ({artesanal, setArtesanal}) => {
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Descripcion"
+            label="Descripción"
             style={styles.TextInput}
             value={descripcion}
             onChangeText={(value) => setDescripcion(value)}
@@ -72,6 +67,7 @@ const FormModal = ({artesanal, setArtesanal}) => {
             style={styles.TextInput}
             value={cantidad}
             onChangeText={(value) => setCantidad(value)}
+            keyboardType="numeric"
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -91,15 +87,15 @@ const FormModal = ({artesanal, setArtesanal}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addArtesanal()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

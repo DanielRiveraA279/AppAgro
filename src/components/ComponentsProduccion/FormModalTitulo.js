@@ -54,18 +54,18 @@ const FormModal = ({visible, hideModal, titulos, setTitulos}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Caption>Tenencia</Caption>
+            <Caption style={{color:"#0079BF"}}>Tenencia</Caption>
           </View>
 
           <ComponentContainerGlobal>
             <ComponentContainer>
               <ComponentRadioButton
-                title="Arriendatario"
+                title="Arrendatario"
                 value={checkedTenencia}
                 status={
-                  checkedTenencia === 'arriendatario' ? 'checked' : 'unchecked'
+                  checkedTenencia === 'arrendatario' ? 'checked' : 'unchecked'
                 }
-                onPress={() => setCheckedTenencia('arriendatario')}
+                onPress={() => setCheckedTenencia('arrendatario')}
                 color="#008577"
               />
               <ComponentRadioButton
@@ -119,16 +119,14 @@ const FormModal = ({visible, hideModal, titulos, setTitulos}) => {
 
           <ComponentContainerGlobal>
             <ComponentContainer>
-              <Button
+              <Button color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addTitle()}>
                 Guardar
               </Button>
-              <Button
+              <Button color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => hideModal()}>
                 Cancelar

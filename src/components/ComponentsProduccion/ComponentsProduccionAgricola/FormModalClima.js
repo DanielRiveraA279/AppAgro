@@ -1,25 +1,17 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 
-import {
-  TextInput,
-  Button,
-  Modal,
-  Portal,
-  Title,
-  Caption,
-} from 'react-native-paper';
+import {TextInput, Button, Title} from 'react-native-paper';
 
 import ComponentContainer from '../../ComponentContainer';
 import ComponentContainerGlobal from '../../ComponentContainerGlobal';
-import ComponentRadioButton from '../../RadioButton';
 import styles from '../../../assets/styles/components/Modals';
 import MessageError from '../../MessageError';
 
 const FormModal = ({clima, setClima}) => {
-  const [checkedNivel, setCheckedNivel] = React.useState(false);
+  const [descripcion, setDescripcion] = React.useState('');
   const [factor, setFactor] = React.useState('');
-  const [riesgo, setRiesgo] = React.useState('');
+  const [riesgo, setRiesgo] = React.useState('bajo');
 
   const ShowAlert = () => {
     MessageError('Datos Faltantes', 'Existe campo/s vacio/s');
@@ -32,7 +24,7 @@ const FormModal = ({clima, setClima}) => {
       const dataNew = {
         factor: factor,
         risk: riesgo,
-        damange_level: checkedNivel,
+        description: descripcion,
       };
 
       let dataOld = [];
@@ -46,7 +38,7 @@ const FormModal = ({clima, setClima}) => {
         setClima([dataNew]);
       }
       setFactor('');
-      setRiesgo('');
+      setRiesgo('bajo');
       setCheckedNivel('');
     }
   };
@@ -76,44 +68,15 @@ const FormModal = ({clima, setClima}) => {
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <Caption>Nivel de Daño</Caption>
-      </View>
+
       <ComponentContainerGlobal>
         <ComponentContainer>
-          <ComponentRadioButton
-            title="Nulo"
-            value={checkedNivel}
-            status={checkedNivel === 'nulo' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedNivel('nulo')}
-            color="#008577"
-          />
-          <ComponentRadioButton
-            title="Bajo"
-            value={checkedNivel}
-            status={checkedNivel === 'bajo' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedNivel('bajo')}
-            color="#008577"
-          />
-
-          <ComponentRadioButton
-            title="Medio"
-            value={checkedNivel}
-            status={checkedNivel === 'medio' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedNivel('medio')}
-            color="#008577"
-          />
-
-          <ComponentRadioButton
-            title="Alto"
-            value={checkedNivel}
-            status={checkedNivel === 'alto' ? 'checked' : 'unchecked'}
-            onPress={() => setCheckedNivel('alto')}
-            color="#008577"
+          <TextInput
+            mode="outlined"
+            value={descripcion}
+            label="Descripcion"
+            style={styles.TextInput}
+            onChangeText={(value) => setDescripcion(value)}
           />
         </ComponentContainer>
       </ComponentContainerGlobal>
@@ -121,15 +84,15 @@ const FormModal = ({clima, setClima}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addAgriculturalClimatic()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

@@ -17,7 +17,6 @@ import FormCultural from './ComponentsProduccionAgricola/FormModalLaborCultural'
 import FormPlaga from './ComponentsProduccionAgricola/FormModalPlaga';
 import FormClima from './ComponentsProduccionAgricola/FormModalClima';
 import FormCosecha from './ComponentsProduccionAgricola/FormModalCosecha';
-import FormVenta from './ComponentsProduccionAgricola/FormModalVenta';
 
 import ComponentContainer from '../ComponentContainer';
 import ComponentContainerGlobal from '../ComponentContainerGlobal';
@@ -38,13 +37,13 @@ const FormModal = ({
   const [plaga, setPlaga] = React.useState([]);
   const [clima, setClima] = React.useState([]);
   const [cosecha, setCosecha] = React.useState([]);
-  const [venta, setVenta] = React.useState([]);
 
   const [actividad, setActividad] = React.useState('');
   const [superficie, setSuperficie] = React.useState('');
   const [edad, setEdad] = React.useState('');
-  const [problemas, setProblemas] = React.useState('');
+  const [cierrePerim, setCierrePerim] = React.useState('');
   const [sugerencias, setSugerencias] = React.useState('');
+  const [variedad, setVariedad] = React.useState('');
 
   useEffect(() => {
     // const {production} = producer;
@@ -74,10 +73,6 @@ const FormModal = ({
     setPlaga(plaga.filter((item) => item !== value));
   };
 
-  const itemDeleteVenta = (value) => {
-    setVenta(venta.filter((item) => item !== value));
-  };
-
   const itemDeleteCosecha = (value) => {
     setCosecha(cosecha.filter((item) => item !== value));
   };
@@ -101,47 +96,20 @@ const FormModal = ({
       var {0: agricultural_attendance} = Object.values(cultural);
     }
 
-    if (Object.keys(venta).length === 0) {
-      var agricultural_sales_channel = {
-        is_collector: false,
-        is_cooperative: false,
-        is_exporter: false,
-        use_baler: false,
-        use_fair: false,
-        use_industry: false,
-        use_fridge: false,
-      };
-    } else {
-      var {0: agricultural_sales_channel} = Object.values(venta);
-    }
-
-    if (Object.keys(cosecha).length === 0) {
-      var agricultural_harvest = {
-        harvest_surface: 0,
-        tons_production: 0,
-        has_curtains_insulated: false,
-        plant_length_curtains: 0,
-        plant_species_curtains: '',
-        harvest_time: '',
-      };
-    } else {
-      var {0: agricultural_harvest} = Object.values(cosecha);
-    }
-
-   const dataNew = {
+    const dataNew = {
       activity_name: actividad,
+      variety: variedad,
       surface: superficie,
       destination: checkedDestino,
       sowing: checkedSiembra,
       type_sowing: checkedTipoSiembra,
       age: edad,
-      problems: problemas,
+      perimeter_closure: cierrePerim,
       suggestion: sugerencias,
       agricultural_attendance: agricultural_attendance, //objetos
       agricultural_climatic: clima, //array
       agricultural_pests: plaga, //array
-      agricultural_sales_channel: agricultural_sales_channel,
-      agricultural_harvest: agricultural_harvest,
+      agricultural_harvest: cosecha,
     };
     const dataOld = [];
 
@@ -175,10 +143,21 @@ const FormModal = ({
               <ComponentContainer>
                 <TextInput
                   mode="outlined"
-                  label="Actividad"
+                  label="Tipo de Cultivo"
                   style={styles.TextInput}
                   value={actividad}
                   onChangeText={(value) => setActividad(value)}
+                />
+              </ComponentContainer>
+            </ComponentContainerGlobal>
+            <ComponentContainerGlobal>
+              <ComponentContainer>
+                <TextInput
+                  mode="outlined"
+                  label="Variedad"
+                  style={styles.TextInput}
+                  value={variedad}
+                  onChangeText={(value) => setVariedad(value)}
                 />
               </ComponentContainer>
             </ComponentContainerGlobal>
@@ -197,7 +176,7 @@ const FormModal = ({
 
             <View
               style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption>Destino</Caption>
+              <Caption style={{color: '#0079BF'}}>Destino</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -233,7 +212,7 @@ const FormModal = ({
 
             <View
               style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption>Siembra</Caption>
+              <Caption style={{color: '#0079BF'}}>Siembra</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -261,7 +240,7 @@ const FormModal = ({
 
             <View
               style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption>Tipo de Siembra</Caption>
+              <Caption style={{color: '#0079BF'}}>Tipo de Siembra</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -303,10 +282,10 @@ const FormModal = ({
               <ComponentContainer>
                 <TextInput
                   mode="outlined"
-                  label="Problemas"
+                  label="Cortinas/Cierre Perimetral"
                   style={styles.TextInput}
-                  value={problemas}
-                  onChangeText={(value) => setProblemas(value)}
+                  value={cierrePerim}
+                  onChangeText={(value) => setCierrePerim(value)}
                 />
               </ComponentContainer>
             </ComponentContainerGlobal>
@@ -498,65 +477,18 @@ const FormModal = ({
               </View>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                }}>
-                <List.Section>
-                  <List.Subheader>Canal de Ventas</List.Subheader>
-
-                  <List.Accordion
-                    left={(props) => (
-                      <List.Icon
-                        {...props}
-                        color={Colors.blue500}
-                        icon="plus"
-                      />
-                    )}>
-                    <FormVenta venta={venta} setVenta={setVenta} />
-                  </List.Accordion>
-
-                  <List.Accordion
-                    title="Lista"
-                    left={(props) => <List.Icon {...props} icon="equal" />}>
-                    {Object.keys(venta).length === 0
-                      ? null
-                      : venta.map((item, key) => {
-                          return (
-                            <List.Item
-                              key={key}
-                              title={
-                                item.is_exporter
-                                  ? 'Exportacion: Si'
-                                  : 'Exportacion: No'
-                              }
-                              left={(props) => (
-                                <List.Icon {...props} icon="delete" />
-                              )}
-                              onPress={() => itemDeleteVenta(item)}
-                            />
-                          );
-                        })}
-                  </List.Accordion>
-                </List.Section>
-              </View>
-            </View>
-
             <ComponentContainerGlobal>
               <ComponentContainer>
                 <Button
+                  color="#0079BF"
                   mode="outlined"
-                  color="#008080"
                   onPress={() => guardar()}
                   style={styles.SectionRight__button}>
                   Agregar
                 </Button>
                 <Button
+                  color="#0079BF"
                   mode="outlined"
-                  color="#008080"
                   onPress={hideModalProdAgricola}
                   style={styles.SectionRight__button}>
                   Cancelar

@@ -28,9 +28,7 @@ const FormModal = ({cunicultura, setCunicultura}) => {
       number_rabbit: cantGazap,
     };
 
-   
     setCunicultura([dataNew]);
-    
 
     setCheckedOrientacion('');
     setReprodMach('');
@@ -46,7 +44,7 @@ const FormModal = ({cunicultura, setCunicultura}) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Caption>Orientacion</Caption>
+        <Caption style={{color: '#0079BF'}}>Orientacion</Caption>
       </View>
 
       <ComponentContainerGlobal>
@@ -114,15 +112,15 @@ const FormModal = ({cunicultura, setCunicultura}) => {
       <ComponentContainerGlobal>
         <ComponentContainer>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}
             onPress={() => addCunicultura()}>
             Guardar
           </Button>
           <Button
+            color="#0079BF"
             mode="text"
-            color="#008080"
             style={styles.SectionRight__button}>
             Cancelar
           </Button>

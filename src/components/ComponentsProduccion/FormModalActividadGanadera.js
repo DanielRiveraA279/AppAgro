@@ -19,7 +19,6 @@ import {
 import FormSandiad from './ComponentsActividadGanadera/FormModalSanidad';
 import FormReproduccion from './ComponentsActividadGanadera/FormModalReproduccion';
 import FormComercializacion from './ComponentsActividadGanadera/FormModalComercio';
-import FormVenta from './ComponentsActividadGanadera/FormModalCanalVenta';
 import FormBovino from './ComponentsActividadGanadera/FormModalCicloBovino';
 import FormOvino from './ComponentsActividadGanadera/FormModalCicloOvino';
 import FormCaprino from './ComponentsActividadGanadera/FormModalCicloCaprino';
@@ -52,7 +51,6 @@ const FormModal = ({
   const [sanidad, setSanidad] = React.useState([]);
   const [reproduccion, setReproduccion] = React.useState([]);
   const [comercializacion, setComercializacion] = React.useState([]);
-  const [venta, setVenta] = React.useState([]);
   const [bovino, setBovino] = React.useState([]);
   const [ovino, setOvino] = React.useState([]);
   const [caprino, setCaprino] = React.useState([]);
@@ -118,10 +116,8 @@ const FormModal = ({
         //reproduccion
         var livestock_reproduction = {
           make_reproductive_management: false,
+          type_reproductive_management: '',
           make_continuous_service: false,
-          make_corral_service: false,
-          make_artificial_insemination: false,
-          make_embryo_transplant: false,
           other_practices: '',
         };
       } else {
@@ -146,164 +142,6 @@ const FormModal = ({
         var {0: livestock_health} = Object.assign({}, sanidad);
       }
 
-      if (Object.keys(comercializacion).length === 0) {
-        //comercializacion
-        var livestock_marketing = {
-          number_slaughtered: 0,
-          number_shorn: 0,
-          amount_wool_hair: 0,
-          amount_leather: 0,
-          liters_milk: 0,
-          milk_destination: '',
-          wool_hair_destination: '',
-          leather_destination: '',
-          slaughter_destination: '',
-        };
-      } else {
-        var {0: livestock_marketing} = Object.assign({}, comercializacion);
-      }
-
-      if (Object.keys(venta).length === 0) {
-        //venta
-        var livestock_sales_channel = {
-          is_collector: false,
-          is_cooperative: false,
-          is_exporter: false,
-          use_baler: false,
-          use_fair: false,
-          use_industry: false,
-          use_fridge: false,
-        };
-      } else {
-        var {0: livestock_sales_channel} = Object.assign({}, venta);
-      }
-
-      if (Object.keys(bovino).length === 0) {
-        //bovino
-        var livestock_bovine_cycle = {
-          calves_under_one_year: 0,
-          heifers_one_to_two_years: 0,
-          heifers_over_two_years: 0,
-          number_cows: 0,
-          steers_one_to_two_years: 0,
-          steers_older_two_years: 0,
-          bulls_one_to_two_years: 0,
-          bulls_older_two_years: 0,
-          number_oxen_torunos: 0,
-        };
-      } else {
-        var {0: livestock_bovine_cycle} = Object.assign({}, bovino);
-      }
-
-      if (Object.keys(ovino).length === 0) {
-        //ovino
-        var livestock_sheep_cycle = {
-          sheep_under_six_months: 0,
-          sheep_older_six_months_to_calving: 0,
-          sheep_older_six_months_one_year: 0,
-          number_sheep: 0,
-          number_capons: 0,
-          number_rams: 0,
-        };
-      } else {
-        var {0: livestock_sheep_cycle} = Object.assign({}, ovino);
-      }
-
-      if (Object.keys(caprino).length === 0) {
-        //caprino
-        var livestock_goat_cycle = {
-          goats_under_six_months: 0,
-          goats_six_months_to_first_calving: 0,
-          number_goats: 0,
-          number_capons: 0,
-          number_stallions: 0,
-        };
-      } else {
-        var {0: livestock_goat_cycle} = Object.assign({}, caprino);
-      }
-
-      if (Object.keys(porcino).length === 0) {
-        //porcino
-        var livestock_pig_cycle = {
-          up_two_months: 0,
-          older_two_months: 0,
-          less_four_months: 0,
-          older_four_months: 0,
-          number_pigs: 0,
-          number_stallions: 0,
-        };
-      } else {
-        var {0: livestock_pig_cycle} = Object.assign({}, porcino);
-      }
-
-      if (Object.keys(llama).length === 0) {
-        //llama
-        var livestock_llama_cycle = {
-          number_chitas_teques: 0,
-          number_maltones: 0,
-          number_janachos: 0,
-          number_llamas_mothers: 0,
-          number_capons: 0,
-        };
-      } else {
-        var {0: livestock_llama_cycle} = Object.assign({}, llama);
-      }
-
-      if (Object.keys(avicultura).length === 0) {
-        //avicultura
-        var livestock_poultry_cycle = {
-          is_intensive_poultry: false,
-          number_broilers_incubated: 0,
-          breeding_males: 0,
-          number_eggs_chickens_babies: 0,
-          number_incubators: 0,
-          number_broilers_fattening: 0,
-          number_breeding_layers: 0,
-          existence: '',
-        };
-      } else {
-        var {0: livestock_poultry_cycle} = Object.assign({}, avicultura);
-      }
-
-      if (Object.keys(cunicultura).length === 0) {
-        //cunicultura
-        var livestock_rabbit_cycle = {
-          orientation: '',
-          number_breeding_males: 0,
-          number_breeding_females: 0,
-          number_rabbit: 0,
-        };
-      } else {
-        var {0: livestock_rabbit_cycle} = Object.assign({}, cunicultura);
-      }
-
-      if (Object.keys(apicultura).length === 0) {
-        //avicultura
-        var livestock_beekeeping_cycle = {
-          kind_bee: '',
-          has_bee_hives: false,
-          type_bee_hives: '',
-          number_drawers: 0,
-          alsas_drawer: 0,
-          type_drawer: '',
-          honey_stones: 0,
-          pollination_period: '',
-          pollinated_flower: '',
-          has_renapa: false,
-        };
-      } else {
-        var {0: livestock_beekeeping_cycle} = Object.assign({}, apicultura);
-      }
-
-      if (Object.keys(acuicultura).length === 0) {
-        //acuicultura
-        var livestock_aquaculture_cycle = {
-          orientation: '',
-          existence: '',
-        };
-      } else {
-        var {0: livestock_aquaculture_cycle} = Object.assign({}, acuicultura);
-      }
       //---------------------------------------------------------------------
       const dataNew = {
         type_activity: selectCiclo,
@@ -316,17 +154,16 @@ const FormModal = ({
         livestock_reproduction: livestock_reproduction, //objeto
         livestock_animal_pens: corral,
         livestock_health: livestock_health, //objeto
-        livestock_marketing: livestock_marketing, //objeto
-        livestock_sales_channel: livestock_sales_channel, //objeto
-        livestock_bovine_cycle: livestock_bovine_cycle, //objeto
-        livestock_sheep_cycle: livestock_sheep_cycle, //objeto
-        livestock_goat_cycle: livestock_goat_cycle, //objeto
-        livestock_pig_cycle: livestock_pig_cycle, //objeto
-        livestock_llama_cycle: livestock_llama_cycle, //objeto
-        livestock_poultry_cycle: livestock_poultry_cycle, //objeto
-        livestock_rabbit_cycle: livestock_rabbit_cycle, //objeto
-        livestock_beekeeping_cycle: livestock_beekeeping_cycle, //objeto
-        livestock_aquaculture_cycle: livestock_aquaculture_cycle, //objeto
+        livestock_marketing: comercializacion,
+        livestock_bovine_cycle: bovino,
+        livestock_sheep_cycle: ovino,
+        livestock_goat_cycle: caprino,
+        livestock_pig_cycle: porcino,
+        livestock_llama_cycle: llama,
+        livestock_poultry_cycle: avicultura,
+        livestock_rabbit_cycle: cunicultura,
+        livestock_beekeeping_cycle: apicultura,
+        livestock_aquaculture_cycle: acuicultura,
       };
 
       if (Object.keys(dataActGanadera).length !== 0) {
@@ -383,7 +220,6 @@ const FormModal = ({
     setCunicultura([]);
     setApicultura([]);
     setAcuicultura([]);
-    
   };
 
   return (
@@ -424,9 +260,9 @@ const FormModal = ({
               </Chip>
               <Chip
                 icon="check"
-                onPress={() => setSelectCiclo('llamas')}
-                selected={selectCiclo.trim() === 'llamas' ? true : false}>
-                Llamas
+                onPress={() => setSelectCiclo('camelidos')}
+                selected={selectCiclo.trim() === 'camelidos' ? true : false}>
+                Camelidos
               </Chip>
               <Chip
                 icon="check"
@@ -460,7 +296,7 @@ const FormModal = ({
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Superficie Actividad"
+                label="Superficie Actividad en Héctareas"
                 style={styles.TextInput}
                 value={superficie}
                 onChangeText={(value) => setSuperficie(value)}
@@ -505,7 +341,7 @@ const FormModal = ({
                   flexDirection: 'row',
                   justifyContent: 'center',
                 }}>
-                <Caption>Acesoramiento</Caption>
+                <Caption style={{color: '#0079BF'}}>Acesoramiento</Caption>
               </View>
             </View>
 
@@ -568,7 +404,7 @@ const FormModal = ({
                   justifyContent: 'flex-end',
                 }}>
                 <List.Section>
-                  <List.Subheader>Reproduccion</List.Subheader>
+                  <List.Subheader>Reproducción</List.Subheader>
 
                   <List.Accordion
                     left={(props) => (
@@ -595,7 +431,7 @@ const FormModal = ({
                   justifyContent: 'flex-end',
                 }}>
                 <List.Section>
-                  <List.Subheader>Comercializacion</List.Subheader>
+                  <List.Subheader>Comercialización</List.Subheader>
 
                   <List.Accordion
                     left={(props) => (
@@ -613,31 +449,7 @@ const FormModal = ({
                 </List.Section>
               </View>
             </View>
-
-            <View style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                }}>
-                <List.Section>
-                  <List.Subheader>Canal de Venta</List.Subheader>
-
-                  <List.Accordion
-                    left={(props) => (
-                      <List.Icon
-                        {...props}
-                        color={Colors.blue500}
-                        icon="plus"
-                      />
-                    )}>
-                    <FormVenta venta={venta} setVenta={setVenta} />
-                  </List.Accordion>
-                </List.Section>
-              </View>
-            </View>
-
+            
             <View style={{flexDirection: 'row'}}>
               <View
                 style={{
@@ -742,7 +554,7 @@ const FormModal = ({
                   justifyContent: 'flex-end',
                 }}>
                 <List.Section>
-                  <List.Subheader>Ciclo Llamas</List.Subheader>
+                  <List.Subheader>Ciclo Camelidos</List.Subheader>
 
                   <List.Accordion
                     left={(props) => (
@@ -919,22 +731,22 @@ const FormModal = ({
 
             <ComponentContainer>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => addActGan()}>
                 Agregar
               </Button>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={() => guardar()}>
                 Guardar
               </Button>
               <Button
+                color="#0079BF"
                 mode="text"
-                color="#008080"
                 style={styles.SectionRight__button}
                 onPress={hideModalActGanadera}>
                 Cancelar
