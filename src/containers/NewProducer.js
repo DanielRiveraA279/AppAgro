@@ -31,7 +31,7 @@ const customStyles = {
 };
 
 const datos = [
-  'Productor',
+  'Datos del Productor',
   'Grupo Familiar',
   'Actividad Laboral',
   'Vehículos',

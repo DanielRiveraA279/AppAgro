@@ -25,6 +25,8 @@ const FormProductor = ({
   const [documento, setDocumento] = React.useState('');
   const [genero, setGenero] = React.useState('');
   const [telefono, setTelefono] = React.useState('');
+  const [otroTelefono, setOtroTelefono] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [distrito, setDistrito] = React.useState('');
   const [direccion, setDireccion] = React.useState('');
   const [tipoResidencia, setTipoResidencia] = React.useState('');
@@ -36,6 +38,8 @@ const FormProductor = ({
   const [tipoResidencia_error, setTipoResidencia_error] = React.useState(false);
   const [direccion_error, setDireccion_error] = React.useState(false);
   const [distrito_error, setDistrito_error] = React.useState(false);
+  //const [email_error, setEmail_error] = React.useState(false);
+  //const [otroTelefono_error, setOtroTelefono_error] = React.useState(false);
   const [telefono_error, setTelefono_error] = React.useState(false);
   const [dni_error, setDni_error] = React.useState(false);
   const [fec_nac_error, setFec_nac_error] = React.useState(false);
@@ -73,6 +77,8 @@ const FormProductor = ({
     setDocumento(data_producer.document);
     setGenero(data_producer.gender);
     setTelefono(data_producer.phone_number);
+    setOtroTelefono(data_producer.another_phone_number)
+    setEmail(data_producer.email)
   };
 
   const seteoComponentesHome = () => {
@@ -127,6 +133,8 @@ const FormProductor = ({
         document: documento,
         gender: genero,
         phone_number: telefono,
+        another_phone_number: otroTelefono,
+        email: email
       });
 
       producerHomePost({
@@ -141,6 +149,8 @@ const FormProductor = ({
       setFec_nac_error(false);
       setDni_error(false);
       setTelefono_error(false);
+      //setOtroTelefono_error(false);
+      //setEmail_error(false);
       setDistrito_error(false);
       setDireccion_error(false);
       setTipoResidencia_error(false);
@@ -228,8 +238,8 @@ const FormProductor = ({
         />
       </ComponentContainer>
 
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Caption style={{color:"#0079BF"}}>Sexo</Caption>
+      <View style={{flex: 1, flexDirection: 'row', marginTop: 10, marginLeft: 5}}>
+        <Caption style={{color:"#0079BF",fontSize: 16,}}>Sexo</Caption>
       </View>
 
       <ComponentContainer>
@@ -260,6 +270,30 @@ const FormProductor = ({
           keyboardType="numeric"
         />
       </ComponentContainer>
+
+      <ComponentContainer>
+        <TextInput
+        mode="outlined"
+        value={otroTelefono}
+        label="Otro Celular (Sin 0 y 15)"
+        style ={styles.TextInput}
+        onChangeText={(value) => setOtroTelefono(value)}
+        //error={otroTelefono_error}
+        keyboardType="numeric"
+        />
+      </ComponentContainer>
+
+      <ComponentContainer>
+        <TextInput
+        mode="outlined"
+        value={email}
+        label="Email"
+        style ={styles.TextInput}
+        onChangeText={(value) => setEmail(value)}
+        //error={email_error}
+        />
+      </ComponentContainer>
+
 
       <ComponentContainer>
         <TextInput

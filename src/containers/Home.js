@@ -57,8 +57,8 @@ const Home = ({navigation}) => {
         <Appbar.Header style={{backgroundColor: '#172B4D'}}>
           <Appbar.Content
             color="white"
-            title="Produccion"
-            subtitle={'Panel de Administraciòn'}
+            title="Bit"
+            subtitle={'Panel de Administración'}
           />
         </Appbar.Header>
       </View>

@@ -19,7 +19,7 @@
     "@react-navigation/stack": "^5.12.6",
     "react": "16.13.1",
     "react-moment": "^1.1.1",
-    "react-native": "0.63.3",
+    "react-native": "0.63.4",
     "react-native-dashboard": "0.0.4",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.3.1",

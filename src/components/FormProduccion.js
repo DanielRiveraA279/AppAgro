@@ -12,6 +12,7 @@ import {
   Title,
   List,
   Provider,
+  Caption,
 } from 'react-native-paper';
 import FormModalTitulo from './ComponentsProduccion/FormModalTitulo.js';
 
@@ -55,8 +56,10 @@ const FormProduccion = ({
   const [lat, setLat] = React.useState('');
   const [lon, setLon] = React.useState('');
   const [condCamino, setCondCamino] = React.useState('');
+  const [ancho, setAncho] = React.useState('');
+  const [largo, setLargo] = React.useState('');
   const [distrito, setDistrito] = React.useState('Seleccione un Distrito');
-  const [superficie, setSuperficie] = React.useState('');
+  const [medida, setMedida] = React.useState('Seleccione una unidad de longitud');
   const [checkedRenspa, setCheckedRenspa] = React.useState(false);
   const [checkedRenaf, setCheckedRenaf] = React.useState(false);
 
@@ -190,7 +193,9 @@ const FormProduccion = ({
       const dataNew = {
         is_resident: checkedResidente,
         district: distrito,
-        surface: superficie,
+        width: ancho,
+        height: largo,
+        length_unit: medida,
         road_state: condCamino,
         lat: lat,
         lng: lon,
@@ -214,7 +219,9 @@ const FormProduccion = ({
 
       setCheckedResidente(false);
       setDistrito('Seleccione un Distrito');
-      setSuperficie('');
+      setAncho('');
+      setLargo('');
+      setMedida('Seleccione una unidad de longitud')
       setCondCamino('');
       setLat('');
       setLon('');
@@ -235,7 +242,9 @@ const FormProduccion = ({
   const cancelar = () => {
     setCheckedResidente(false);
     setDistrito('Seleccione un Distrito');
-    setSuperficie('');
+    setAncho('');
+    setLargo('');
+    setMedida('Seleccione una unidad de longitud');
     setCondCamino('');
     setLat('');
     setLon('');
@@ -246,6 +255,20 @@ const FormProduccion = ({
     setMaquinaria([]);
     setRiego([]);
   };
+
+  const tituloMedia = (medida) => {
+    if (medida === "0") {
+      return "Metros"
+    }else if (medida === "1"){
+      return "Decametros"
+    }else if (medida === "2"){
+      return "Hectometros"
+    }else if (medida === "3"){
+      return "Kilometros"
+    }else {
+      return "Seleccione una Unidad de Medida"
+    }
+  }
 
   const GeoProduction = () => {
     Geolocation.getCurrentPosition((info) => data.push(info.coords));
@@ -358,7 +381,7 @@ const FormProduccion = ({
 
         <ComponentContainer>
           <ComponentCheckBox
-            title="Reside"
+            title="Reside en la Zona de Producción"
             disabled={false}
             value={checkedResidente}
             onValueChange={(value) => setCheckedResidente(value)}
@@ -414,7 +437,9 @@ const FormProduccion = ({
             }}>
             <List.Accordion
               title={distrito}
-              left={(props) => <List.Icon {...props} icon="equal" />}>
+              left={(props) => <List.Icon {...props} icon="equal" />}
+              
+              >
               <List.Item
                 title="Tinogasta"
                 left={(props) => <List.Icon {...props} />}
@@ -489,13 +514,70 @@ const FormProduccion = ({
           </View>
         </View>
 
+        <View style={{
+        flex: 1, 
+        flexDirection: 'row', 
+        marginTop: 10, 
+        marginLeft: 5, 
+        marginBottom: 10
+        }}>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Dimensiones de la Zona</Caption>
+        </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          }}
+          >
+            <List.Accordion
+            title= {tituloMedia(medida)} 
+            left={(props) => <List.Icon {...props} icon="equal" />}
+            >
+              <List.Item
+                title="Metros"
+                left={(props) => <List.Icon {...props} />}
+                onPress={() => setMedida('0')}
+              />
+              <List.Item
+                title="Decametros"
+                left={(props) => <List.Icon {...props} />}
+                onPress={() => setMedida('1')}
+              />
+              <List.Item
+                title="Hectometros"
+                left={(props) => <List.Icon {...props} />}
+                onPress={() => setMedida('2')}
+              />
+              <List.Item
+                title="Kilometros"
+                left={(props) => <List.Icon {...props} />}
+                onPress={() => setMedida('3')}
+              />
+
+            </List.Accordion>
+          </View>
+        </View>
+
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Superficie"
+            label="Ancho"
             style={styles.TextInput}
-            value={superficie}
-            onChangeText={(value) => setSuperficie(value)}
+            value={ancho}
+            onChangeText={(value) => setAncho(value)}
+          />
+        </ComponentContainer>
+
+        <ComponentContainer>
+          <TextInput
+            mode="outlined"
+            label="Largo"
+            style={styles.TextInput}
+            value={largo}
+            onChangeText={(value) => setLargo(value)}
           />
         </ComponentContainer>
 
@@ -550,7 +632,9 @@ const FormProduccion = ({
             onPress={showModalRiego}>
             Riego
           </Button>
+        </ComponentContainer>
 
+        <ComponentContainer>
           <Button 
             color="#0079BF"
             mode="text"
@@ -558,22 +642,19 @@ const FormProduccion = ({
             onPress={showModalProdAgricola}>
             Agricola
           </Button>
-        </ComponentContainer>
-
-        <ComponentContainer>
-          <Button 
-           color="#0079BF"
-            mode="text"
-            style={styles.SectionRight__button}
-            onPress={showModalAgroindustria}>
-            Agroindustria
-          </Button>
           <Button 
             color="#0079BF"
             mode="text"
             style={styles.SectionRight__button}
             onPress={showModalActGanadera}>
             Ganadera
+          </Button>
+          <Button 
+           color="#0079BF"
+            mode="text"
+            style={styles.SectionRight__button}
+            onPress={showModalAgroindustria}>
+            Agroindustria
           </Button>
         </ComponentContainer>
 

@@ -36,7 +36,8 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
   ] = React.useState(false);
   const [checkedActivo, setCheckedActivo] = React.useState(false);
 
-  const [superficie, setSuperficie] = React.useState('');
+  const [largo, setLargo] = React.useState('');
+  const [ancho, setAncho] = React.useState('');
 
   const [latGalpon, setLatGalpon] = React.useState('');
   const [lonGalpon, setLonGalpon] = React.useState('');
@@ -70,7 +71,8 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
 
   const addGalpon = () => {
     const dataNew = {
-      surface: superficie,
+      width: ancho,
+      height: largo,
       lat: latGalpon,
       lng: lonGalpon,
     };
@@ -86,7 +88,8 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
       setGalpon([dataNew]);
     }
 
-    setSuperficie('');
+    setLargo('');
+    setAncho('');
     setLatGalpon('');
     setLonGalpon('');
   };
@@ -197,23 +200,29 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
                 value={checkedTanqueAustraliano}
                 onValueChange={(value) => setCheckedTanqueAustraliano(value)}
               />
-              <ComponentCheckBox
-                title="Represas/Tajamares"
-                disabled={false}
-                value={checkedRepresa}
-                onValueChange={(value) => setCheckedRepresa(value)}
-              />
             </ComponentContainer>
+
           </ComponentContainerGlobal>
 
           <ComponentContainerGlobal>
             <ComponentContainer>
+              <ComponentCheckBox
+                  title="Represas/Tajamares"
+                  disabled={false}
+                  value={checkedRepresa}
+                  onValueChange={(value) => setCheckedRepresa(value)}
+              />
               <ComponentCheckBox
                 title="Balanza para Camiones"
                 disabled={false}
                 value={checkedBalanzaCamion}
                 onValueChange={(value) => setCheckedBalanzaCamion(value)}
               />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
               <ComponentCheckBox
                 title="Picadas Cortafuego"
                 disabled={false}
@@ -243,19 +252,33 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'center',
+              marginTop: 10, 
+              marginLeft: 5, 
+              marginBottom: 10
             }}>
-            <Caption style={{color: '#0079BF'}}>Galpones</Caption>
+            <Caption style={{color: '#0079BF', fontSize: 16}}>Galpones</Caption>
           </View>
 
           <ComponentContainerGlobal>
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Superficie"
+                label="Ancho en metros"
                 style={styles.TextInput}
-                value={superficie}
-                onChangeText={(value) => setSuperficie(value)}
+                value={largo}
+                onChangeText={(value) => setLargo(value)}
+              />
+            </ComponentContainer>
+          </ComponentContainerGlobal>
+
+          <ComponentContainerGlobal>
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                label="Largo en metros"
+                style={styles.TextInput}
+                value={ancho}
+                onChangeText={(value) => setAncho(value)}
               />
             </ComponentContainer>
           </ComponentContainerGlobal>
@@ -305,9 +328,11 @@ const FormModal = ({visible, hideModal, instalacion, setInstalacion}) => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'center',
+              marginTop: 10, 
+              marginLeft: 5, 
+              marginBottom: 10
             }}>
-            <Caption style={{color: '#0079BF'}}>Pozos de Agua</Caption>
+            <Caption style={{color: '#0079BF', fontSize: 16}}>Pozos de Agua</Caption>
           </View>
 
           <ComponentContainerGlobal>

@@ -53,7 +53,7 @@ const Login = ({
             onPress: () => setShow(false),
           },
         ]}>
-        Verifique sus credenciales si son correctas.
+        Verifique si sus credenciales son correctas.
       </Banner>
     );
   };
