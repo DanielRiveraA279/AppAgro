@@ -70,7 +70,9 @@ const FormModal = ({
   const showModalTipoAlimentacion = () => setVisibleTipoAlimentacion(true);
   const hideModalTipoAlimentacion = () => setVisibleTipoAlimentacion(false);
   const [selectCiclo, setSelectCiclo] = React.useState('');
-  const [superficie, setSuperficie] = React.useState('');
+  const [ancho, setAncho] = React.useState('');
+  const [largo, setLargo] = React.useState('');
+  const [medida, setMedida] = React.useState('Seleccione una unidad de longitud');
   const [destino, setDestino] = React.useState('');
   const [problema, setProblema] = React.useState('');
   const [sugerencia, setSugerencia] = React.useState('');
@@ -145,7 +147,9 @@ const FormModal = ({
       //---------------------------------------------------------------------
       const dataNew = {
         type_activity: selectCiclo,
-        surface: superficie,
+        width: ancho,
+        height: largo,
+        length_unit: medida,
         destination: destino,
         make_technical_assistance: checkedAsesoramiento,
         problems: problema,
@@ -173,7 +177,9 @@ const FormModal = ({
       }
 
       setSelectCiclo('');
-      setSuperficie('');
+      setAncho('');
+      setLargo('');
+      setMedida('');
       setDestino('');
       setCheckedAsesoramiento(false);
       setProblema('');
@@ -200,7 +206,9 @@ const FormModal = ({
   const cancelar = () => {
     setSelectCiclo('');
     setSuperficie('');
-    setDestino('');
+    setAncho('');
+    setLargo('');
+    setMedida('');
     setCheckedAsesoramiento(false);
     setProblema('');
     setSugerencia('');
@@ -220,6 +228,20 @@ const FormModal = ({
     setCunicultura([]);
     setApicultura([]);
     setAcuicultura([]);
+  };
+
+  const tituloMedia = (medida) => {
+    if (medida === "0") {
+      return "Metros"
+    }else if (medida === "1"){
+      return "Decametros"
+    }else if (medida === "2"){
+      return "Hectometros"
+    }else if (medida === "3"){
+      return "Kilometros"
+    }else {
+      return "Seleccione una Unidad de Medida"
+    }
   };
 
   return (
@@ -293,15 +315,72 @@ const FormModal = ({
               </Chip>
             </ComponentContainer>
 
+            <View style={{
+            flex: 1, 
+            flexDirection: 'row', 
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
+            }}>
+              <Caption style={{color: '#0079BF', fontSize: 16}}>Dimensiones de la Zona</Caption>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+              }}
+              >
+                <List.Accordion
+                title= {tituloMedia(medida)} 
+                left={(props) => <List.Icon {...props} icon="equal" />}
+                >
+                  <List.Item
+                    title="Metros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('0')}
+                  />
+                  <List.Item
+                    title="Decametros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('1')}
+                  />
+                  <List.Item
+                    title="Hectometros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('2')}
+                  />
+                  <List.Item
+                    title="Kilometros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('3')}
+                  />
+
+                </List.Accordion>
+              </View>
+            </View>
+
             <ComponentContainer>
               <TextInput
                 mode="outlined"
-                label="Superficie Actividad en Héctareas"
+                label="Ancho"
                 style={styles.TextInput}
-                value={superficie}
-                onChangeText={(value) => setSuperficie(value)}
+                value={ancho}
+                onChangeText={(value) => setAncho(value)}
               />
             </ComponentContainer>
+
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                label="Largo"
+                style={styles.TextInput}
+                value={largo}
+                onChangeText={(value) => setLargo(value)}
+              />
+             </ComponentContainer>
 
             <View
               style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
@@ -339,9 +418,11 @@ const FormModal = ({
                 style={{
                   flex: 1,
                   flexDirection: 'row',
-                  justifyContent: 'center',
+                  marginTop: 10, 
+                  marginLeft: 5, 
+                  marginBottom: 10
                 }}>
-                <Caption style={{color: '#0079BF'}}>Acesoramiento</Caption>
+                <Caption style={{color: '#0079BF', fontSize: 16}}>Acesoramiento</Caption>
               </View>
             </View>
 

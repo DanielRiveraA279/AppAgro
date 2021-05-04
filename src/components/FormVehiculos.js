@@ -21,8 +21,10 @@ const FormVehiculo = ({
   const [checkedTipoVehiculo, setCheckedTipoVehiculo] = React.useState('');
   const [tipoVehiculo, setTipoVehiculo] = React.useState('');
 
+  const [dominio, setDominio] = React.useState('');
+
   const [checkedSemiRemolque, setCheckedSemiRemolque] = React.useState(false);
-  const [tipoAcoplado, setTipoAcoplado] = React.useState('');
+  
   const [checkedAcoplado, setCheckedAcoplado] = React.useState(false);
 
   const [vehicle, setVehicle] = React.useState([]);
@@ -43,8 +45,8 @@ const FormVehiculo = ({
   const ValidationSuccess = () => {
     const dataNew = {
       name_vehicle: tipoVehiculo,
+      domain: dominio,
       use_trailer: checkedAcoplado,
-      type_trailer: tipoAcoplado,
       use_semitrailer: checkedSemiRemolque,
     };
 
@@ -62,8 +64,8 @@ const FormVehiculo = ({
   const addVehicle = () => {
     setTipoAcopladoError(false);
     setTipoVehiculo('');
+    setDominio('');
     setCheckedAcoplado(false);
-    setTipoAcoplado('');
     setCheckedSemiRemolque(false);
     ValidationSuccess(); //aqui guardo
   };
@@ -101,8 +103,14 @@ const FormVehiculo = ({
         <Title style={styles.header_title}>{titulo}</Title>
       </View>
 
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Caption style={{color: '#0079BF'}}>Tipo Vehiculo</Caption>
+      <View style={{
+        flex: 1, 
+        flexDirection: 'row', 
+        marginTop: 10, 
+        marginLeft: 5, 
+        marginBottom: 10
+        }}>
+        <Caption style={{color: '#0079BF', fontSize: 16}}>Vehículo</Caption>
       </View>
 
       <ComponentContainer>
@@ -116,6 +124,16 @@ const FormVehiculo = ({
       </ComponentContainer>
 
       <ComponentContainer>
+        <TextInput
+          mode="outlined"
+          label="Dominio"
+          style={styles.TextInput}
+          value={dominio}
+          onChangeText={(value) => setDominio(value)}
+        />
+      </ComponentContainer>
+
+      <ComponentContainer>
         <ComponentCheckBox
           title="Acoplado"
           disabled={false}
@@ -125,20 +143,8 @@ const FormVehiculo = ({
       </ComponentContainer>
 
       <ComponentContainer>
-        <TextInput
-          mode="outlined"
-          label="Tipo de Acoplado"
-          style={styles.TextInput}
-          value={tipoAcoplado}
-          onChangeText={(value) => setTipoAcoplado(value)}
-          error={tipoAcopladoError}
-          disabled={checkedAcoplado ? false : true}
-        />
-      </ComponentContainer>
-
-      <ComponentContainer>
         <ComponentCheckBox
-          title="Semi Remolque"
+          title="Remolque"
           disabled={false}
           value={checkedSemiRemolque}
           onValueChange={(value) => setCheckedSemiRemolque(value)}

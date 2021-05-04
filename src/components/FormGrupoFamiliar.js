@@ -271,8 +271,8 @@ const FormGrupoFamiliar = ({
           />
         </ComponentContainer>
 
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Caption style={{color:"#0079BF"}}>Educaciòn</Caption>
+        <View style={{flex: 1, flexDirection: 'row', marginTop: 10, marginLeft: 5}}>
+          <Caption style={{color:"#0079BF", fontSize: 16}}>Educaciòn</Caption>
         </View>
 
         <ComponentContainer>

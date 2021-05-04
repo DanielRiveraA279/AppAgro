@@ -150,8 +150,14 @@ const FormGrupoActividadLaboral = ({
           <Title style={styles.header_title}>{titulo}</Title>
         </View>
 
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Caption style={{color: '#0079BF'}}>Trabajo</Caption>
+        <View style={{
+          flex: 1, 
+          flexDirection: 'row', 
+          marginTop: 10, 
+          marginLeft: 5, 
+          marginBottom: 10
+          }}>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Tipo de Actividad del Productor</Caption>
         </View>
 
         <ComponentContainer>
@@ -174,9 +180,12 @@ const FormGrupoActividadLaboral = ({
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            marginTop: 10,
+            marginLeft: 5,
+            marginBottom: 5
+            
           }}>
-          <Caption style={{color: '#0079BF'}}>Categoria</Caption>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Categoria</Caption>
         </View>
 
         <ComponentContainer>
@@ -233,13 +242,19 @@ const FormGrupoActividadLaboral = ({
 
         <Divider />
 
-        <ComponentContainer>
-          <Subheading>Trabajador</Subheading>
-        </ComponentContainer>
+        <View style={{
+          flex: 1, 
+          flexDirection: 'row', 
+          marginTop: 10, 
+          marginLeft: 5, 
+          marginBottom: 10
+          }}>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Trabajador a cargo</Caption>
+        </View>
 
         <ComponentContainer>
           <ComponentCheckBox
-            title="Trabajo Formal?"
+            title="Trabajo Formal"
             disabled={false}
             value={checkedTrabajoFormal}
             onValueChange={(value) => setCheckedTrabajoFormal(value)}
@@ -250,9 +265,11 @@ const FormGrupoActividadLaboral = ({
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
           }}>
-          <Caption style={{color: '#0079BF'}}>Tipo de Persona</Caption>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Tipo de Persona</Caption>
         </View>
 
         <ComponentContainer>
@@ -276,7 +293,7 @@ const FormGrupoActividadLaboral = ({
 
         <ComponentContainer>
           <ComponentCheckBox
-            title="Residente"
+            title="Reside en el lugar"
             disabled={false}
             value={checkedResidente}
             onValueChange={(value) => setCheckedResidente(value)}
@@ -287,9 +304,11 @@ const FormGrupoActividadLaboral = ({
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
           }}>
-          <Caption style={{color: '#0079BF'}}>Sexo</Caption>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Sexo</Caption>
         </View>
 
         <ComponentContainer>
@@ -311,7 +330,7 @@ const FormGrupoActividadLaboral = ({
 
         <ComponentContainer>
           <ComponentCheckBox
-            title="Remuneracion"
+            title="Recibe Remuneración"
             disabled={false}
             value={checkedRemuneracion}
             onValueChange={(value) => setCheckedRemuneracion(value)}
@@ -321,7 +340,7 @@ const FormGrupoActividadLaboral = ({
         <ComponentContainer>
           <TextInput
             mode="outlined"
-            label="Cargo"
+            label="Cargo que ocupa el trabajador"
             style={styles.TextInput}
             onChangeText={(value) => setCargo(value)}
             error={errorCargo}
@@ -332,9 +351,11 @@ const FormGrupoActividadLaboral = ({
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
           }}>
-          <Caption style={{color: '#0079BF'}}>Estadia</Caption>
+          <Caption style={{color: '#0079BF', fontSize: 16}}>Transitoriedad del Trabajo</Caption>
         </View>
 
         <ComponentContainer>

@@ -39,9 +39,14 @@ const FormModal = ({
   const [cosecha, setCosecha] = React.useState([]);
 
   const [actividad, setActividad] = React.useState('');
-  const [superficie, setSuperficie] = React.useState('');
+  const [ancho, setAncho] = React.useState('');
+  const [largo, setLargo] = React.useState('');
+  const [medida, setMedida] = React.useState('Seleccione una unidad de longitud');
   const [edad, setEdad] = React.useState('');
+  const [tiempo, setTiempo] = React.useState('');
   const [cierrePerim, setCierrePerim] = React.useState('');
+  const [distanciaPlanta, setDistanciaPlanta] = React.useState('');
+  const [distanciaHilera, setDistanciaHilera] = React.useState('');
   const [sugerencias, setSugerencias] = React.useState('');
   const [variedad, setVariedad] = React.useState('');
 
@@ -81,6 +86,32 @@ const FormModal = ({
     setClima(clima.filter((item) => item !== value));
   };
 
+  const tituloMedia = (medida) => {
+    if (medida === "0") {
+      return "Metros"
+    }else if (medida === "1"){
+      return "Decametros"
+    }else if (medida === "2"){
+      return "Hectometros"
+    }else if (medida === "3"){
+      return "Kilometros"
+    }else {
+      return "Seleccione una Unidad de Medida"
+    }
+  };
+
+  const tituloTiempo = (tiempo) => {
+    if (tiempo === "0") {
+      return "Dias"
+    }else if (tiempo === "1"){
+      return "Meses"
+    }else if (tiempo === "2"){
+      return "Años"
+    }else {
+      return "Seleccione una Unidad de Tiempo"
+    }
+  };
+
   //accion del boton
   const guardar = () => {
     if (Object.keys(cultural).length === 0) {
@@ -99,12 +130,17 @@ const FormModal = ({
     const dataNew = {
       activity_name: actividad,
       variety: variedad,
-      surface: superficie,
+      width: ancho,
+      height: largo,
+      length_unit: medida,
       destination: checkedDestino,
       sowing: checkedSiembra,
       type_sowing: checkedTipoSiembra,
-      age: edad,
+      amount: edad,
+      time_unit: tiempo,
       perimeter_closure: cierrePerim,
+      distance_plants: distanciaPlanta,
+      distance_rows: distanciaHilera,
       suggestion: sugerencias,
       agricultural_attendance: agricultural_attendance, //objetos
       agricultural_climatic: clima, //array
@@ -162,21 +198,83 @@ const FormModal = ({
               </ComponentContainer>
             </ComponentContainerGlobal>
 
-            <ComponentContainerGlobal>
-              <ComponentContainer>
-                <TextInput
-                  mode="outlined"
-                  label="Superficie"
-                  style={styles.TextInput}
-                  value={superficie}
-                  onChangeText={(value) => setSuperficie(value)}
-                />
-              </ComponentContainer>
-            </ComponentContainerGlobal>
+            <View style={{
+            flex: 1, 
+            flexDirection: 'row', 
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
+            }}>
+              <Caption style={{color: '#0079BF', fontSize: 16}}>Dimensiones de la Zona</Caption>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+              }}
+              >
+                <List.Accordion
+                title= {tituloMedia(medida)} 
+                left={(props) => <List.Icon {...props} icon="equal" />}
+                >
+                  <List.Item
+                    title="Metros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('0')}
+                  />
+                  <List.Item
+                    title="Decametros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('1')}
+                  />
+                  <List.Item
+                    title="Hectometros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('2')}
+                  />
+                  <List.Item
+                    title="Kilometros"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setMedida('3')}
+                  />
+
+                </List.Accordion>
+              </View>
+            </View>
+
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                label="Ancho"
+                style={styles.TextInput}
+                value={ancho}
+                onChangeText={(value) => setAncho(value)}
+              />
+            </ComponentContainer>
+
+            <ComponentContainer>
+              <TextInput
+                mode="outlined"
+                label="Largo"
+                style={styles.TextInput}
+                value={largo}
+                onChangeText={(value) => setLargo(value)}
+              />
+             </ComponentContainer>
 
             <View
-              style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption style={{color: '#0079BF'}}>Destino</Caption>
+              style={{
+                flex: 1, 
+                flexDirection: 'row', 
+                marginTop: 10, 
+                marginLeft: 5, 
+                marginBottom: 10
+                }}
+                >
+              <Caption style={{color: '#0079BF', fontSize: 16}}>Destino</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -211,8 +309,14 @@ const FormModal = ({
             </ComponentContainerGlobal>
 
             <View
-              style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption style={{color: '#0079BF'}}>Siembra</Caption>
+              style={{
+                flex: 1, 
+                flexDirection: 'row', 
+                marginTop: 10, 
+                marginLeft: 5, 
+                marginBottom: 10
+                }}>
+              <Caption style={{color: '#0079BF', fontSize:16}}>Siembra</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -239,8 +343,14 @@ const FormModal = ({
             </ComponentContainerGlobal>
 
             <View
-              style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Caption style={{color: '#0079BF'}}>Tipo de Siembra</Caption>
+              style={{
+                flex: 1, 
+                flexDirection: 'row', 
+                marginTop: 10, 
+                marginLeft: 5, 
+                marginBottom: 10
+                }}>
+              <Caption style={{color: '#0079BF', fontSize: 16}}>Tipo de Siembra</Caption>
             </View>
 
             <ComponentContainerGlobal>
@@ -266,6 +376,47 @@ const FormModal = ({
               </ComponentContainer>
             </ComponentContainerGlobal>
 
+            <View style={{
+            flex: 1, 
+            flexDirection: 'row', 
+            marginTop: 10, 
+            marginLeft: 5, 
+            marginBottom: 10
+            }}>
+              <Caption style={{color: '#0079BF', fontSize: 16}}>Edad del Cultivo</Caption>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+              }}
+              >
+                <List.Accordion
+                title= {tituloTiempo(tiempo)} 
+                left={(props) => <List.Icon {...props} icon="equal" />}
+                >
+                  <List.Item
+                    title="Dias"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setTiempo('0')}
+                  />
+                  <List.Item
+                    title="Meses"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setTiempo('1')}
+                  />
+                  <List.Item
+                    title="Años"
+                    left={(props) => <List.Icon {...props} />}
+                    onPress={() => setTiempo('2')}
+                  />
+                </List.Accordion>
+              </View>
+            </View>
+
             <ComponentContainerGlobal>
               <ComponentContainer>
                 <TextInput
@@ -286,6 +437,30 @@ const FormModal = ({
                   style={styles.TextInput}
                   value={cierrePerim}
                   onChangeText={(value) => setCierrePerim(value)}
+                />
+              </ComponentContainer>
+            </ComponentContainerGlobal>
+
+            <ComponentContainerGlobal>
+              <ComponentContainer>
+                <TextInput
+                  mode="outlined"
+                  label="Distancia Entre Plantas en Metros"
+                  style={styles.TextInput}
+                  value={distanciaPlanta}
+                  onChangeText={(value) => setDistanciaPlanta(value)}
+                />
+              </ComponentContainer>
+            </ComponentContainerGlobal>
+
+            <ComponentContainerGlobal>
+              <ComponentContainer>
+                <TextInput
+                  mode="outlined"
+                  label="Distancia Entre Hileras en Metros"
+                  style={styles.TextInput}
+                  value={distanciaHilera}
+                  onChangeText={(value) => setDistanciaHilera(value)}
                 />
               </ComponentContainer>
             </ComponentContainerGlobal>
